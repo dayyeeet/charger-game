@@ -1,2 +1,3 @@
 ﻿**/bin/**
 **/obj/**
+!**/project.assets.json
