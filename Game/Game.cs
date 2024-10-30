@@ -1,17 +1,15 @@
-﻿namespace Game;
+﻿using Engine;
 
-using static Raylib_cs.Raylib;
+namespace Game;
 
 class Game
 {
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    //Call Game.Engine anywhere when you need to get access to other components
+    public static readonly GameEngine Engine = new();
 
     public static void Main()
     {
-        // Initialization:
-
-        InitWindow(screenWidth, screenHeight, "Team SkEPsis - Game");
-        //TODO: Game Loop
+        //You will need to load a scene before Start is called
+        Engine.Start();
     }
 }
