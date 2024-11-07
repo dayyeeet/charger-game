@@ -1,23 +1,20 @@
 namespace Game;
 
-public abstract class Item   
+public abstract class Item(string name)
 {
-    private string name;
+    private string _name = name; 
 
     public string GetName()   //getter
     {
-        return this.name;
+        return this._name;
     }
 
     public void SetName(string nameOfItem)   //setter
     {
-        this.name = nameOfItem;
+        this._name = nameOfItem;
     }
 
-    protected Item(string name)    //constructor
-    {
-        this.name = name;
-    }
+    //constructor
 
     public abstract void Update(int xOffset, int yOffset);    //empty void method for updating item position
 }

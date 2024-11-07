@@ -1,24 +1,18 @@
 namespace Game;
 
-public class ItemManager
+public class ItemManager(int offsetX, int offsetY, Item item)
 {
-    private int offsetX;
-    private int offsetY;
-    private Item item;
-
-    public ItemManager(int offsetX, int offsetY)   //constructor
-    {
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
-    }
+    
+    private Item _item = item;
+    
 
     public void SetItem(Item item)   //setter
     {
-        this.item = item;
+        _item = item;
     }
 
     public void UpdateItem()    //update function for changing player item#
     {
-        this.item?.Update(this.offsetX, this.offsetY);
+        _item.Update(offsetX, offsetY);
     }
 }
