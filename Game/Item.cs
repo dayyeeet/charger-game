@@ -1,20 +1,18 @@
+using System.Numerics;
+using Engine;
+
 namespace Game;
 
-public abstract class Item(string name)
+public abstract class Item(string name) : GameObject($"item-{name}"), IPositionable
 {
-    private string _name = name; 
+    private string _name = name;
+    
+    public string GetName() => _name;
 
-    public string GetName()   //getter
+    public void SetName(string name)
     {
-        return this._name;
+        _name = name;
     }
 
-    public void SetName(string nameOfItem)   //setter
-    {
-        this._name = nameOfItem;
-    }
-
-    //constructor
-
-    public abstract void Update(int xOffset, int yOffset);    //empty void method for updating item position
+    public Vector2 Position { get; set; }
 }

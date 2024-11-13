@@ -1,18 +1,37 @@
+using System.Numerics;
+using Engine;
+
 namespace Game;
 
-public class ItemManager(int offsetX, int offsetY, Item item)
+public class ItemManager(IPositionable parent, int offsetX, int offsetY) : GameObject("item-manager"), IPositionable
 {
-    
-    private Item _item = item;
-    
+    private Item? _item;
+    private Scene? _scene;
 
-    public void SetItem(Item item)   //setter
+    public override void Load(Scene scene)
+    {
+        _scene = scene;
+    }
+
+    public void SetItem(Item? item)
     {
         _item = item;
+        if (item == null)
+            return;
+        _scene?.Load(item, Layers.Item);
     }
 
-    public void UpdateItem()    //update function for changing player item#
+    public override void Update()
     {
-        _item.Update(offsetX, offsetY);
+        if (_item == null) return;
+        Position = new Vector2(parent.Position.X + offsetX, parent.Position.Y + offsetY);
+        _item.Position = Position;
     }
+
+    public override void Draw()
+    {
+        _item?.Draw();
+    }
+
+    public Vector2 Position { get; set; } = new(parent.Position.X + offsetX, parent.Position.Y + offsetY);
 }
