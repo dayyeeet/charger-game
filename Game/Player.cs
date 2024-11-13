@@ -4,16 +4,24 @@ using Raylib_cs;
 
 namespace Game;
 
-public class Player(Vector2 spawnLocation) : GameObject("player"), IPositionable
+public class Player : GameObject, IPositionable
 {
-    public Vector2 Position { get; set; } = spawnLocation;
+    public Vector2 Position { get; set; }
     public HealthSystem Health { get; private set; } = new(100);
     public ExperienceSystem Experience { get; private set; } = new();
     public float Velocity { get; set; } = 500;
+    public ItemManager ItemManager { get; private set; }
+    
+    public Player(Vector2 spawnLocation) : base("player")
+    {
+        Position = spawnLocation;
+        ItemManager = new ItemManager(this,0,0);
+    }
 
-    //public ItemManager itemManager { get; private set; }
-
-    //itemManager = new ItemManager();
+    public override void Load(Scene scene)
+    {
+        scene.Load(ItemManager);
+    }
 
     public override void Update()
     {
