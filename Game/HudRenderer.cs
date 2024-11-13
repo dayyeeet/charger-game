@@ -35,7 +35,6 @@ public class HudRenderer(int margin = 20) : GameObject("hud-renderer")
                 currentHeight += hudElement.ElementHeight + margin;
                 
                 hudElement.Position = new Vector2(x, y);
-                Console.WriteLine(hudElement.Position);
             }
         }
     }
