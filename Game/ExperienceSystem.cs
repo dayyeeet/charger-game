@@ -1,4 +1,5 @@
 using System;
+using Raylib_cs;
 
 namespace Game
 {
@@ -7,14 +8,14 @@ namespace Game
         public double Xp { get; private set; } // Current XP of the player
         public int Level { get; private set; } // Current level of the player
         public double Difficulty { get; private set; } // Difficulty level that increases with each level up
-        
-        public ExperienceSystem(double initialXp = 0, int initialLevel = 1, double initialDifficulty = 1.0)
+
+        public ExperienceSystem(double initialXp = 0, int initialLevel = 1, double initialDifficulty = 0.0)
         {
             Xp = initialXp;
             Level = initialLevel;
             Difficulty = initialDifficulty;
         }
-        
+
         public void AddXp(double amount)
         {
             if (amount < 0)
@@ -25,7 +26,7 @@ namespace Game
             Xp += amount;
             CheckLevelUp();
         }
-        
+
         private void CheckLevelUp()
         {
             while (Xp >= XpRequiredForNextLevel())
@@ -33,18 +34,23 @@ namespace Game
                 LevelUp();
             }
         }
-        
-        private double XpRequiredForNextLevel()
+
+        public double XpRequiredForNextLevel()
         {
-            return Math.Pow(Level, 1.5) * 100 * Difficulty;
+            return  100 + 100 * Difficulty;
         }
-        
+
         private void LevelUp()
         {
-            Level++;
-            Difficulty += 0.1; 
+            
+            while (Xp >= XpRequiredForNextLevel())
+            {
+                var tooMuchXp = (int)(Xp - XpRequiredForNextLevel());
+                Xp = 0;
+                Xp += tooMuchXp;
+                Level++;
+                Difficulty += 0.1;
+            }
         }
     }
 }
-
-

@@ -5,7 +5,7 @@ public class HealthSystem
     private int _currentHealth;
     private int _maxHealth;
     public bool IsDead { get; private set; }
-    public HealthSystem (int initialHealth)
+    public HealthSystem (int initialHealth = 100)
     {
         _maxHealth = initialHealth;
         _currentHealth = _maxHealth;
@@ -36,4 +36,5 @@ public class HealthSystem
         _currentHealth = Math.Min(_currentHealth + repairAmount, _maxHealth);
     }
     public int GetCurrentHealth() => _currentHealth;
+    public int GetMaxHealth() => _maxHealth;
 }
