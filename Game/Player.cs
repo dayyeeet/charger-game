@@ -11,7 +11,9 @@ public class Player : GameObject, IPositionable
     public ExperienceSystem Experience { get; private set; } = new();
     public float Velocity { get; set; } = 500;
     public ItemManager ItemManager { get; private set; }
-    
+    public int CurrentHealth { get; set; }
+    public int MaxHealth { get; set; }
+
     public Player(Vector2 spawnLocation) : base("player")
     {
         Position = spawnLocation;
