@@ -10,6 +10,7 @@ class Game
     public static void Main()
     {
         //You will need to load a scene before Start is called
+        Engine.LoadScene(new SampleScene());
         Engine.Start();
     }
 }
