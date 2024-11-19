@@ -11,9 +11,7 @@ class Game
     public static void Main()
     {
         //You will need to load a scene before Start is called
-       var scene = new Scene();
-       scene.Load(new Player(new Vector2(100,100)));
-       Engine.LoadScene(scene);
+        Engine.LoadScene(new SampleScene());
         Engine.Start();
     }
 }
