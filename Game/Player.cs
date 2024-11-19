@@ -15,7 +15,8 @@ public class Player : GameObject, IPositionable
     public Player(Vector2 spawnLocation) : base("player")
     {
         Position = spawnLocation;
-        ItemManager = new ItemManager(this,0,0);
+        ItemManager = new ItemManager(this,20,0);
+       ItemManager.SetItem(new SpoonItem());
     }
 
     public override void Load(Scene scene)
