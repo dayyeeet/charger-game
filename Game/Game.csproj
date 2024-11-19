@@ -14,9 +14,5 @@
     <ItemGroup>
       <ProjectReference Include="..\Engine\Engine.csproj" />
     </ItemGroup>
-    
-    <ItemGroup>
-        <EmbeddedResource Include="resources"/>
-    </ItemGroup>
 
 </Project>
