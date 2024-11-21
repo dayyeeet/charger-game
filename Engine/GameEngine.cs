@@ -10,10 +10,15 @@ public class GameEngine
     private bool _running;
     private Scene? _currentScene;
 
+    public GameEngine()
+    {
+        _window.CreateWindow("Team SkEPsis - Game");
+    }
+
     public void Start()
     {
         _running = true;
-        _window.CreateWindow("Team SkEPsis - Game");
+        
         SetTargetFPS(60);
         while (!WindowShouldClose() && _running)
         {
