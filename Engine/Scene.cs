@@ -21,7 +21,18 @@ public class Scene : IGameUpdatable
     {
         foreach (var gameObjectsKey in _gameObjects.Keys)
         {
-            _gameObjects[gameObjectsKey].ForEach(obj => obj.Draw());
+            if(gameObjectsKey >= Layers.HUD)
+                _gameObjects[gameObjectsKey].ForEach(obj => obj.Draw());
+        }
+    }
+
+    //Renders all Game Objects
+    public void Draw2D()
+    {
+        foreach (var gameObjectsKey in _gameObjects.Keys)
+        {
+            if(gameObjectsKey < Layers.HUD)
+                _gameObjects[gameObjectsKey].ForEach(obj => obj.Draw());
         }
     }
 
@@ -37,6 +48,7 @@ public class Scene : IGameUpdatable
             Raylib.TraceLog(TraceLogLevel.Error, $"Failed to load GameObject of ID {gameObject.GetId()}: {e.Message}");
             return;
         }
+
         var list = _gameObjects.GetValueOrDefault(layer, []);
         list.Add(gameObject);
         _gameObjects[layer] = list;
@@ -59,7 +71,8 @@ public class Scene : IGameUpdatable
         }
         catch (Exception e)
         {
-            Raylib.TraceLog(TraceLogLevel.Warning, $"Failed to unload GameObject of ID {gameObject.GetId()}: {e.Message}");
+            Raylib.TraceLog(TraceLogLevel.Warning,
+                $"Failed to unload GameObject of ID {gameObject.GetId()}: {e.Message}");
         }
     }
 

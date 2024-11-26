@@ -1,9 +1,9 @@
 using System.Reflection;
 using Raylib_cs;
 
-namespace Engine;
+namespace Game;
 
-public class EmbeddedTexture
+public static class EmbeddedTexture
 {
     public static Texture2D? LoadTexture(string textureName)
     {

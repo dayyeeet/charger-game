@@ -7,5 +7,5 @@ public interface IGameUpdatable
     void Update() {}
     
     //Renders something
-    void Draw();
+    void Draw() {}
 }
