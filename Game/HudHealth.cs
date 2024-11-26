@@ -10,7 +10,7 @@ public class HudHealth : HudElement
     private HealthSystem? system;
     private int _healthWidth;
     
-    public HudHealth(Color color) : base("Health")
+    public HudHealth(Color color) : base("health")
     {
         ElementWidth = 200;
         ElementHeight = 20;

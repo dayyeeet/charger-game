@@ -11,6 +11,8 @@ public class Player : GameObject, IPositionable
     public ExperienceSystem Experience { get; private set; } = new();
     public float Velocity { get; set; } = 500;
     public ItemManager ItemManager { get; private set; }
+
+    private Scene? _scene;
     
     public Player(Vector2 spawnLocation) : base("player")
     {
@@ -22,11 +24,13 @@ public class Player : GameObject, IPositionable
     public override void Load(Scene scene)
     {
         scene.Load(ItemManager);
+        _scene = scene;
     }
 
     public override void Update()
     {
         Position = PlayerController.Movement(Position, Velocity);
+        if (_scene != null) ShootingMechanic.ShootIfKeyDown(_scene, this);
     }
 
     public override void Draw()

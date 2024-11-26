@@ -10,19 +10,19 @@ public class Scene : IGameUpdatable
     //Updates all Game Objects
     public void Update()
     {
-        foreach (var gameObjectsKey in _gameObjects.Keys)
+        foreach (var gameObjectsKey in _gameObjects.Keys.ToList())
         {
-            _gameObjects[gameObjectsKey].ForEach(obj => obj.Update());
+            _gameObjects[gameObjectsKey].ToList().ForEach(obj => obj.Update());
         }
     }
 
     //Renders all Game Objects
     public void Draw()
     {
-        foreach (var gameObjectsKey in _gameObjects.Keys)
+        foreach (var gameObjectsKey in _gameObjects.Keys.ToList())
         {
             if(gameObjectsKey >= Layers.HUD)
-                _gameObjects[gameObjectsKey].ForEach(obj => obj.Draw());
+                _gameObjects[gameObjectsKey].ToList().ForEach(obj => obj.Draw());
         }
     }
 
@@ -32,7 +32,7 @@ public class Scene : IGameUpdatable
         foreach (var gameObjectsKey in _gameObjects.Keys)
         {
             if(gameObjectsKey < Layers.HUD)
-                _gameObjects[gameObjectsKey].ForEach(obj => obj.Draw());
+                _gameObjects[gameObjectsKey].ToList().ForEach(obj => obj.Draw());
         }
     }
 
@@ -57,7 +57,7 @@ public class Scene : IGameUpdatable
     //Unloads GameObjects from the scene
     public void Unload(GameObject gameObject)
     {
-        foreach (var gameObjectsKey in _gameObjects.Keys)
+        foreach (var gameObjectsKey in _gameObjects.Keys.ToList())
         {
             var list = _gameObjects[gameObjectsKey];
             if (!list.Contains(gameObject)) continue;
