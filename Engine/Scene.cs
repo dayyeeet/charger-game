@@ -21,7 +21,7 @@ public class Scene : IGameUpdatable
     {
         foreach (var gameObjectsKey in _gameObjects.Keys.ToList())
         {
-            if(gameObjectsKey >= Layers.HUD)
+            if (gameObjectsKey >= Layers.HUD)
                 _gameObjects[gameObjectsKey].ToList().ForEach(obj => obj.Draw());
         }
     }
@@ -31,7 +31,7 @@ public class Scene : IGameUpdatable
     {
         foreach (var gameObjectsKey in _gameObjects.Keys)
         {
-            if(gameObjectsKey < Layers.HUD)
+            if (gameObjectsKey < Layers.HUD)
                 _gameObjects[gameObjectsKey].ToList().ForEach(obj => obj.Draw());
         }
     }
@@ -39,6 +39,9 @@ public class Scene : IGameUpdatable
     //Loads GameObjects into our scene (Highest Layer = Last drawn Element)
     public void Load(GameObject gameObject, int layer = Layers.Background)
     {
+        var list = _gameObjects.GetValueOrDefault(layer, []);
+        list.Add(gameObject);
+        _gameObjects[layer] = list;
         try
         {
             gameObject.Load(this);
@@ -46,12 +49,11 @@ public class Scene : IGameUpdatable
         catch (Exception e)
         {
             Raylib.TraceLog(TraceLogLevel.Error, $"Failed to load GameObject of ID {gameObject.GetId()}: {e.Message}");
-            return;
+            list.Remove(gameObject);
+            var updated = _gameObjects.GetValueOrDefault(layer, []);
+            updated.Remove(gameObject);
+            _gameObjects[layer] = updated;
         }
-
-        var list = _gameObjects.GetValueOrDefault(layer, []);
-        list.Add(gameObject);
-        _gameObjects[layer] = list;
     }
 
     //Unloads GameObjects from the scene

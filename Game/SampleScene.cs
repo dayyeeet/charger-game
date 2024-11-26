@@ -14,7 +14,7 @@ public class SampleScene : Scene
         var manager = new HudRenderer();
         manager.RegisterHudElement(HudPositions.TopLeft, new HudHealth(Color.Green));
         manager.RegisterHudElement(HudPositions.TopLeft, new HudXp(Color.Blue));
-        Load(player, Layers.Player);
+        Load(new GameWorld(1000, 1000, player));
         Load(manager, Layers.HUD);
     }
 }
