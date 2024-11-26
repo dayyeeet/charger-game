@@ -9,7 +9,7 @@ public static class Layers
     public const int Entity = 4; //Used for entities
     public const int Player = 5; //Used for the Player
     // ReSharper disable once InconsistentNaming
-    public const int HUD = 6; //Used for ingame HUD
+    public const int HUD = 6; //Used for ingame HUD. ELEMENTS AT OR HIGHER THIS LAYER WILL NOT BE RENDERED 2D
     // ReSharper disable once InconsistentNaming
     public const int UI = 7; //Used for ingame containers (inventory, escape menu, ...)
 }
