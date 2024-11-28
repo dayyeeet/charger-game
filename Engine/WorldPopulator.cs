@@ -7,16 +7,20 @@ public class WorldPopulator(Scene scene)
 {
     private readonly List<Rectangle> _occupiedAreas = [];
 
-    public void Populate<T>(int x, int y, int layer) where T : GameObject, IPositionable
+    public bool Populate<T>(int x, int y, int layer) where T : GameObject, IPositionable, ISizeableObject
     {
         var feature = Activator.CreateInstance<T>();
-        Populate(feature, x, y, layer);
+        return Populate(feature, x, y, layer);
     }
     
-    public void Populate<T>(T feature, int x, int y, int layer) where T : GameObject, IPositionable
+    public bool Populate<T>(T feature, int x, int y, int layer) where T : GameObject, IPositionable, ISizeableObject
     {
+        var candidateArea = new Rectangle(x, y, feature.ElementWidth, feature.ElementHeight);
+        if (_occupiedAreas.Any(area => RectIntersects.With(area, candidateArea))) return false;
+        _occupiedAreas.Add(candidateArea);
         feature.Position = new Vector2(x, y);
         scene.Load(feature, layer);
+        return true;
     }
 
     public void Populate<T>(Rectangle bounds, double percentage) where T : WorldFeature
@@ -47,12 +51,8 @@ public class WorldPopulator(Scene scene)
                 attempts++;
                 var x = random.Next((int)bounds.X, (int)(bounds.Width - objectWidth + 1));
                 var y = random.Next((int)bounds.Y, (int)(bounds.Height - objectHeight + 1));
-
-                var candidateArea = new Rectangle(x, y, objectWidth, objectHeight);
-
-                if (_occupiedAreas.Any(area => RectIntersects.With(area, candidateArea))) continue;
-                _occupiedAreas.Add(candidateArea);
-                Populate<T>(x, y, sampleObject.Layer);
+                
+                if(!Populate<T>(x, y, sampleObject.Layer))continue;
                 placed = true;
             }
 
