@@ -8,9 +8,11 @@ public class Player : GameObject, IPositionable, ISizeableObject
 {
     public Vector2 Position { get; set; }
     public HealthSystem Health { get; private set; } = new(100);
+    
     public ExperienceSystem Experience { get; private set; } = new();
     public float Velocity { get; set; } = 500;
     public ItemManager ItemManager { get; private set; }
+    public EquipmentManager Equipment { get; private set; } 
 
     private Scene? _scene;
     private GameWorld _world;
@@ -19,7 +21,7 @@ public class Player : GameObject, IPositionable, ISizeableObject
     {
         Position = spawnLocation;
         ItemManager = new ItemManager(this, 20, 0);
-        ItemManager.SetItem(new SpoonItem());
+        Equipment = new EquipmentManager(ItemManager);
     }
 
     public override void Load(Scene scene)
@@ -34,6 +36,7 @@ public class Player : GameObject, IPositionable, ISizeableObject
     {
         Move();
         if (_scene != null) ShootingMechanic.ShootIfKeyDown(_scene, this);
+        Equipment.Update();
     }
 
     private void Move()
