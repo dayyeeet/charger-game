@@ -15,6 +15,7 @@ public class ItemManager(IPositionable parent, int offsetX, int offsetY, int lay
 
     public void SetItem(Item? item)
     {
+        if (_item != null) _scene?.Unload(_item);
         _item = item;
         if (item == null)
             return;
