@@ -20,7 +20,7 @@ public class Player : GameObject, IPositionable, ISizeableObject
     public Player(Vector2 spawnLocation) : base("player")
     {
         Position = spawnLocation;
-        ItemManager = new ItemManager(this, 20, 0);
+        ItemManager = new ItemManager(this, ElementWidth - ElementWidth / 5, 0);
         Equipment = new EquipmentManager(ItemManager);
     }
 
@@ -43,7 +43,7 @@ public class Player : GameObject, IPositionable, ISizeableObject
     {
         var updatedPosition = PlayerController.Movement(Position, Velocity);
         if (updatedPosition != Position && RectIntersects.With(_world.Dimension,
-                new Rectangle(updatedPosition.X, updatedPosition.Y, updatedPosition.X + ElementWidth, updatedPosition.Y + ElementHeight)))
+                new Rectangle(updatedPosition.X, updatedPosition.Y, updatedPosition.X - ElementWidth, updatedPosition.Y - ElementHeight)))
         {
             Position = updatedPosition;
         }
@@ -99,6 +99,6 @@ public class Player : GameObject, IPositionable, ISizeableObject
         return Experience.Xp;
     }
 
-    public int ElementWidth { get; set; } = 30;
-    public int ElementHeight { get; set; } = 30;
+    public int ElementWidth { get; set; } = 70;
+    public int ElementHeight { get; set; } = 150;
 }

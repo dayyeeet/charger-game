@@ -19,6 +19,7 @@ public class ItemManager(IPositionable parent, int offsetX, int offsetY, int lay
         _item = item;
         if (item == null)
             return;
+        Update();
         _scene?.Load(item, layer);
     }
 

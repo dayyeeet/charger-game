@@ -10,7 +10,8 @@ public class TrackingCamera(GameWindow window, IPositionable cameraPosition): IG
     
     public void Update()
     {
-        _camera.Target = cameraPosition.Position;
+        var delta = cameraPosition.Position - _camera.Target;
+        _camera.Target += delta / ((float) Math.PI * 3);
     }
 
     public Camera2D GetCamera() => _camera;

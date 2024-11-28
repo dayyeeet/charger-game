@@ -26,9 +26,6 @@ public static class PlayerController
         {
             position.Y += velocity * Raylib.GetFrameTime();
         }
-        
-        position.X = (int)position.X;
-        position.Y = (int)position.Y;
         return position;
     }
 }

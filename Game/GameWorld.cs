@@ -10,8 +10,8 @@ public class GameWorld(int dimensionX, int dimensionY, Player player): GameObjec
     public override void Load(Scene scene)
     {
         var populator = new WorldPopulator(scene);
-        populator.Populate<TrashDecorationWorldFeature>(Dimension, 0.01f);
         populator.Populate(player, dimensionX, dimensionY, Layers.Player);
+        populator.Populate<TrashDecorationWorldFeature>(Dimension, 0.01f);
     }
 
     public override void Draw()
