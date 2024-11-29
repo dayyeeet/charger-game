@@ -7,7 +7,9 @@ public abstract class GameObject(string id) : IGameUpdatable
     {
     }
 
-    public abstract void Draw();
+    public virtual void Draw()
+    {
+    }
 
     //Called when object is added to scene, returns true if loading was successful. If an exception is thrown during load process, the game object wont be added
     public virtual void Load(Scene scene)

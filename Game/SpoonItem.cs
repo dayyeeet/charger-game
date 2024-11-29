@@ -10,7 +10,10 @@ public class SpoonItem() : Item("spoon")
     {
         if ( _spoonTexture is not null)
         {
-           Raylib.DrawTexture(_spoonTexture.Value, (int)Position.X, (int)Position.Y, Color.Beige);
+           var tex = _spoonTexture.Value;
+           var src = new Rectangle(0, 0, tex.Width, tex.Height);
+           var dest = new Rectangle(Position.X, Position.Y, 100, 100);
+           Raylib.DrawTexturePro(tex, src, dest, Vector2.Zero,0, Color.White);
         }
 
     }

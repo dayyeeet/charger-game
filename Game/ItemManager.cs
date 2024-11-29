@@ -3,7 +3,7 @@ using Engine;
 
 namespace Game;
 
-public class ItemManager(IPositionable parent, int offsetX, int offsetY) : GameObject("item-manager"), IPositionable
+public class ItemManager(IPositionable parent, int offsetX, int offsetY, int layer = Layers.RightHand) : GameObject("item-manager"), IPositionable
 {
     private Item? _item;
     private Scene? _scene;
@@ -15,10 +15,12 @@ public class ItemManager(IPositionable parent, int offsetX, int offsetY) : GameO
 
     public void SetItem(Item? item)
     {
+        if (_item != null) _scene?.Unload(_item);
         _item = item;
         if (item == null)
             return;
-        _scene?.Load(item, Layers.Item);
+        Update();
+        _scene?.Load(item, layer);
     }
 
     public override void Update()
