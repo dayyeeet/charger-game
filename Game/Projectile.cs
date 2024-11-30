@@ -4,23 +4,24 @@ using Raylib_cs;
 
 namespace Game;
 
-public class Projectile(
+public abstract class Projectile(
     Vector2 startPosition,
     Vector2 direction,
     float shotDuration,
     float shotVelocity,
     float damageAmount,
-    int maxDistance)
+    float energyCost,
+    int maxDistance,
+    Color color)
     : GameObject("projectile")
 {
     private float _shotDuration = shotDuration;
-    private float _shotVelocity = shotVelocity;
-    private float _damageAmount = damageAmount;
 
-    private Scene? _scene;
+    protected Scene? _scene;
+
     public override void Draw()
     {
-        Raylib.DrawLineV(startPosition, startPosition + direction * maxDistance, Color.Lime);
+        Raylib.DrawLineV(startPosition, startPosition + direction * maxDistance, color);
     }
 
     public override void Load(Scene scene)
@@ -35,5 +36,11 @@ public class Projectile(
         {
             _scene?.Unload(this);
         }
+        UpdateProjectilePosition();
+    }
+
+    protected virtual void UpdateProjectilePosition()
+    {
+        
     }
 }
