@@ -1,4 +1,5 @@
 using System.Numerics;
+using Engine;
 using Raylib_cs;
 
 namespace Game;
@@ -6,21 +7,20 @@ namespace Game;
 public class LaserProjectile(
     Vector2 startPosition,
     Vector2 direction,
-    float shotDuration,
     float shotVelocity,
     float damageAmount,
     float energyCost,
     int maxDistance,
-    Color color) : Projectile(startPosition, direction, shotDuration, shotVelocity, damageAmount, energyCost,
+    Color color) : Projectile(startPosition, direction, -1f, shotVelocity, damageAmount, energyCost,
     maxDistance, color)
 {
-    private readonly Vector2 _startPosition = startPosition;
-    private readonly Vector2 _direction = direction;
+    public Vector2 StartPosition = startPosition;
+    public Vector2 Direction = direction;
     private readonly float _shotVelocity = shotVelocity;
     private readonly Color _color = color;
 
     public override void Draw()
     {
-        Raylib.DrawLineV(_startPosition, _startPosition + _direction * _shotVelocity, _color);
+        Raylib.DrawLineV(StartPosition, StartPosition + Direction * _shotVelocity, _color);
     }
 }

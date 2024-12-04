@@ -15,6 +15,10 @@ public static class ShootingMechanic
             var normalized = Raylib.GetMousePosition() - new Vector2(Game.Engine.GetWindow().GetWindowWidth() / 2f, Game.Engine.GetWindow().GetWindowHeight() / 2f);
             Shoot(scene, player,player.Position + normalized, currentGun);
         }
+        else if(Raylib.IsMouseButtonReleased(ShootKeyBind))
+        {
+            currentGun.CancelShoot();
+        }
     }
 
     public static void Shoot(Scene scene, IPositionable from, Vector2 to, Gun currentGun)
