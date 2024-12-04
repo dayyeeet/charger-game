@@ -3,7 +3,7 @@ using Engine;
 
 namespace Game;
 
-public abstract class Item(string name) : GameObject($"item-{name}"), IPositionable
+public abstract partial class Item(string name) : GameObject($"item-{name}"), IPositionable
 {
     private string _name = name;
     
@@ -15,4 +15,9 @@ public abstract class Item(string name) : GameObject($"item-{name}"), IPositiona
     }
 
     public Vector2 Position { get; set; }
+
+    public void Use()
+    {
+    }
+
 }
