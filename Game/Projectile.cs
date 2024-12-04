@@ -31,12 +31,14 @@ public abstract class Projectile(
 
     public override void Update()
     {
+        UpdateProjectilePosition();
+        
+        if (_shotDuration == -1f) return;
         _shotDuration -= Raylib.GetFrameTime();
         if (_shotDuration <= 0)
         {
             _scene?.Unload(this);
         }
-        UpdateProjectilePosition();
     }
 
     protected virtual void UpdateProjectilePosition()
