@@ -21,7 +21,9 @@ namespace Game
             [
                 new PlaceholderItem(),
                 new PlaceholderItem2(),
-                new SpoonItem()
+                new SpoonItem(),
+                new GunItem("laser-gun", new LaserGun()),
+                new GunItem("bullet-gun", new BulletGun())
             ];
 
             CurrentItem = Inventory.Any() ? Inventory[0] : null;
