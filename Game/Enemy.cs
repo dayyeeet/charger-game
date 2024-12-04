@@ -1,21 +1,6 @@
-namespace Game
-{
-    // Define IPositionable interface
-    public interface IPositionable
-    {
-        float X { get; set; }
-        float Y { get; set; }
-    }
+namespace Game;
 
-    // Define ISizableObject interface
-    public interface ISizableObject
-    {
-        float Width { get; set; }
-        float Height { get; set; }
-    }
-
-    // The Enemy abstract class now implements the interfaces
-    public abstract class Enemy : IPositionable, ISizableObject
+public abstract class Enemy : IPositionable, ISizableObject
     {
         // Properties for speed and damage
         public float Speed { get; protected set; }
@@ -65,6 +50,19 @@ namespace Game
         {
             Health.Heal(amount);
         }
+
+        // Check if the enemy is alive
+        public bool IsAlive()
+        {
+            return !Health.IsDead;
+        }
+
+        // Optional method to handle death-related actions
+        protected virtual void OnDeath()
+        {
+            // Actions when the enemy dies (e.g., dropping items)
+        }
+    }
 
         // Check if the enemy is alive
         public bool IsAlive()
