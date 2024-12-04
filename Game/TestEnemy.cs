@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace Game;
 
-public class TestEnemy() : Enemy("test", 2, 10, 1, 0, 0, 20, 30)
+public class TestEnemy() : Enemy("test", 2, 10, 1, 0, 0, 30, 30)
 {
     private EnemyAi _ai = new(600f, 250f, 0.01f);
 
@@ -42,6 +42,6 @@ public class TestEnemy() : Enemy("test", 2, 10, 1, 0, 0, 20, 30)
 
     public override void Draw()
     {
-        Raylib.DrawCircle((int)Position.X, (int)Position.Y, ElementWidth, Color.Red);
+        Raylib.DrawCircleV(Position + new Vector2(ElementWidth / 2, ElementHeight / 2), ElementWidth / 2, Color.Red);
     }
 }

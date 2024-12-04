@@ -38,6 +38,8 @@ public class GameEngine
             {
                 BeginMode2D(_trackingCamera.GetCamera());
                 _currentScene.Draw2D();
+                // Comment/Uncomment the next line if you (don't) want hitboxes shown
+                // ShowHitBoxes();
                 EndMode2D();
                 _currentScene.Draw();
             }
@@ -52,6 +54,14 @@ public class GameEngine
     public void LoadScene(Scene scene)
     {
         _currentScene = scene;
+    }
+
+    private void ShowHitBoxes()
+    {
+        foreach (var rect in _currentScene.BoundingBoxes)
+        {
+            DrawRectangleLinesEx(rect.BoundingRect, 2f, Color.Yellow);
+        }
     }
 
     public void SetTracking(IPositionable? tracking)

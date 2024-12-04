@@ -4,15 +4,17 @@ using Raylib_cs;
 
 namespace Game;
 
-public class Player : GameObject, IPositionable, ISizeableObject
+public class Player : GameObject, ICollidable
 {
     public Vector2 Position { get; set; }
     public HealthSystem Health { get; private set; } = new(100);
-    
+
+    public Rectangle BoundingRect => new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
+
     public ExperienceSystem Experience { get; private set; } = new();
     public float Velocity { get; set; } = 500;
     public ItemManager ItemManager { get; private set; }
-    public EquipmentManager Equipment { get; private set; } 
+    public EquipmentManager Equipment { get; private set; }
 
     private Scene? _scene;
     private GameWorld _world;
@@ -40,17 +42,27 @@ public class Player : GameObject, IPositionable, ISizeableObject
 
     private void Move()
     {
-        var updatedPosition = PlayerController.Movement(Position, Velocity);
-        if (updatedPosition != Position && RectIntersects.With(_world.Dimension,
-                new Rectangle(updatedPosition.X, updatedPosition.Y, updatedPosition.X - ElementWidth, updatedPosition.Y - ElementHeight)))
+        if (_scene == null) return;
+        var oldPosition = Position;
+        Position = PlayerController.Movement(Position, Velocity);
+        if (_scene.CollidesWith(this).Count > 0)
         {
-            Position = updatedPosition;
+            Position = oldPosition;
+            return;
+        }
+
+        var worldContainedRect = Raylib.GetCollisionRec(_world.Dimension, BoundingRect);
+        if (Math.Abs(worldContainedRect.Width - ElementWidth) > 0.5 ||
+            Math.Abs(worldContainedRect.Height - ElementHeight) > 0.5)
+        {
+            Position = oldPosition;
+            return;
         }
     }
 
     public override void Draw()
     {
-        Raylib.DrawRectangle((int)Position.X - ElementWidth / 2, (int)Position.Y - ElementHeight / 2, ElementWidth, ElementHeight, Color.Red);
+        Raylib.DrawRectangle((int)Position.X, (int)Position.Y, ElementWidth, ElementHeight, Color.Red);
     }
 
     public void Kill()

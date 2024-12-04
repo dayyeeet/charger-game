@@ -11,7 +11,7 @@ public class BulletGun : Gun
         Vector2 direction = targetPosition - origin.Position;
         direction = Vector2.Normalize(direction);
         Vector2 startPosition = origin.Position;
-        FlyingProjectile projectile = new FlyingProjectile(startPosition, direction, 100, 1000, 10, 10, 1000, Color.Red, origin.Position);
+        FlyingProjectile projectile = new FlyingProjectile(startPosition, direction, 100, 1000, 5, 10, 1000, Color.Red, origin.Position);
         scene.Load(projectile, Layers.CollisionObject);
     }
 }
