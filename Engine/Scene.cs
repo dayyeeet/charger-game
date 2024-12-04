@@ -1,4 +1,5 @@
 using Raylib_cs;
+using Rectangle = Raylib_cs.Rectangle;
 
 namespace Engine;
 
@@ -6,6 +7,7 @@ namespace Engine;
 public class Scene : IGameUpdatable
 {
     private readonly SortedDictionary<int, List<GameObject>> _gameObjects = [];
+    public readonly List<ICollidable> BoundingBoxes = [];
 
     //Updates all Game Objects
     public void Update()
@@ -45,6 +47,10 @@ public class Scene : IGameUpdatable
         try
         {
             gameObject.Load(this);
+            if (gameObject is ICollidable collidable)
+            {
+                BoundingBoxes.Add(collidable);
+            }
         }
         catch (Exception e)
         {
@@ -65,6 +71,8 @@ public class Scene : IGameUpdatable
             if (!list.Contains(gameObject)) continue;
             list.Remove(gameObject);
             _gameObjects[gameObjectsKey] = list;
+            if (gameObject is not ICollidable collidable) continue;
+            BoundingBoxes.Remove(collidable);
         }
 
         try
@@ -76,6 +84,17 @@ public class Scene : IGameUpdatable
             Raylib.TraceLog(TraceLogLevel.Warning,
                 $"Failed to unload GameObject of ID {gameObject.GetId()}: {e.Message}");
         }
+    }
+
+    public List<GameObject> CollidesWith(Rectangle boundingBox)
+    {
+        return BoundingBoxes.Where(box => Raylib.CheckCollisionRecs(boundingBox, box.BoundingRect)).ToList()
+            .ConvertAll(box => box as GameObject)!;
+    }
+
+    public List<GameObject> CollidesWith<T>(T self) where T : GameObject, ICollidable
+    {
+        return CollidesWith(self.BoundingRect).Where(obj => obj != self).ToList();
     }
 
     //Find Game Objects loaded in the scene by id

@@ -26,8 +26,8 @@ public static class ShootingMechanic
         currentGun.Shoot(scene, from, to);
     }
     
-    public static void Shoot(Scene scene, IPositionable from, IPositionable to, Gun currentGun)
+    public static void Shoot(Scene scene, IPositionable from, ICollidable to, Gun currentGun)
     {
-        Shoot(scene, from, to.Position, currentGun);
+        Shoot(scene, from, to.Position + new Vector2(to.ElementWidth / 2, to.ElementHeight / 2), currentGun);
     }
 }
