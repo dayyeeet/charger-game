@@ -13,8 +13,6 @@ public class Player : GameObject, IPositionable, ISizeableObject
     public float Velocity { get; set; } = 500;
     public ItemManager ItemManager { get; private set; }
     public EquipmentManager Equipment { get; private set; } 
-    
-    public BulletGun BulletGun { get; private set; }
 
     private Scene? _scene;
     private GameWorld _world;
@@ -24,7 +22,6 @@ public class Player : GameObject, IPositionable, ISizeableObject
         Position = spawnLocation;
         ItemManager = new ItemManager(this, ElementWidth - ElementWidth / 5, 0);
         Equipment = new EquipmentManager(ItemManager);
-        BulletGun = new BulletGun();
     }
 
     public override void Load(Scene scene)
@@ -38,7 +35,6 @@ public class Player : GameObject, IPositionable, ISizeableObject
     public override void Update()
     {
         Move();
-        if (_scene != null) ShootingMechanic.ShootIfKeyDown(_scene, this, BulletGun);
         Equipment.Update();
     }
 
