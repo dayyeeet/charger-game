@@ -9,6 +9,9 @@ public abstract class Enemy : GameObject, IPositionable, ISizeableObject
     public float Speed { get; protected set; }
     public float Damage { get; protected set; }
 
+    public bool CanAttack { get; protected set; } = false;
+    public bool CanMove { get; protected set; } = true;
+
     // HealthSystem instance to manage health
     public HealthSystem Health { get; private set; }
     
@@ -28,6 +31,13 @@ public abstract class Enemy : GameObject, IPositionable, ISizeableObject
     // Abstract methods to be implemented by derived classes
     public abstract void Move();
     public abstract void Attack();
+
+    public override void Update()
+    {
+        base.Update();
+        if(CanMove) Move();
+        if(CanAttack) Attack();
+    }
 
     // Method to handle taking damage
     public void TakeDamage(float amount)

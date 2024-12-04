@@ -13,7 +13,17 @@ public static class ShootingMechanic
         if (Raylib.IsMouseButtonDown(ShootKeyBind))
         {
             var normalized = Raylib.GetMousePosition() - new Vector2(Game.Engine.GetWindow().GetWindowWidth() / 2f, Game.Engine.GetWindow().GetWindowHeight() / 2f);
-            currentGun.Shoot(scene, player,player.Position + normalized);
+            Shoot(scene, player,player.Position + normalized, currentGun);
         }
+    }
+
+    public static void Shoot(Scene scene, IPositionable from, Vector2 to, Gun currentGun)
+    {
+        currentGun.Shoot(scene, from, to);
+    }
+    
+    public static void Shoot(Scene scene, IPositionable from, IPositionable to, Gun currentGun)
+    {
+        Shoot(scene, from, to.Position, currentGun);
     }
 }
