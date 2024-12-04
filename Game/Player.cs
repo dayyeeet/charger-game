@@ -50,7 +50,7 @@ public class Player : GameObject, IPositionable, ISizeableObject
 
     public override void Draw()
     {
-        Raylib.DrawRectangle((int)Position.X, (int)Position.Y, ElementWidth, ElementHeight, Color.Red);
+        Raylib.DrawRectangle((int)Position.X - ElementWidth / 2, (int)Position.Y - ElementHeight / 2, ElementWidth, ElementHeight, Color.Red);
     }
 
     public void Kill()
