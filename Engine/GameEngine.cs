@@ -6,7 +6,7 @@ using static Raylib;
 
 public class GameEngine
 {
-    private readonly GameWindow _window = new(1920, 1080);
+    private readonly GameWindow _window = new(1200, 720);
     private bool _running;
     private Scene? _currentScene;
     private TrackingCamera? _trackingCamera;
