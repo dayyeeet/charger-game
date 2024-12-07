@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace Game;
 
-public abstract class Enemy : GameObject, ICollidable
+public abstract class Enemy : GameObject, ICollidable, IDamageable
 {
     // Properties for speed and damage
     public float Speed { get; protected set; }
@@ -32,9 +32,23 @@ public abstract class Enemy : GameObject, ICollidable
     // Abstract methods to be implemented by derived classes
     public abstract void Move();
     public abstract void Attack();
+    
+    private Scene? _scene;
+
+    public override void Load(Scene scene)
+    {
+        base.Load(scene);
+        _scene = scene;
+    }
 
     public override void Update()
     {
+        if (_scene == null) return;
+        if (Health.IsDead)
+        {
+            _scene.Unload(this);
+            return;
+        }
         base.Update();
         if (CanMove) Move();
         if (CanAttack) Attack();

@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace Game;
 
-public class Player : GameObject, ICollidable
+public class Player : GameObject, ICollidable, IDamageable
 {
     public Vector2 Position { get; set; }
     public HealthSystem Health { get; private set; } = new(100);
@@ -45,7 +45,7 @@ public class Player : GameObject, ICollidable
         if (_scene == null) return;
         var oldPosition = Position;
         Position = PlayerController.Movement(Position, Velocity);
-        if (_scene.CollidesWith(this).Count > 0)
+        if (_scene.CollidesWith(obj => obj != this && obj is not FlyingProjectile<Player>, this).Count > 0)
         {
             Position = oldPosition;
             return;

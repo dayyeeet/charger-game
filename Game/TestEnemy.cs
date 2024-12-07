@@ -13,10 +13,11 @@ public class TestEnemy() : Enemy("test", 2, 10, 1, 0, 0, 30, 30)
     private List<EnemyAiRoamingPoint>? _roamingPoints;
     private float _cooldown = 0.2f;
     private float _cooldownTimer = 0f;
-    private readonly Gun _gun = new BulletGun();
+    private readonly Gun _gun = new EnemyBulletGun();
 
     public override void Load(Scene scene)
     {
+        base.Load(scene);
         _scene = scene;
         _player = scene.FindObjectsById("player", Layers.Player).FirstOrDefault() as Player ??
                   throw new NullReferenceException("Cannot find player");

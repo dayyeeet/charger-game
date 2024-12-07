@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace Game;
 
-public class FlyingProjectile(
+public class FlyingProjectile<TFilter>(
     Vector2 startPosition,
     Vector2 direction,
     float shotDuration,
@@ -13,8 +13,10 @@ public class FlyingProjectile(
     float energyCost,
     int maxDistance,
     Color color,
-    Vector2 currentPosition) : Projectile(startPosition, direction, shotDuration, shotVelocity, damageAmount, energyCost,
-    maxDistance, color), ICollidable
+    Vector2 currentPosition,
+    Predicate<GameObject>? collisionFilter = null) : Projectile(
+    startPosition, direction, shotDuration, shotVelocity, damageAmount, energyCost,
+    maxDistance, color), ICollidable where TFilter : GameObject, ICollidable
 {
     private readonly Vector2 _startPosition = startPosition;
     protected readonly Vector2 _direction = direction;
@@ -22,13 +24,14 @@ public class FlyingProjectile(
     private readonly Color _color = color;
     private readonly int _maxDistance = maxDistance;
     private readonly float _damageAmount = damageAmount;
-    public Rectangle BoundingRect => new (Position.X, Position.Y, ElementWidth, ElementHeight);
+    private Predicate<GameObject>? _collisionFilter = collisionFilter;
+    public Rectangle BoundingRect => new(Position.X, Position.Y, ElementWidth, ElementHeight);
 
     protected override void UpdateProjectilePosition()
     {
         Position += _direction * _shotVelocity * Raylib.GetFrameTime();
-        
-        if(Vector2.Distance(_startPosition, Position) > _maxDistance)
+
+        if (Vector2.Distance(_startPosition, Position) > _maxDistance)
         {
             _scene?.Unload(this);
             return;
@@ -36,17 +39,21 @@ public class FlyingProjectile(
 
         if (_scene != null)
         {
-            var collides = _scene.CollidesWith(this);
+            _collisionFilter ??= obj => obj is TFilter;
+            var collides = _scene.CollidesWith(_collisionFilter, this);
             foreach (var collider in collides)
             {
-                if (collider is Player player)
+                if (collider is IDamageable damageable)
                 {
-                    player.TakeDamage((int)_damageAmount);
-                    _scene.Unload(this);
+                    damageable.Health.TakeDamage((int)_damageAmount);
                 }
             }
+
+            if (collides.Count > 0)
+            {
+                _scene.Unload(this);
+            }
         }
-        
     }
 
     public override void Draw()

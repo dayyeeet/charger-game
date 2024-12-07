@@ -94,7 +94,12 @@ public class Scene : IGameUpdatable
 
     public List<GameObject> CollidesWith<T>(T self) where T : GameObject, ICollidable
     {
-        return CollidesWith(self.BoundingRect).Where(obj => obj != self).ToList();
+        return CollidesWith(obj => obj != self, self);
+    }
+    
+    public List<GameObject> CollidesWith<T>(Predicate<GameObject> match, T self) where T : GameObject, ICollidable
+    {
+        return CollidesWith(self.BoundingRect).Where(obj => match(obj)).ToList();
     }
 
     //Find Game Objects loaded in the scene by id

@@ -12,8 +12,8 @@ public class PlasmaBullet(
     float energyCost,
     int maxDistance,
     Color color,
-    Vector2 currentPosition) : FlyingProjectile(startPosition, direction, shotDuration, shotVelocity, damageAmount,
-    energyCost, maxDistance, color, currentPosition)
+    Vector2 currentPosition) : FlyingProjectile<Player>(startPosition, direction, shotDuration, shotVelocity, damageAmount,
+    energyCost, maxDistance, color, currentPosition, obj => obj is not Player && obj is not PlasmaBullet)
 {
     private Texture2D? texture = EmbeddedTexture.LoadTexture("Game.plasma-bullet.png");
     public override void Draw()
