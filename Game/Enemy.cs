@@ -1,6 +1,7 @@
+using System.Drawing;
 using System.Numerics;
 using Engine;
-using Raylib_cs;
+using Rectangle = Raylib_cs.Rectangle;
 
 namespace Game;
 
@@ -10,7 +11,8 @@ public abstract class Enemy : GameObject, ICollidable
     public float Speed { get; protected set; }
     public Rectangle BoundingRect => new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
     public float Damage { get; protected set; }
-
+    public Vector2 Position { get; set; } 
+    public Vector2 Size { get; set; }     
     public bool CanAttack { get; protected set; } = false;
     public bool CanMove { get; protected set; } = true;
 
@@ -67,8 +69,12 @@ public abstract class Enemy : GameObject, ICollidable
     {
         // Actions when the enemy dies (e.g., dropping items)
     }
-
-    public Vector2 Position { get; set; }
     public int ElementWidth { get; set; }
     public int ElementHeight { get; set; }
+
+
+    public Rectangle GetBoundingBox()
+    {
+        return new Rectangle(Position.X, Position.Y, Size.X, Size.Y);
+    }
 }
