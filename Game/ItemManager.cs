@@ -7,6 +7,8 @@ public class ItemManager(IPositionable parent, int offsetX, int offsetY, int lay
 {
     private Item? _item;
     private Scene? _scene;
+    
+    
 
     public override void Load(Scene scene)
     {

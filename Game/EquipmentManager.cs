@@ -23,7 +23,8 @@ namespace Game
                 new PlaceholderItem2(),
                 new SpoonItem(),
                 new GunItem("laser-gun", new LaserGun()),
-                new PlasmaGunItem()
+                new PlasmaGunItem(),
+                new ChainsawItem()
             ];
 
             CurrentItem = Inventory.Any() ? Inventory[0] : null;
