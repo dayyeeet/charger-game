@@ -17,7 +17,7 @@ public class FlyingProjectile(
     maxDistance, color), ICollidable
 {
     private readonly Vector2 _startPosition = startPosition;
-    private readonly Vector2 _direction = direction;
+    protected readonly Vector2 _direction = direction;
     private readonly float _shotVelocity = shotVelocity;
     private readonly Color _color = color;
     private readonly int _maxDistance = maxDistance;

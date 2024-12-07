@@ -2,15 +2,11 @@ using Engine;
 
 namespace Game;
 
-public class GunItem(string name) : Item(name)
+public class GunItem(string name, Gun gun) : Item(name)
 {
-    public Gun Gun { get; }
+    public Gun Gun { get; } = gun;
     private Scene? _scene;
     private Player? _player;
-    public GunItem(string name, Gun gun) : this(name)
-    {
-        Gun = gun;
-    }
 
     public override void Update()
     {
