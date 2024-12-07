@@ -8,12 +8,17 @@ public class Scene : IGameUpdatable
 {
     private readonly SortedDictionary<int, List<GameObject>> _gameObjects = [];
     public readonly List<ICollidable> BoundingBoxes = [];
-
+    public bool Paused = false;
+    
     //Updates all Game Objects
     public void Update()
     {
         foreach (var gameObjectsKey in _gameObjects.Keys.ToList())
         {
+            if (Paused && gameObjectsKey < Layers.UI)
+            {
+                continue;
+            }
             _gameObjects[gameObjectsKey].ToList().ForEach(obj => obj.Update());
         }
     }
