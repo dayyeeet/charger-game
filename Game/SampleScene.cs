@@ -16,5 +16,6 @@ public class SampleScene : Scene
         manager.RegisterHudElement(HudPositions.TopLeft, new HudHealth(Color.Green));
         manager.RegisterHudElement(HudPositions.TopLeft, new HudXp(Color.Blue));
         Load(manager, Layers.HUD);
+        Load(new TestPopover(), Layers.UI);
     }
 }

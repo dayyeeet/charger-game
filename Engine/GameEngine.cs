@@ -19,7 +19,7 @@ public class GameEngine
     public void Start()
     {
         _running = true;
-
+        SetExitKey(KeyboardKey.Delete);
         SetTargetFPS(60);
         while (!WindowShouldClose() && _running)
         {
