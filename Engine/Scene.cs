@@ -4,7 +4,7 @@ using Rectangle = Raylib_cs.Rectangle;
 namespace Engine;
 
 //Create a new Class inheriting Scene and call Load in the constructor to add gameobjects to the scene
-public class Scene : IGameUpdatable
+public class Scene : IGameUpdatable  
 {
     private readonly SortedDictionary<int, List<GameObject>> _gameObjects = [];
     public readonly List<ICollidable> BoundingBoxes = [];
