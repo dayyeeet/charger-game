@@ -40,46 +40,24 @@ public class Player : GameObject, ICollidable, IDamageable
         Equipment.Update();
     }
 
-    private bool MovementCollides()
-    {
-        if (_scene == null) return true;
-        return _scene.CollidesWith(obj => obj != this && obj is not Projectile, this).Count > 0;
-    }
-
-    private bool NotInWorld()
-    {
-        var worldContainedRect = Raylib.GetCollisionRec(_world.Dimension, BoundingRect);
-        return Math.Abs(worldContainedRect.Width - ElementWidth) > 0.5 ||
-               Math.Abs(worldContainedRect.Height - ElementHeight) > 0.5;
-    }
-
-    private void CalculatePosition(Vector2 oldPosition, Func<bool> checkDenied)
-    {
-        if (!checkDenied()) return;
-        var delta = Position - oldPosition;
-        var preTest = Position;
-        Position -= delta with { Y = 0 };
-        if (!checkDenied())
-        {
-            return;
-        }
-
-        Position = preTest - delta with { X = 0 };
-        if (!checkDenied())
-        {
-            return;
-        }
-        Position = oldPosition;
-    }
-
     private void Move()
     {
         if (_scene == null) return;
         var oldPosition = Position;
         Position = PlayerController.Movement(Position, Velocity);
-        CalculatePosition(oldPosition, MovementCollides);
-        CalculatePosition(oldPosition, NotInWorld);
-        
+        if (_scene.CollidesWith(obj => obj != this && obj is not FlyingProjectile<Player>, this).Count > 0)
+        {
+            Position = oldPosition;
+            return;
+        }
+
+        var worldContainedRect = Raylib.GetCollisionRec(_world.Dimension, BoundingRect);
+        if (Math.Abs(worldContainedRect.Width - ElementWidth) > 0.5 ||
+            Math.Abs(worldContainedRect.Height - ElementHeight) > 0.5)
+        {
+            Position = oldPosition;
+            return;
+        }
     }
 
     public override void Draw()
