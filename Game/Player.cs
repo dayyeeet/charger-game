@@ -49,6 +49,7 @@ public class Player : GameObject, ICollidable, IDamageable
     private bool NotInWorld()
     {
         var worldContainedRect = Raylib.GetCollisionRec(_world.Dimension, BoundingRect);
+        
         return Math.Abs(worldContainedRect.Width - ElementWidth) > 0.5 ||
                Math.Abs(worldContainedRect.Height - ElementHeight) > 0.5;
     }
