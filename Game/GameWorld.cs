@@ -14,6 +14,7 @@ public class GameWorld(int dimensionX, int dimensionY, Player player): GameObjec
         populator.Populate<EnemyAiRoamingPoint>(Dimension, 0.05f);
         populator.Populate(new TestEnemy(), dimensionX + dimensionX / 2, dimensionY, Layers.Entity);
         populator.Populate<TrashDecorationWorldFeature>(Dimension, 0.01f);
+        populator.Populate<TestDestroyableObject>(Dimension, 0.001f);
     }
 
     public override void Draw()
