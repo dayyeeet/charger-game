@@ -17,7 +17,7 @@ public class Player : GameObject, ICollidable, IDamageable
     public EquipmentManager Equipment { get; private set; }
 
     private Scene? _scene;
-    private GameWorld _world;
+    private GameWorld? _world;
 
     public Player(Vector2 spawnLocation) : base("player")
     {
@@ -31,7 +31,7 @@ public class Player : GameObject, ICollidable, IDamageable
         scene.Load(ItemManager);
         _scene = scene;
         var world = scene.FindObjectsById("world").FirstOrDefault();
-        _world = world as GameWorld ?? throw new NullReferenceException("World not found");
+        _world = world as GameWorld;
     }
 
     public override void Update()
@@ -48,6 +48,7 @@ public class Player : GameObject, ICollidable, IDamageable
 
     private bool NotInWorld()
     {
+        if (_world == null) return false;
         var worldContainedRect = Raylib.GetCollisionRec(_world.Dimension, BoundingRect);
         
         return Math.Abs(worldContainedRect.Width - ElementWidth) > 0.5 ||
