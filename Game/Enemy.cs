@@ -47,8 +47,14 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
         if (Health.IsDead)
         {
             _scene.Unload(this);
+            var currentLevel = SaveManager.LoadLevel();
+            var nextLevel = currentLevel + 1;
+            SaveManager.SaveLevel(nextLevel);
+            var newScene = SceneLoader.Load(nextLevel);
+            Game.Engine.LoadScene(newScene);
             return;
         }
+        
         base.Update();
         if (CanMove) Move();
         if (CanAttack) Attack();

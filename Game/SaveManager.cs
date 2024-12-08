@@ -25,14 +25,14 @@ namespace Game
                 if (File.Exists(SaveFilePath))
                 {
                     var level = File.ReadAllText(SaveFilePath);
-                    return int.TryParse(level, out var levelNumber) ? levelNumber : 1;
+                    return int.TryParse(level, out var levelNumber) ? levelNumber : 0;
                 }
             }
             catch (Exception e)
             {
                 Raylib.TraceLog(TraceLogLevel.Error, $"Failed to load level: {e.Message}");
             }
-            return 1; // Default to level 1 if no save file exists
+            return 0; // Default to level 0 if no save file exists
         }
     }
 }
