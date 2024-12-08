@@ -19,11 +19,9 @@ namespace Game
             _itemManager = itemManager;
             Inventory =
             [
-                new PlaceholderItem(),
-                new PlaceholderItem2(),
-                new SpoonItem(),
                 new GunItem("laser-gun", new LaserGun()),
                 new PlasmaGunItem(),
+                new SpoonItem(),
                 new ChainsawItem(),
                 new MilkBottleItem()
             ];

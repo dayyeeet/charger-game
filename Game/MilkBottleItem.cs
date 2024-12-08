@@ -5,9 +5,9 @@ namespace Game;
 
 public class MilkBottleItem : Item
 {
-    private Texture2D? _chainsawTexture = EmbeddedTexture.LoadTexture("Game.milk_bottle.png");
+    private Texture2D? _chainsawTexture = EmbeddedTexture.LoadTexture("Game.milk-bottle.png");
 
-    public MilkBottleItem() : base("milkbottle")
+    public MilkBottleItem() : base("milk-bottle")
     {
         
     }
@@ -21,7 +21,7 @@ public class MilkBottleItem : Item
         {
             var tex = _chainsawTexture.Value;
             var source = new Rectangle(0, 0, tex.Width, tex.Height);
-            var destination = new Rectangle(Position.X, Position.Y, 100, 100); 
+            var destination = new Rectangle(Position.X, Position.Y, 64, 64); 
             Raylib.DrawTexturePro(tex, source, destination, Vector2.Zero, 0f, Color.White);
         }
         else
