@@ -22,8 +22,8 @@ public class WorldPopulator(Scene scene)
         scene.Load(feature, layer);
         return true;
     }
-
-    public void Populate<T>(Rectangle bounds, double percentage) where T : WorldFeature
+    
+    public void Populate<T>(Rectangle bounds, double percentage, int layer) where T : GameObject, IPositionable, ISizeableObject
     {
         var xSpace = bounds.Width - bounds.X;
         var ySpace = bounds.Height - bounds.Y;
@@ -52,11 +52,18 @@ public class WorldPopulator(Scene scene)
                 var x = random.Next((int)bounds.X, (int)(bounds.Width - objectWidth + 1));
                 var y = random.Next((int)bounds.Y, (int)(bounds.Height - objectHeight + 1));
                 
-                if(!Populate<T>(x, y, sampleObject.Layer))continue;
+                if(!Populate<T>(x, y, layer))continue;
                 placed = true;
             }
 
             if (!placed) break;
         }
+    }
+
+    public void Populate<T>(Rectangle bounds, double percentage) where T : WorldFeature
+    {
+       
+        var sampleObject = Activator.CreateInstance<T>();
+        Populate<T>(bounds, percentage, sampleObject.Layer);
     }
 }
