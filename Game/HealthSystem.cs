@@ -2,7 +2,7 @@ namespace Game;
 
 public class HealthSystem
 {
-    private int _currentHealth;
+    private float _currentHealth;
     private int _maxHealth;
     public bool IsDead { get; private set; }
     public HealthSystem (int initialHealth = 100)
@@ -17,6 +17,10 @@ public class HealthSystem
         IsDead = true;
     }
     public bool TakeDamage(int damageAmount)
+    {
+        return TakeDamage((float)damageAmount);
+    }
+    public bool TakeDamage(float damageAmount)
     {
         if (IsDead) return true;
 
@@ -35,6 +39,6 @@ public class HealthSystem
 
         _currentHealth = Math.Min(_currentHealth + repairAmount, _maxHealth);
     }
-    public int GetCurrentHealth() => _currentHealth;
+    public float GetCurrentHealth() => _currentHealth;
     public int GetMaxHealth() => _maxHealth;
 }

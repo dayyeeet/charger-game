@@ -24,6 +24,7 @@ public class LaserGun : Gun
             _laserProjectile.StartPosition = startPosition;
             _laserProjectile.Direction = direction;
         }
+        _laserProjectile.Raycast();
     }
 
     public override void CancelShoot()
