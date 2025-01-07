@@ -51,7 +51,7 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
             var nextLevel = currentLevel + 1;
             SaveManager.SaveLevel(nextLevel);
             var newScene = SceneLoader.Load(nextLevel);
-            Game.Engine.LoadScene(newScene);
+            //Game.Engine.LoadScene(newScene);
             return;
         }
         
