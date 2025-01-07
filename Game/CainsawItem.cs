@@ -5,28 +5,19 @@ namespace Game;
 
 public class ChainsawItem : Item
 {
-    private Texture2D? _chainsawTexture = EmbeddedTexture.LoadTexture("Game.chainsaw.png");
+    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.chainsaw.png")!.Value);
+    public override Texture2D Texture => _texture.Value;
 
     public ChainsawItem() : base("chainsaw")
     {
-        
     }
 
     public override void Draw()
     {
         base.Draw();
-        
-        
-        if (_chainsawTexture != null)
-        {
-            var tex = _chainsawTexture.Value;
-            var source = new Rectangle(0, 0, tex.Width, tex.Height);
-            var destination = new Rectangle(Position.X, Position.Y, 64, 64); 
-            Raylib.DrawTexturePro(tex, source, destination, Vector2.Zero, 0f, Color.White);
-        }
-        else
-        {
-            Raylib.TraceLog(TraceLogLevel.Warning, "Chainsaw texture is null!");
-        }
+
+        var source = new Rectangle(0, 0, Texture.Width, Texture.Height);
+        var destination = new Rectangle(Position.X, Position.Y, 64, 64);
+        Raylib.DrawTexturePro(Texture, source, destination, Vector2.Zero, 0f, Color.White);
     }
 }

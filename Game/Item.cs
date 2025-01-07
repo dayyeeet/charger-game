@@ -1,5 +1,6 @@
 using System.Numerics;
 using Engine;
+using Raylib_cs;
 
 namespace Game;
 
@@ -13,6 +14,8 @@ public abstract class Item(string name) : GameObject($"item-{name}"), IPositiona
     {
         _name = name;
     }
+    
+    public abstract Texture2D Texture { get; }
 
     public Vector2 Position { get; set; }
 }

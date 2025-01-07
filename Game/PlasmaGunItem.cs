@@ -5,14 +5,15 @@ namespace Game;
 
 public class PlasmaGunItem() : GunItem("plasma", new PlasmaGun())
 {
-    private Texture2D? texture = EmbeddedTexture.LoadTexture("Game.plasma-gun.png");
+    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.plasma-gun.png")!.Value);
+    public override Texture2D Texture => _texture.Value;
+
     public override void Draw()
     {
         base.Draw();
-        if (texture == null) return;
-        var tex = texture.Value;
-        var source =new Rectangle(0,0, tex.Width, tex.Height);
-        Raylib.DrawTexturePro(tex, source, new Rectangle(Position,new Vector2(64,64)), Vector2.Zero, 0F, Color.White);
 
+        var source = new Rectangle(0, 0, Texture.Width, Texture.Height);
+        Raylib.DrawTexturePro(Texture, source, new Rectangle(Position, new Vector2(64, 64)), Vector2.Zero, 0F,
+            Color.White);
     }
 }

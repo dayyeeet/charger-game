@@ -2,7 +2,7 @@ using Engine;
 
 namespace Game;
 
-public class GunItem(string name, Gun gun) : Item(name)
+public abstract class GunItem(string name, Gun gun) : Item(name)
 {
     public Gun Gun { get; } = gun;
     private Scene? _scene;

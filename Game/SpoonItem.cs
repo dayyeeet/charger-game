@@ -1,20 +1,18 @@
 using System.Numerics;
 using Engine;
 using Raylib_cs;
+
 namespace Game;
 
 public class SpoonItem() : Item("spoon")
 {
-  private Texture2D? _spoonTexture = EmbeddedTexture.LoadTexture("Game.wood-spoon.png");
+    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.wood-spoon.png")!.Value);
+    public override Texture2D Texture => _texture.Value;
+
     public override void Draw()
     {
-        if ( _spoonTexture is not null)
-        {
-           var tex = _spoonTexture.Value;
-           var src = new Rectangle(0, 0, tex.Width, tex.Height);
-           var dest = new Rectangle(Position.X, Position.Y, 64, 64);
-           Raylib.DrawTexturePro(tex, src, dest, Vector2.Zero,0, Color.White);
-        }
-
+        var src = new Rectangle(0, 0, Texture.Width, Texture.Height);
+        var dest = new Rectangle(Position.X, Position.Y, 64, 64);
+        Raylib.DrawTexturePro(Texture, src, dest, Vector2.Zero, 0, Color.White);
     }
 }
