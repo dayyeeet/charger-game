@@ -1,15 +1,16 @@
+using System.Numerics;
 using Raylib_cs;
 using Rectangle = Raylib_cs.Rectangle;
 
 namespace Engine;
 
 //Create a new Class inheriting Scene and call Load in the constructor to add gameobjects to the scene
-public class Scene : IGameUpdatable  
+public class Scene : IGameUpdatable
 {
     private readonly SortedDictionary<int, List<GameObject>> _gameObjects = [];
     public readonly List<ICollidable> BoundingBoxes = [];
     public bool Paused = false;
-    
+
     //Updates all Game Objects
     public void Update()
     {
@@ -19,6 +20,7 @@ public class Scene : IGameUpdatable
             {
                 continue;
             }
+
             _gameObjects[gameObjectsKey].ToList().ForEach(obj => obj.Update());
         }
     }
@@ -101,10 +103,34 @@ public class Scene : IGameUpdatable
     {
         return CollidesWith(obj => obj != self, self);
     }
-    
+
     public List<GameObject> CollidesWith<T>(Predicate<GameObject> match, T self) where T : GameObject, ICollidable
     {
         return CollidesWith(self.BoundingRect).Where(obj => match(obj)).ToList();
+    }
+
+    public Dictionary<GameObject, RayCollision> CollidesWithRay(Ray ray)
+    {
+        var result = new Dictionary<ICollidable, RayCollision>();
+        foreach (var box in BoundingBoxes)
+        {
+            var hit = Raylib.GetRayCollisionBox(ray,
+                new BoundingBox(new Vector3(box.BoundingRect.X, box.BoundingRect.Y, 0),
+                    new Vector3(box.BoundingRect.X + box.BoundingRect.Width,
+                        box.BoundingRect.Y + box.BoundingRect.Height, 0)));
+            if (!hit.Hit) continue;
+            result.Add(box, hit);
+        }
+
+        var temp = result.ToList();
+        temp.Sort((a, b) =>
+        {
+            var aDistance = Vector3.Distance(ray.Position, new Vector3(a.Key.BoundingRect.X, a.Key.BoundingRect.Y, 0));
+            var bDistance = Vector3.Distance(ray.Position, new Vector3(b.Key.BoundingRect.X, b.Key.BoundingRect.Y, 0));
+            return aDistance.CompareTo(bDistance);
+        });
+        return temp.ConvertAll(box => new KeyValuePair<GameObject, RayCollision>((GameObject)box.Key, box.Value))
+            .ToDictionary();
     }
 
     //Find Game Objects loaded in the scene by id
