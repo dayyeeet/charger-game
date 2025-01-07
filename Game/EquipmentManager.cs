@@ -18,6 +18,7 @@ namespace Game
             _itemManager = itemManager;
             Items =
             [
+                new LaserGunItem(),
                 new PlasmaGunItem(),
                 new SpoonItem(),
                 new ChainsawItem(),
