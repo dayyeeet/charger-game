@@ -83,10 +83,17 @@ public class Player : GameObject, ICollidable, IDamageable
         CalculatePosition(oldPosition, NotInWorld);
     }
 
+  
+    private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.Roboter-Player.png")!.Value;
+
     public override void Draw()
     {
-        Raylib.DrawRectangle((int)Position.X, (int)Position.Y, ElementWidth, ElementHeight, Color.Red);
+        var source = new Rectangle(0, 0, _tex.Width, _tex.Height); 
+        var dest = new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight); 
+        Raylib.DrawTexturePro(_tex, source, dest, Vector2.Zero, 0f, Color.White); 
     }
+
+    
 
     public void Kill()
     {
@@ -133,6 +140,6 @@ public class Player : GameObject, ICollidable, IDamageable
         return Experience.Xp;
     }
 
-    public int ElementWidth { get; set; } = 70;
+    public int ElementWidth { get; set; } = 120;
     public int ElementHeight { get; set; } = 150;
 }
