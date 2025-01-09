@@ -13,6 +13,7 @@ public class GameWorld(int dimensionX, int dimensionY, Player player): GameObjec
         populator.Populate(player, dimensionX, dimensionY, Layers.Player);
         populator.Populate<EnemyAiRoamingPoint>(Dimension, 0.05f);
         populator.Populate<TestEnemy>(Dimension, 0.0010f, Layers.Entity);
+        populator.Populate<Enemy2>(Dimension, 0.0030f, Layers.Entity);
         populator.Populate<CarDecorationWorldFeature>(Dimension, 0.05f);
         populator.Populate<TrashDecorationWorldFeature>(Dimension, 0.01f);
         populator.Populate<TestDestroyableObject>(Dimension, 0.001f);

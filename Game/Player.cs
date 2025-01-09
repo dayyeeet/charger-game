@@ -43,7 +43,7 @@ public class Player : GameObject, ICollidable, IDamageable
     private bool MovementCollides()
     {
         if (_scene == null) return true;
-        return _scene.CollidesWith(obj => obj != this && obj is not Projectile, this).Count > 0;
+        return _scene.CollidesWith(obj => obj != this && obj is not Projectile && !(obj is Enemy2),this).Count > 0;
     }
 
     private bool NotInWorld()
