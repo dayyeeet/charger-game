@@ -14,7 +14,8 @@ public class Player : GameObject, ICollidable, IDamageable
 
     public ExperienceSystem Experience { get; private set; } = new();
     public float Velocity { get; set; } = 500;
-    public ItemManager ItemManager { get; private set; }
+    public ItemManager RightHand { get; private set; }
+    public ItemManager LeftHand { get; private set; }
     public EquipmentManager Equipment { get; private set; }
 
     private Scene? _scene;
@@ -23,13 +24,15 @@ public class Player : GameObject, ICollidable, IDamageable
     public Player(Vector2 spawnLocation) : base("player")
     {
         Position = spawnLocation;
-        ItemManager = new ItemManager(this, ElementWidth - ElementWidth / 5, 0);
-        Equipment = new EquipmentManager(ItemManager);
+        RightHand = new ItemManager(this, ElementWidth - ElementWidth / 5, 0);
+        LeftHand = new ItemManager(this, - ElementWidth + ElementWidth / 5, 0, -1);
+        Equipment = new EquipmentManager();
     }
 
     public override void Load(Scene scene)
     {
-        scene.Load(ItemManager);
+        scene.Load(RightHand);
+        scene.Load(LeftHand);
         _scene = scene;
         var world = scene.FindObjectsById("world").FirstOrDefault();
         _world = world as GameWorld;
@@ -39,7 +42,9 @@ public class Player : GameObject, ICollidable, IDamageable
     public override void Update()
     {
         Move();
+        Equipment.CycleHotkey();
         Equipment.Update();
+        Equipment.UpdateEquipped(LeftHand, RightHand);
         if (Health.GetCurrentHealth() < Health.GetMaxHealth())
         {
             Health.coolDown -= Raylib.GetFrameTime();

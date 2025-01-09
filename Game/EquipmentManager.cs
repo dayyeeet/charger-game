@@ -1,21 +1,18 @@
 using Raylib_cs;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Game
 {
     public class EquipmentManager
     {
-        private int _currentIndex = 0;
+        private int _currentIndex;
 
-        public List<Item> Items { get; private set; }
+        public int CurrentIndex => _currentIndex;
+
+        public List<Item?> Items { get; private set; }
         public Item? CurrentItem { get; private set; }
 
-        private readonly ItemManager _itemManager;
-
-        public EquipmentManager(ItemManager itemManager)
+        public EquipmentManager()
         {
-            _itemManager = itemManager;
             Items =
             [
                 new LaserGunItem(),
@@ -25,11 +22,7 @@ namespace Game
                 new MilkBottleItem()
             ];
 
-            CurrentItem = Items.Any() ? Items[0] : null;
-            if (CurrentItem != null)
-            {
-                _itemManager.SetItem(CurrentItem);
-            }
+            CurrentItem = Items.Count > 0 ? Items[0] : null;
         }
 
         public void Update()
@@ -39,14 +32,47 @@ namespace Game
             {
                 return;
             }
-            CycleInventory(scroll > 0);
 
+            CycleInventory(scroll > 0);
         }
+
+        public void UpdateEquipped(ItemManager leftHand, ItemManager rightHand)
+        {
+            if (Raylib.IsKeyPressed(KeyboardKey.Q))
+            {
+                UpdateEquipped(leftHand);
+                return;
+            }
+
+            if (Raylib.IsKeyPressed(KeyboardKey.E))
+            {
+                UpdateEquipped(rightHand);
+            }
+        }
+
+        private void UpdateEquipped(ItemManager manager)
+        {
+            var last = manager.Item;
+            manager.SetItem(CurrentItem);
+            CurrentItem = last;
+            Items[_currentIndex] = last;
+        }
+
+        public void CycleHotkey()
+        {
+            var hotkey = Raylib.GetKeyPressed();
+            if (hotkey <= 0) return;
+            hotkey -= 49;
+            if (hotkey >= Items.Count) return;
+            _currentIndex = hotkey;
+            CurrentItem = Items[_currentIndex];
+        }
+
         private void CycleInventory(bool right = true)
         {
-            if (!Items.Any()) return;
+            if (Items.Count <= 0) return;
 
-            _currentIndex = (_currentIndex + 1 * (right? 1: -1)) % Items.Count;
+            _currentIndex = (_currentIndex + 1 * (right ? 1 : -1)) % Items.Count;
             if (_currentIndex < 0)
             {
                 _currentIndex = Items.Count - 1;
@@ -56,4 +82,3 @@ namespace Game
         }
     }
 }
-
