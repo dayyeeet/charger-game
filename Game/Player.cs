@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Reflection.Metadata;
 using Engine;
 using Raylib_cs;
 
@@ -34,10 +35,22 @@ public class Player : GameObject, ICollidable, IDamageable
         _world = world as GameWorld;
     }
 
+    private float _regenInterval = 1;
     public override void Update()
     {
         Move();
         Equipment.Update();
+        if (Health.GetCurrentHealth() < Health.GetMaxHealth())
+        {
+            Health.coolDown -= Raylib.GetFrameTime();
+        }
+
+        if (Health.coolDown > 0) return;
+        
+            _regenInterval -= Raylib.GetFrameTime();
+            if (_regenInterval > 0) return;
+            _regenInterval = 1;
+            Health.Heal(2);
     }
 
     private bool MovementCollides()
