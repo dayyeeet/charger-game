@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Numerics;
 using Engine;
 using Raylib_cs;
@@ -7,23 +6,21 @@ namespace Game;
 
 public class HudHotbar : HudElement
 {
-    private readonly Color color;
-    private EquipmentManager? system;
-    private ItemManager? leftHand;
-    private ItemManager? rightHand;
-    private int margin;
-    private int subElementWidth;
+    private readonly Color _color;
+    private EquipmentManager? _system;
+    private readonly int _margin;
+    private readonly int _subElementWidth;
 
     public HudHotbar(Color color) : base("health")
     {
         ElementWidth = 200;
         ElementHeight = 40;
-        margin = 5;
+        _margin = 5;
         int elements = 5;
-        int totalMargin = margin * (elements - 1);
+        int totalMargin = _margin * (elements - 1);
         int itemTotalWidth = ElementWidth - totalMargin;
-        subElementWidth = Math.Min(itemTotalWidth / elements, ElementHeight);
-        this.color = color;
+        _subElementWidth = Math.Min(itemTotalWidth / elements, ElementHeight);
+        _color = color;
     }
 
     public override void Load(Scene scene)
@@ -34,30 +31,31 @@ public class HudHotbar : HudElement
             throw new NullReferenceException("Player not found");
         }
 
-        system = (player as Player)?.Equipment;
-        rightHand = (player as Player)?.ItemManager;
-    }
-
-    public override void Update()
-    {
-        base.Update();
-        rightHand?.SetItem(system?.CurrentItem);
+        _system = (player as Player)?.Equipment;
     }
 
     public override void Draw()
     {
         var distance = 0;
-        Debug.Assert(system?.Items != null, "system?.Items != null");
-        foreach (var systemItem in system!.Items)
+        if (_system == null) return;
+        var index = 0;
+        foreach (var systemItem in _system.Items)
         {
-            var source = new Rectangle(0, 0, systemItem.Texture.Width, systemItem.Texture.Height);
-            var dest = new Rectangle(Position.X + distance, Position.Y, subElementWidth, subElementWidth);
-            Raylib.DrawTexturePro(systemItem.Texture, source, dest, Vector2.Zero, 0f, Color.White);
-            if (systemItem == system.CurrentItem)
+            if (systemItem != null)
             {
-                Raylib.DrawRectangleLines((int)(Position.X + distance), (int)Position.Y, subElementWidth, subElementWidth, Color.Black);
+                var source = new Rectangle(0, 0, systemItem.Texture.Width, systemItem.Texture.Height);
+                var dest = new Rectangle(Position.X + distance, Position.Y, _subElementWidth, _subElementWidth);
+                Raylib.DrawTexturePro(systemItem.Texture, source, dest, Vector2.Zero, 0f, Color.White);
             }
-            distance += subElementWidth + margin;
+
+            if (index == _system.CurrentIndex)
+            {
+                Raylib.DrawRectangleLines((int)(Position.X + distance), (int)Position.Y, _subElementWidth,
+                    _subElementWidth, Color.Black);
+            }
+
+            distance += _subElementWidth + _margin;
+            index++;
         }
     }
 }

@@ -11,7 +11,7 @@ public class SpoonItem() : Item("spoon")
 
     public override void Draw()
     {
-        var src = new Rectangle(0, 0, Texture.Width, Texture.Height);
+        var src = new Rectangle(0, 0, Texture.Width * Direction, Texture.Height);
         var dest = new Rectangle(Position.X, Position.Y, 64, 64);
         Raylib.DrawTexturePro(Texture, src, dest, Vector2.Zero, 0, Color.White);
     }

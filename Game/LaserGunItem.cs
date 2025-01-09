@@ -10,7 +10,7 @@ public class LaserGunItem() : GunItem("laser", new LaserGun())
     public override void Draw()
     {
         base.Draw();
-        var source =new Rectangle(0,0, Texture.Width, Texture.Height);
+        var source = new Rectangle(0,0, Texture.Width * Direction, Texture.Height);
         Raylib.DrawTexturePro(Texture, source, new Rectangle(Position,new Vector2(64,64)), Vector2.Zero, 0F, Color.White);
 
     }
