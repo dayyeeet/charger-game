@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Reflection.Metadata;
 using Engine;
 using Raylib_cs;
 
@@ -37,18 +38,30 @@ public class Player : GameObject, ICollidable, IDamageable
         _world = world as GameWorld;
     }
 
+    private float _regenInterval = 1;
     public override void Update()
     {
         Move();
         Equipment.CycleHotkey();
         Equipment.Update();
         Equipment.UpdateEquipped(LeftHand, RightHand);
+        if (Health.GetCurrentHealth() < Health.GetMaxHealth())
+        {
+            Health.coolDown -= Raylib.GetFrameTime();
+        }
+
+        if (Health.coolDown > 0) return;
+        
+            _regenInterval -= Raylib.GetFrameTime();
+            if (_regenInterval > 0) return;
+            _regenInterval = 1;
+            Health.Heal(2);
     }
 
     private bool MovementCollides()
     {
         if (_scene == null) return true;
-        return _scene.CollidesWith(obj => obj != this && obj is not Projectile, this).Count > 0;
+        return _scene.CollidesWith(obj => obj != this && obj is not Projectile && !(obj is Enemy2),this).Count > 0;
     }
 
     private bool NotInWorld()
@@ -88,10 +101,17 @@ public class Player : GameObject, ICollidable, IDamageable
         CalculatePosition(oldPosition, NotInWorld);
     }
 
+  
+    private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.Roboter-Player.png")!.Value;
+
     public override void Draw()
     {
-        Raylib.DrawRectangle((int)Position.X, (int)Position.Y, ElementWidth, ElementHeight, Color.Red);
+        var source = new Rectangle(0, 0, _tex.Width, _tex.Height); 
+        var dest = new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight); 
+        Raylib.DrawTexturePro(_tex, source, dest, Vector2.Zero, 0f, Color.White); 
     }
+
+    
 
     public void Kill()
     {
@@ -138,6 +158,6 @@ public class Player : GameObject, ICollidable, IDamageable
         return Experience.Xp;
     }
 
-    public int ElementWidth { get; set; } = 70;
+    public int ElementWidth { get; set; } = 120;
     public int ElementHeight { get; set; } = 150;
 }

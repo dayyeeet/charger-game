@@ -14,6 +14,7 @@ public class TestEnemy() : Enemy("test", 2, 10, 1, 0, 0, 30, 30)
     private float _cooldown = 0.2f;
     private float _cooldownTimer = 0f;
     private readonly Gun _gun = new EnemyBulletGun();
+    private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.enemy-1.png")!.Value;
 
     public override void Load(Scene scene)
     {
@@ -43,6 +44,8 @@ public class TestEnemy() : Enemy("test", 2, 10, 1, 0, 0, 30, 30)
 
     public override void Draw()
     {
-        Raylib.DrawCircleV(Position + new Vector2(ElementWidth / 2, ElementHeight / 2), ElementWidth / 2, Color.Red);
+        var source = new Rectangle(0, 0, _tex.Width, _tex.Height);
+        var dest = new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
+        Raylib.DrawTexturePro(_tex, source, dest, Vector2.Zero, 0f, Color.White);
     }
 }
