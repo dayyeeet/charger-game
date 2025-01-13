@@ -26,6 +26,7 @@ public class FlyingProjectile<TFilter>(
     private readonly float _damageAmount = damageAmount;
     private Predicate<GameObject>? _collisionFilter = collisionFilter;
     public Rectangle BoundingRect => new(Position.X, Position.Y, ElementWidth, ElementHeight);
+    public static bool Passthrough => true;
 
     protected override void UpdateProjectilePosition()
     {
