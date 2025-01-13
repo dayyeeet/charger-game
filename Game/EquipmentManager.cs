@@ -19,8 +19,7 @@ namespace Game
                 new PlasmaGunItem(),
                 new SpoonItem(),
                 new ChainsawItem(),
-                new MilkBottleItem(),
-                new SpoonUpgradeItem()
+                new MilkBottleItem()
             ];
 
             CurrentItem = Items.Count > 0 ? Items[0] : null;
