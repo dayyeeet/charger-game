@@ -46,12 +46,13 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
         if (_scene == null) return;
         if (Health.IsDead)
         {
+            _scene.Load(new XpPickupable(Position, 10));
             _scene.Unload(this);
-            var currentLevel = SaveManager.LoadLevel();
+            /*var currentLevel = SaveManager.LoadLevel();
             var nextLevel = currentLevel + 1;
             SaveManager.SaveLevel(nextLevel);
             var newScene = SceneLoader.Load(nextLevel);
-            //Game.Engine.LoadScene(newScene);
+            Game.Engine.LoadScene(newScene); */
             return;
         }
         
