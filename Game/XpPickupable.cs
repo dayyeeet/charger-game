@@ -15,6 +15,7 @@ public class XpPickupable : Pickupable
     protected override void OnPickup(Player player)
     {
         player.AddXp(_xp);
+        ShouldUnload = true;
     }
 
     public override void Draw()
