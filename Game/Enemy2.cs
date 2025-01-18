@@ -9,25 +9,24 @@ public class Enemy2() : Enemy("blue", 80, 10, 5, 0, 0, 70 , 70 )
 {
     private Player? _player;
     private Scene? _scene;
-
+    private List<EnemyAiRoamingPoint>? _roamingPoints;
+    
+    private EnemyAi _ai = new(600f, 50f, 0.02f);
     public override void Load(Scene scene)
     {
         base.Load(scene);
         _scene = scene;
         _player = scene.FindObjectsById("player", Layers.Player).FirstOrDefault() as Player ??
                   throw new NullReferenceException("Cannot find player");
+        _roamingPoints = scene.FindObjectsById("feature-roaming-point").ConvertAll(point =>
+            point as EnemyAiRoamingPoint ?? throw new NullReferenceException("Cannot find roaming point"));
     }
 
     public override void Move()
     {
         if (_player == null) return;
-
-        var direction = _player.Position - Position;
-        if (direction.Length() > 0) 
-        {
-            direction = Vector2.Normalize(direction);
-        }
-        Position += direction * Speed * Raylib.GetFrameTime();
+        Position = _ai.DefaultBehavior(this, _player, _roamingPoints);
+        CanAttack = Vector2.Distance(_player.Position, Position) <= 75;
     }
 
     public override void Attack()
@@ -38,13 +37,6 @@ public class Enemy2() : Enemy("blue", 80, 10, 5, 0, 0, 70 , 70 )
         {
             _player.TakeDamage((int)Damage);
         }
-    }
-
-    public override void Update()
-    {
-        base.Update();
-        Move();  
-        Attack(); 
     }
 
     private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.enemy-2.png")!.Value;
