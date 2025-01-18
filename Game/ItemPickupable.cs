@@ -7,8 +7,6 @@ namespace Game;
 public class ItemPickupable : Pickupable, ICollidable
 {
     private readonly Item _item;
-    private Scene? _scene;
-    private const KeyboardKey PickUpBind = KeyboardKey.F;
     private float scale = 0.2f;
 
     public ItemPickupable(Vector2 position, Item item) : base("item", 100, 100)
@@ -28,20 +26,18 @@ public class ItemPickupable : Pickupable, ICollidable
 
         Raylib.DrawTexturePro(_tex, source, dest, Vector2.Zero, 0f, Color.White);
     }
+    
     protected override void OnPickup(Player player)
     {
-        if(Raylib.IsKeyDown(PickUpBind))
+    }
+
+    public void OnControlledPickup(Player player)
+    {
+        var freeSlot = player.Equipment.Items.FindIndex(item => item == null);
+        if (freeSlot >= 0)
         {
-            var freeSlot = player.Equipment.Items.FindIndex(item => item == null);
-            if (freeSlot >= 0)
-            {
-                player.Equipment.Items[freeSlot] = _item;
-                ShouldUnload = true;
-            }
-            else
-            {
-                ShouldUnload = false;
-            }
+            player.Equipment.Items[freeSlot] = _item;
+            ShouldUnload = true;
         }
     }
 
