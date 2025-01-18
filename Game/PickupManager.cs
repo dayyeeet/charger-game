@@ -9,6 +9,7 @@ public class PickupManager() : GameObject("pick-up-manager")
     private Scene? _scene;
     private Player? _player;
     private const KeyboardKey PickUpBind = KeyboardKey.F;
+    private ItemPickupable? _last;
 
     public override void Load(Scene scene)
     {
@@ -22,19 +23,21 @@ public class PickupManager() : GameObject("pick-up-manager")
         base.Update();
 
         if (_scene == null) return;
-
-        if (!Raylib.IsKeyPressed(PickUpBind)) return;
-
         var nearest = GetNearestItem(_player);
         
+        if(_last != null) _last.Targeted = false;
         if(nearest == null) return;
+        nearest.Targeted = true;
+        _last = nearest;
+        
+        if (!Raylib.IsKeyPressed(PickUpBind)) return;
         
         nearest.OnControlledPickup(_player);
     }
 
     private ItemPickupable? GetNearestItem(Player player)
     {
-        var normalized = Raylib.GetMousePosition() - new Vector2(Game.Engine.GetWindow().GetWindowWidth() / 2f, Game.Engine.GetWindow().GetWindowHeight() / 2f);
+        var normalized = player.Position + Raylib.GetMousePosition() - new Vector2(Game.Engine.GetWindow().GetWindowWidth() / 2f, Game.Engine.GetWindow().GetWindowHeight() / 2f);
         
         var allCollidingObjects = _scene.CollidesWith(player).OfType<ItemPickupable>();
             
@@ -44,7 +47,7 @@ public class PickupManager() : GameObject("pick-up-manager")
 
     private float CalculateCenterDistance(Vector2 normalized, ItemPickupable pickupable)
     {
-        var center = pickupable.Position - new Vector2(pickupable.ElementWidth/2f, pickupable.ElementHeight/2f);
+        var center = pickupable.Position + new Vector2(pickupable.ElementWidth/2f, pickupable.ElementHeight/2f);
 
         return Vector2.Distance(center, normalized);
     }
