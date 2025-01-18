@@ -19,5 +19,6 @@ public class SampleScene : Scene
         Load(manager, Layers.HUD);
         Load(new TestPopover(), Layers.UI);
         Load(new DebugKeyHandler(Game.Engine));
+        Load(new PickupManager());
     }
 }
