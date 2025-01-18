@@ -7,9 +7,12 @@ namespace Game;
 public class Player : GameObject, ICollidable, IDamageable
 {
     public Vector2 Position { get; set; }
+    public Vector2 LastPosition { get; set; }
+    public Vector2 LastDelta { get; set; }
     public HealthSystem Health { get; private set; } = new(100);
 
-    public Rectangle BoundingRect => new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
+    public Rectangle BoundingRect => new (Position.X + 30, Position.Y + 10, ElementWidth - 60, ElementHeight - 20);
+    public Rectangle CollideRect => new (Position.X + 30, Position.Y + ElementHeight - 40, ElementWidth - 60, 20);
 
     public ExperienceSystem Experience { get; private set; } = new();
     public float Velocity { get; set; } = 500;
@@ -20,11 +23,13 @@ public class Player : GameObject, ICollidable, IDamageable
     private Scene? _scene;
     private GameWorld? _world;
 
+    private PlayerAnimationController _controller = new();
+
     public Player(Vector2 spawnLocation) : base("player")
     {
         Position = spawnLocation;
         RightHand = new ItemManager(this, ElementWidth - ElementWidth / 5, 0);
-        LeftHand = new ItemManager(this, - ElementWidth + ElementWidth / 5, 0, -1);
+        LeftHand = new ItemManager(this, -ElementWidth + ElementWidth / 5, 0, -1);
         Equipment = new EquipmentManager();
     }
 
@@ -38,38 +43,41 @@ public class Player : GameObject, ICollidable, IDamageable
     }
 
     private float _regenInterval = 1;
+
     public override void Update()
     {
         Move();
         Equipment.CycleHotkey();
         Equipment.Update();
         Equipment.UpdateEquipped(LeftHand, RightHand);
+        _controller.NextAnimationFor(this);
+        _controller.Animate();
         if (Health.GetCurrentHealth() < Health.GetMaxHealth())
         {
             Health.coolDown -= Raylib.GetFrameTime();
         }
 
         if (Health.coolDown > 0) return;
-        
-            _regenInterval -= Raylib.GetFrameTime();
-            if (_regenInterval > 0) return;
-            _regenInterval = 1;
-            Health.Heal(2);
+
+        _regenInterval -= Raylib.GetFrameTime();
+        if (_regenInterval > 0) return;
+        _regenInterval = 1;
+        Health.Heal(2);
     }
 
     private bool MovementCollides()
     {
         if (_scene == null) return true;
-        return _scene.CollidesWith(obj => obj != this && !((ICollidable) obj).IsPassThrough(),this).Count > 0;
+        return _scene.CollidesWith(obj => obj != this && !((ICollidable)obj).IsPassThrough(), CollideRect).Count > 0;
     }
 
     private bool NotInWorld()
     {
         if (_world == null) return false;
         var worldContainedRect = Raylib.GetCollisionRec(_world.Dimension, BoundingRect);
-        
-        return Math.Abs(worldContainedRect.Width - ElementWidth) > 0.5 ||
-               Math.Abs(worldContainedRect.Height - ElementHeight) > 0.5;
+
+        return Math.Abs(worldContainedRect.Width - BoundingRect.Width) > 0.5 ||
+               Math.Abs(worldContainedRect.Height - BoundingRect.Height) > 0.5;
     }
 
     private void CalculatePosition(Vector2 oldPosition, Func<bool> checkDenied)
@@ -88,6 +96,7 @@ public class Player : GameObject, ICollidable, IDamageable
         {
             return;
         }
+
         Position = oldPosition;
     }
 
@@ -98,19 +107,24 @@ public class Player : GameObject, ICollidable, IDamageable
         Position = PlayerController.Movement(Position, Velocity);
         CalculatePosition(oldPosition, MovementCollides);
         CalculatePosition(oldPosition, NotInWorld);
+        LastPosition = oldPosition;
+        if (Position == oldPosition) return;
+        LastDelta = Position - oldPosition;
     }
 
-  
-    private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.Roboter-Player.png")!.Value;
+    private float _scaleX = 2f;
+    private float _scaleY = 2.5f;
 
     public override void Draw()
     {
-        var source = new Rectangle(0, 0, _tex.Width, _tex.Height); 
-        var dest = new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight); 
-        Raylib.DrawTexturePro(_tex, source, dest, Vector2.Zero, 0f, Color.White); 
+        var dest = new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
+        _controller.Draw(dest);
+        if (Game.Engine.HitBoxesVisible)
+        {
+            Raylib.DrawRectangleLinesEx(CollideRect, 1f, Color.SkyBlue);
+        }
     }
 
-    
 
     public void Kill()
     {
@@ -158,5 +172,5 @@ public class Player : GameObject, ICollidable, IDamageable
     }
 
     public int ElementWidth { get; set; } = 120;
-    public int ElementHeight { get; set; } = 150;
+    public int ElementHeight { get; set; } = 120;
 }

@@ -98,6 +98,12 @@ public class Scene : IGameUpdatable
         return BoundingBoxes.Where(box => Raylib.CheckCollisionRecs(boundingBox, box.BoundingRect)).ToList()
             .ConvertAll(box => box as GameObject)!;
     }
+    
+    public List<GameObject> CollidesWith(Predicate<GameObject> match, Rectangle boundingBox)
+    {
+        return BoundingBoxes.Where(box => Raylib.CheckCollisionRecs(boundingBox, box.BoundingRect)).ToList()
+            .ConvertAll(box => (box as GameObject)!).Where(obj => match(obj)).ToList();
+    }
 
     public List<GameObject> CollidesWith<T>(T self) where T : GameObject, ICollidable
     {
