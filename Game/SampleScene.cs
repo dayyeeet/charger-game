@@ -18,5 +18,6 @@ public class SampleScene : Scene
         manager.RegisterHudElement(HudPositions.Bottom, new HudHotbar(Color.Orange));
         Load(manager, Layers.HUD);
         Load(new TestPopover(), Layers.UI);
+        Load(new DebugKeyHandler(Game.Engine));
     }
 }

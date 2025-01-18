@@ -10,6 +10,11 @@ public class GameEngine
     private bool _running;
     private Scene? _currentScene;
     private TrackingCamera? _trackingCamera;
+    public Color BackgroundColor { get; set; } = Color.White;
+    
+    public bool HitBoxesVisible { get; set; } = false;
+    public bool AiPointsVisible { get; set; } = false;
+    public bool FpsVisible { get; set; } = false;
 
     public GameEngine()
     {
@@ -27,7 +32,7 @@ public class GameEngine
             _currentScene.Update();
             _trackingCamera?.Update();
             BeginDrawing();
-            ClearBackground(Color.White);
+            ClearBackground(BackgroundColor);
 
             if (_trackingCamera == null)
             {
@@ -38,10 +43,12 @@ public class GameEngine
             {
                 BeginMode2D(_trackingCamera.GetCamera());
                 _currentScene.Draw2D();
-                // Comment/Uncomment the next line if you (don't) want hitboxes shown
-                // ShowHitBoxes();
+                if(HitBoxesVisible)
+                    ShowHitBoxes();
                 EndMode2D();
                 _currentScene.Draw();
+                if(FpsVisible)
+                    DrawFPS(5, _window.GetWindowHeight() - 25);
             }
 
             EndDrawing();
@@ -71,6 +78,7 @@ public class GameEngine
             _trackingCamera = null;
             return;
         }
+
         _trackingCamera = new TrackingCamera(_window, tracking);
     }
 
