@@ -6,6 +6,8 @@ namespace Game;
 public abstract class Pickupable(string id, int width, int height) : GameObject($"pickupable-{id}"), ICollidable
 {
     public Vector2 Position { get; set; }
+    
+    protected bool ShouldUnload {get; set;} = false;
     public bool IsPassThrough()
     {
         return true;
@@ -32,6 +34,10 @@ public abstract class Pickupable(string id, int width, int height) : GameObject(
         var player = collides.Count > 0 ? collides.First() as Player : null;
         if (player == null) return;
         OnPickup(player);
-        _scene.Unload(this);
+
+        if (ShouldUnload)
+        {
+            _scene.Unload(this);
+        }
     }
 }
