@@ -17,6 +17,11 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
     // HealthSystem instance to manage health
     public HealthSystem Health { get; private set; }
 
+    public bool IsPlayerPassThrough()
+    {
+        return true;
+    }
+
     // Constructor to initialize Enemy
     protected Enemy(string id, float speed, int initialHealth, float damage, float x, float y, float width,
         float height) : base($"enemy-{id}")
@@ -47,7 +52,7 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
         if (Health.IsDead)
         {
             _scene.Load(new XpPickupable(Position, 10));
-            _scene.Load(new ItemPickupable(Position, new LaserGunItem()));
+            _scene.Load(new ItemPickupable(Position, new ChainsawItem()));
 
             _scene.Unload(this);
             /*var currentLevel = SaveManager.LoadLevel();
@@ -92,6 +97,8 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
     }
 
     public Vector2 Position { get; set; }
+
+    public Vector2 LastPosition { get; set; }
     public int ElementWidth { get; set; }
     public int ElementHeight { get; set; }
 }

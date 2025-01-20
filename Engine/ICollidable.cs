@@ -10,4 +10,9 @@ public interface ICollidable : IPositionable, ISizeableObject
     {
         return false;
     }
+
+    public bool IsPlayerPassThrough()
+    {
+        return false;
+    }
 }
