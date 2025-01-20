@@ -1,0 +1,23 @@
+using Engine;
+
+namespace Game;
+
+public class EnemySpawnManager(int level) : GameObject("enemy-spawn-manager")
+{
+    public int NeededEnemyAmount { get; set; } = 5 + level * 3;
+    private readonly int _maxCurrentEnemyAmount = 3 + (int)(level * 1.5);
+    private Scene? _scene;
+
+    public override void Load(Scene scene)
+    {
+        base.Load(scene);
+        _scene = scene;
+    }
+
+    public bool CanSpawnEnemies()
+    {
+        if (_scene == null) return false;
+        if (_scene.FindObjects(obj => obj is Enemy, Layers.Entity).Count >= _maxCurrentEnemyAmount) return false;
+        return NeededEnemyAmount > 0;
+    }
+}
