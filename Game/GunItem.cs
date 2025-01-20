@@ -1,4 +1,5 @@
 using Engine;
+using Raylib_cs;
 
 namespace Game;
 
@@ -6,20 +7,28 @@ public abstract class GunItem(string name, Gun gun) : Item(name)
 {
     public Gun Gun { get; } = gun;
     private Scene? _scene;
-    private Player? _player;
+
+    private float _cooldown;
 
     public override void Update()
     {
         base.Update();
-        if (_scene == null || _player == null) return;
-        ShootingMechanic.ShootIfKeyDown(_scene, _player, Gun);
+        if (_scene == null) return;
+        _cooldown += Raylib.GetFrameTime();
+        if (_cooldown < Gun.GetCooldown()) return;
+        if (!ShootingMechanic.ShootIfKeyDown(_scene, this, Gun)) return;
+        _cooldown = 0;
     }
 
     public override void Load(Scene scene)
     {
-       _scene = scene;
-       var player = scene.FindObjectsById("player", Layers.Player).FirstOrDefault();
+        _scene = scene;
+    }
 
-       _player = player as Player ?? throw new NullReferenceException("Player not found");
+    public override void Draw()
+    {
+        base.Draw();
+        if (Game.Engine.HitBoxesVisible)
+            Raylib.DrawRectangleLinesEx(new Rectangle(Position - Size / 2, Size), 2f, Color.SkyBlue);
     }
 }
