@@ -69,6 +69,16 @@ public class Scene : IGameUpdatable
         }
     }
 
+    public void ReLayer(GameObject gameObject, int layer)
+    {
+        int? current = _gameObjects.Keys.FirstOrDefault(it => _gameObjects[it].Contains(gameObject));
+        if (current == null) return;
+        _gameObjects[current.Value].Remove(gameObject);
+        var updated = _gameObjects.GetValueOrDefault(layer, []);
+        updated.Add(gameObject);
+        _gameObjects[layer] = updated;
+    }
+
     //Unloads GameObjects from the scene
     public void Unload(GameObject gameObject)
     {
