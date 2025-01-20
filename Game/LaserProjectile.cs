@@ -7,6 +7,7 @@ namespace Game;
 public class LaserProjectile(
     Vector2 startPosition,
     Vector2 direction,
+    float rotationDirection,
     float shotVelocity,
     float damageAmount,
     float energyCost,
@@ -14,8 +15,10 @@ public class LaserProjectile(
     Color color) : Projectile(startPosition, direction, -1f, shotVelocity, damageAmount, energyCost,
     maxDistance, color)
 {
+    private static readonly Texture2D Texture = EmbeddedTexture.LoadTexture("Game.laser-beam.png")!.Value;
     public Vector2 StartPosition = startPosition;
     public Vector2 Direction = direction;
+    public float RotationDirection = rotationDirection;
     private readonly float _shotVelocity = shotVelocity;
     private readonly Color _color = color;
     private GameObject? _hit;
@@ -36,18 +39,23 @@ public class LaserProjectile(
         _hit = collision.Value.Key;
         _collision = collision.Value.Value;
     }
+    
 
     public override void Draw()
     {
+        var endPosition = StartPosition + Direction * _shotVelocity;
         if (_collision.HasValue)
         {
             var point = _collision.Value.Point;
-
-            Raylib.DrawLineV(StartPosition, new Vector2(point.X, point.Y), _color);
-            return;
+            endPosition = new Vector2(point.X, point.Y);
         }
-
-        Raylib.DrawLineV(StartPosition, StartPosition + Direction * _shotVelocity, _color);
+        
+        var src = new Rectangle(0, 0, Texture.Width, Texture.Height);
+        var width = Texture.Width * 2f;
+        var dest = new Rectangle(StartPosition.X + width/2, StartPosition.Y, width, Vector2.Distance(StartPosition, endPosition));
+        Raylib.DrawTexturePro(Texture, src, dest, Vector2.Zero, RotationDirection, Color.White);
+        if(Game.Engine.HitBoxesVisible)
+            Raylib.DrawLineV(StartPosition, endPosition, _color);
     }
 
     public override void Update()
