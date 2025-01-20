@@ -10,8 +10,11 @@ public class Enemy2() : Enemy("blue", 80, 10, 5, 0, 0, 70 , 70 )
     private Player? _player;
     private Scene? _scene;
     private List<EnemyAiRoamingPoint>? _roamingPoints;
+    private readonly Enemy2AnimationController _controller = new();
+    private static readonly OutlineShader OutlineShader = new();
     
     private EnemyAi _ai = new(600f, 50f, 0.02f);
+    public int LastDirection { get; private set; } = 0;
     public override void Load(Scene scene)
     {
         base.Load(scene);
@@ -20,15 +23,23 @@ public class Enemy2() : Enemy("blue", 80, 10, 5, 0, 0, 70 , 70 )
                   throw new NullReferenceException("Cannot find player");
         _roamingPoints = scene.FindObjectsById("feature-roaming-point").ConvertAll(point =>
             point as EnemyAiRoamingPoint ?? throw new NullReferenceException("Cannot find roaming point"));
+        OutlineShader.SetOutlineSize(0.6f);
+        OutlineShader.SetTextureSize(ElementWidth, ElementHeight);
+        OutlineShader.SetOutLineColor(new Color(0xff, 0x00, 0x0f, 0x3f));
     }
+    
 
     public override void Move()
     {
         if (_player == null) return;
-        Position = _ai.DefaultBehavior(this, _player, _roamingPoints);
-        CanAttack = Vector2.Distance(_player.Position, Position) <= 75;
+        if (_scene == null) return;
+        LastPosition = Position;
+        _ai.DefaultBehavior(_scene, this, LastPosition, _player, _roamingPoints);
+        LastDirection = Position.X > LastPosition.X ? 1 : Position.X < LastPosition.X ? -1 : 0;
+        CanAttack = _scene.CollidesWith(obj => obj is Player, this).Count > 0; 
+        _controller.NextAnimationFor(this);
+        _controller.Animate();
     }
-
     public override void Attack()
     {
         if (_player == null) return;
@@ -38,12 +49,12 @@ public class Enemy2() : Enemy("blue", 80, 10, 5, 0, 0, 70 , 70 )
             _player.TakeDamage((int)Damage);
         }
     }
-
-    private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.enemy-2.png")!.Value;
+    
     public override void Draw()
     {
-        var source = new Rectangle(0, 0, _tex.Width, _tex.Height);
         var dest = new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
-        Raylib.DrawTexturePro(_tex, source, dest, Vector2.Zero, 0f, Color. White);
+        if(CanAttack) Raylib.BeginShaderMode(OutlineShader.GetShader());
+        _controller.Draw(dest);
+        if(CanAttack) Raylib.EndShaderMode();
     }
 }
