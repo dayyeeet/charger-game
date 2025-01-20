@@ -11,6 +11,7 @@ public class SampleScene : Scene
         var window = Game.Engine.GetWindow();
         var player = new Player(new Vector2(window.GetWindowWidth() / 2f, window.GetWindowHeight() / 2f));
         Game.Engine.SetTracking(player);
+        Load(new EnemySpawnManager(0));
         Load(new GameWorld(1000, 1000, player));
         var manager = new HudRenderer();
         manager.RegisterHudElement(HudPositions.TopLeft, new HudHealth(Color.Green));

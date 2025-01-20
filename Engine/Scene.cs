@@ -148,6 +148,6 @@ public class Scene : IGameUpdatable
     //Find Game Objects loaded in the scene with a custom filter
     public List<GameObject> FindObjects(Predicate<GameObject> match, int layer = Layers.Background)
     {
-        return _gameObjects[layer].FindAll(match);
+        return !_gameObjects.TryGetValue(layer, out var value) ? [] : value.FindAll(match);
     }
 }
