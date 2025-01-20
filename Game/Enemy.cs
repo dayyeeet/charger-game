@@ -30,8 +30,8 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
         Damage = damage;
         Health = new HealthSystem(initialHealth);
         Position = new Vector2(x, y);
-        ElementWidth = (int)width;
-        ElementHeight = (int)height;
+        ElementWidth = (int)width*2;
+        ElementHeight = (int)height*2;
     }
 
     // Abstract methods to be implemented by derived classes

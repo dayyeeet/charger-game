@@ -4,15 +4,18 @@ using Raylib_cs;
 
 namespace Game;
 
-public class SampleScene : Scene
+public class LevelScene : Scene
 {
-    public SampleScene()
+    public GameWorld GameWorld { get; private set; }
+    public LevelScene(GameWorld gameWorld)
     {
+        GameWorld = gameWorld;
         var window = Game.Engine.GetWindow();
         var player = new Player(new Vector2(window.GetWindowWidth() / 2f, window.GetWindowHeight() / 2f));
         Game.Engine.SetTracking(player);
+        gameWorld.Player = player;
         Load(new EnemySpawnManager(0));
-        Load(new GameWorld(1000, 1000, player));
+        Load(gameWorld);
         var manager = new HudRenderer();
         manager.RegisterHudElement(HudPositions.TopLeft, new HudHealth(Color.Green));
         manager.RegisterHudElement(HudPositions.TopLeft, new HudXp(Color.Blue));
@@ -23,3 +26,4 @@ public class SampleScene : Scene
         Load(new PickupManager());
     }
 }
+

@@ -36,7 +36,7 @@ public class Scene : IGameUpdatable
     }
 
     //Renders all Game Objects
-    public void Draw2D()
+    public virtual void Draw2D()
     {
         foreach (var gameObjectsKey in _gameObjects.Keys)
         {
@@ -44,6 +44,7 @@ public class Scene : IGameUpdatable
                 _gameObjects[gameObjectsKey].ToList().ForEach(obj => obj.Draw());
         }
     }
+    
 
     //Loads GameObjects into our scene (Highest Layer = Last drawn Element)
     public void Load(GameObject gameObject, int layer = Layers.Background)
