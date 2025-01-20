@@ -7,19 +7,19 @@ public class SceneLoader
     {
         return i switch
         {
-            0 => new SampleScene(),
-            1 => new Level2(),
-            2 => new Level3(),
-            _ => new SampleScene()
+            0 => new LevelScene(new LevelOneWorld(1000,1000)),
+            1 => new LevelScene(new LevelTwoWorld(1000,1000)),
+            2 => new LevelScene(new LevelThreeWorld(1000,1000)),
+            _ => new LevelScene(new LevelOneWorld(1000,1000))
         };
     }
-    public static void Save(Scene scene)
+    public static void Save(LevelScene scene)
     {
-        var saved = scene switch
+        var saved = scene.GameWorld switch
         {
-            SampleScene => 0,
-            Level2 => 1,
-            Level3 => 2,
+            LevelOneWorld => 0,
+            LevelTwoWorld => 1,
+            LevelThreeWorld => 2,
             _ => 0
         };
         SaveManager.SaveLevel(saved);
