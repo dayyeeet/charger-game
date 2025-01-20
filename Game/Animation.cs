@@ -7,7 +7,7 @@ public class Animation(Texture2D tex, float frameTime)
 {
     private readonly int _totalFrames = tex.Width / tex.Height;
     private int _currentFrame;
-    private float _currentFrameTime = frameTime;
+    private float _currentFrameTime;
     private Rectangle _currentSrc;
 
     public Animation(string tex, float frameTime) : this(EmbeddedTexture.LoadTexture(tex)!.Value, frameTime)

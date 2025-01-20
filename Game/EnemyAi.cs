@@ -1,16 +1,37 @@
 using System.Numerics;
+using System.Xml.Schema;
 using Engine;
 
 namespace Game;
 
 public class EnemyAi(float searchRadius, float minDistance, float speed)
 {
-
     private IPositionable? _roamingTarget;
 
-    public Vector2 DefaultBehavior(IPositionable self, IPositionable target, List<EnemyAiRoamingPoint>? roamingPoints = null)
+    public void DefaultBehavior<T>(Scene scene, T self, Vector2 lastPosition, ICollidable target, List<EnemyAiRoamingPoint>? roamingPoints = null) where T : GameObject, ICollidable
     {
-        return Chase(self, target) ?? Roam(self, roamingPoints) ?? self.Position;
+        self.Position = Chase(self, target) ?? Roam(self, roamingPoints) ?? self.Position;
+        CalculatePosition(self, lastPosition, () => scene.CollidesWith(obj => obj != self && !((ICollidable)obj).IsPassThrough() && obj is not Player, self).Count > 0);
+    }
+    
+    private static void CalculatePosition(ICollidable self, Vector2 oldPosition, Func<bool> checkDenied)
+    {
+        if (!checkDenied()) return;
+        var delta = self.Position - oldPosition;
+        var preTest = self.Position;
+        self.Position -= delta with { Y = 0 };
+        if (!checkDenied())
+        {
+            return;
+        }
+
+        self.Position = preTest - delta with { X = 0 };
+        if (!checkDenied())
+        {
+            return;
+        }
+
+        self.Position = oldPosition;
     }
     
     public Vector2? MoveToTarget(IPositionable self, IPositionable target)
@@ -23,9 +44,10 @@ public class EnemyAi(float searchRadius, float minDistance, float speed)
         return self.Position - (self.Position - target.Position) * speed;
     }
     
-    public Vector2? Chase(IPositionable self, IPositionable target)
+    public Vector2? Chase(IPositionable self, ICollidable target)
     {
-        var distance = Vector2.Distance(self.Position, target.Position);
+        var pos = target.Position + new Vector2(target.ElementWidth / 2, target.ElementHeight / 2);
+        var distance = Vector2.Distance(self.Position, pos);
         if (distance < minDistance)
         {
             return self.Position;
@@ -34,7 +56,7 @@ public class EnemyAi(float searchRadius, float minDistance, float speed)
         {
             return null;
         }
-        return self.Position - (self.Position - target.Position) * speed;
+        return self.Position - (self.Position - pos) * speed;
     }
 
     public Vector2? Roam(IPositionable self, List<EnemyAiRoamingPoint>? targets)

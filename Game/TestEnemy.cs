@@ -15,6 +15,7 @@ public class TestEnemy() : Enemy("test", 2, 10, 1, 0, 0, 30, 30)
     private float _cooldownTimer = 0f;
     private readonly Gun _gun = new EnemyBulletGun();
     private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.enemy-1.png")!.Value;
+    private static readonly OutlineShader OutlineShader = new();
 
     public override void Load(Scene scene)
     {
@@ -24,12 +25,17 @@ public class TestEnemy() : Enemy("test", 2, 10, 1, 0, 0, 30, 30)
                   throw new NullReferenceException("Cannot find player");
         _roamingPoints = scene.FindObjectsById("feature-roaming-point").ConvertAll(point =>
             point as EnemyAiRoamingPoint ?? throw new NullReferenceException("Cannot find roaming point"));
+        OutlineShader.SetOutlineSize(0.6f);
+        OutlineShader.SetTextureSize(ElementWidth, ElementHeight);
+        OutlineShader.SetOutLineColor(new Color(0xff, 0x00, 0x0f, 0x3f));
     }
 
     public override void Move()
     {
         if (_player == null) return;
-        Position = _ai.DefaultBehavior(this, _player, _roamingPoints);
+        if (_scene == null) return;
+        LastPosition = Position;
+        _ai.DefaultBehavior(_scene, this, LastPosition, _player, _roamingPoints);
         CanAttack = Vector2.Distance(_player.Position, Position) <= 400;
     }
 
@@ -46,6 +52,8 @@ public class TestEnemy() : Enemy("test", 2, 10, 1, 0, 0, 30, 30)
     {
         var source = new Rectangle(0, 0, _tex.Width, _tex.Height);
         var dest = new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
+        if(CanAttack) Raylib.BeginShaderMode(OutlineShader.GetShader());
         Raylib.DrawTexturePro(_tex, source, dest, Vector2.Zero, 0f, Color.White);
+        if(CanAttack) Raylib.EndShaderMode();
     }
 }

@@ -15,6 +15,7 @@ public abstract class Item(string name) : GameObject($"item-{name}"), IPositiona
         _name = name;
     }
 
+    public Vector2 Size {get; set; } = new(24, 24);
     public int Direction { get; set; }
 
     public abstract Texture2D Texture { get; }
