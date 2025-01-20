@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace Game;
 
-public class EnemySpawner<T>() : WorldFeature("enemy-spawner"), ICollidable where T : Enemy
+public class EnemySpawner<T>() : WorldFeature("enemy-spawner") where T : Enemy
 {
     private float _spawnRate = 12;
     private float _currentSpawnRate;
