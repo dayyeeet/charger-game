@@ -11,8 +11,8 @@ public class Player : GameObject, ICollidable, IDamageable
     public Vector2 LastDelta { get; set; }
     public HealthSystem Health { get; private set; } = new(100);
 
-    public Rectangle BoundingRect => new (Position.X + 30, Position.Y + 10, ElementWidth - 60, ElementHeight - 20);
-    public Rectangle CollideRect => new (Position.X + 30, Position.Y + ElementHeight - 40, ElementWidth - 60, 20);
+    public Rectangle BoundingRect => new(Position.X + 30, Position.Y + 10, ElementWidth - 60, ElementHeight - 20);
+    public Rectangle CollideRect => new(Position.X + 30, Position.Y + ElementHeight - 40, ElementWidth - 60, 20);
 
     public ExperienceSystem Experience { get; private set; } = new();
     public float Velocity { get; set; } = 500;
@@ -28,8 +28,8 @@ public class Player : GameObject, ICollidable, IDamageable
     public Player(Vector2 spawnLocation) : base("player")
     {
         Position = spawnLocation;
-        RightHand = new ItemManager(this, ElementWidth - ElementWidth / 5, 0);
-        LeftHand = new ItemManager(this, -ElementWidth + ElementWidth / 5, 0, -1);
+        RightHand = new ItemManager(this, ElementWidth / 5, ElementHeight / 9);
+        LeftHand = new ItemManager(this, ElementWidth / 5, - ElementHeight / 9, -1, Layers.LeftHand);
         Equipment = new EquipmentManager();
     }
 
@@ -44,9 +44,29 @@ public class Player : GameObject, ICollidable, IDamageable
 
     private float _regenInterval = 1;
 
+    private void SimulateEquipmentLayering()
+    {
+        var direction = LastDelta.X != 0 ? LastDelta.X > 0 ? 1 : -1 : 1;
+        switch (direction)
+        {
+            case -1:
+                LeftHand.UpdateLayer(Layers.RightHand);
+                RightHand.UpdateLayer(Layers.LeftHand);
+                break;
+            case 1:
+                LeftHand.UpdateLayer(Layers.LeftHand);
+                RightHand.UpdateLayer(Layers.RightHand);
+                break;
+        }
+
+        RightHand.Direction = direction;
+        LeftHand.Direction = direction;
+    }
+
     public override void Update()
     {
         Move();
+        SimulateEquipmentLayering();
         Equipment.CycleHotkey();
         Equipment.Update();
         Equipment.UpdateEquipped(LeftHand, RightHand);
@@ -68,7 +88,7 @@ public class Player : GameObject, ICollidable, IDamageable
     private bool MovementCollides()
     {
         if (_scene == null) return true;
-        return _scene.CollidesWith(obj => obj != this && !((ICollidable)obj).IsPassThrough(), CollideRect).Count > 0;
+        return _scene.CollidesWith(obj => obj != this && !((ICollidable)obj).IsPassThrough() && !((ICollidable)obj).IsPlayerPassThrough(), CollideRect).Count > 0;
     }
 
     private bool NotInWorld()
