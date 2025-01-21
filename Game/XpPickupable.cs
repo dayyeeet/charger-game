@@ -5,16 +5,18 @@ namespace Game;
 
 public class XpPickupable : Pickupable
 {
-    private readonly double _xp;
+    public double Xp { get; set; }
     public XpPickupable(Vector2 position, double xp) : base("xp", 10, 10)
     {
         Position = position;
-        _xp = xp;
+        Xp = xp;
     }
+    
+    public XpPickupable() : this(Vector2.Zero, 0) {}
 
     protected override void OnPickup(Player player)
     {
-        player.AddXp(_xp);
+        player.AddXp(Xp);
         ShouldUnload = true;
     }
 

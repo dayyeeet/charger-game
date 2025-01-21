@@ -40,6 +40,7 @@ public class HudXp : HudElement
     {
         Raylib.DrawRectangle((int)Position.X, (int)Position.Y, ElementWidth, ElementHeight, Color.LightGray);
         Raylib.DrawRectangle((int)Position.X, (int)Position.Y, _xpWidth, ElementHeight, Color.Blue);
+        if (system == null) return;
         Raylib.DrawText($"{system.Level}", (int)Position.X + ElementWidth + 10, (int)Position.Y + 5, 20, Color.Black);
     }
 }

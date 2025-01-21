@@ -8,14 +8,19 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
 {
     // Properties for speed and damage
     public float Speed { get; protected set; }
-    public Rectangle BoundingRect => new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
+    public Rectangle BoundingRect
+    {
+        get => new(Position.X, Position.Y, ElementWidth, ElementHeight);
+        set {}
+    }
+
     public float Damage { get; protected set; }
 
     public bool CanAttack { get; protected set; } = false;
     public bool CanMove { get; protected set; } = true;
 
     // HealthSystem instance to manage health
-    public HealthSystem Health { get; private set; }
+    public HealthSystem Health { get; protected set; }
 
     public bool IsPlayerPassThrough()
     {

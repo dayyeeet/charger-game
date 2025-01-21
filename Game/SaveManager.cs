@@ -13,9 +13,10 @@ public static class SaveManager
     {
         var serializer = new SerializerBuilder()
             .WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
-        var objects = scene.GetGameObjectsWithLayers().ToList().ConvertAll(element => new GameObjectConfigEntry(element.Key, element.Value));
+        var objects = scene.GetGameObjectsWithLayers().ToList().FindAll(it => it.Key is not (GuiProvider or Projectile))
+            .ConvertAll(element => new GameObjectConfigEntry(element.Key, element.Value));
         var yml = serializer.Serialize(objects);
-        if(File.Exists(SaveFilePath)) File.Delete(SaveFilePath);
+        if (File.Exists(SaveFilePath)) File.Delete(SaveFilePath);
         File.WriteAllText(SaveFilePath, yml);
     }
 
@@ -38,12 +39,13 @@ public static class SaveManager
         var content = File.ReadAllText(SaveFilePath);
         var objects = deserializer.Deserialize<List<GameObjectConfigEntry>>(content);
         var scene = new Scene();
-        foreach (var saved in objects)
+        var world = objects.First(it => it.Obj is GameWorld);
+        var player = objects.First(it => it.Obj is Player);
+        scene.Load(world.Obj, world.Layer);
+        scene.Load(player.Obj, player.Layer);
+        Game.Engine.SetTracking((Player) player.Obj);
+        foreach (var saved in objects.Where(it => it.Obj is not (GameWorld or Player)))
         {
-            if (saved.Obj is Player obj)
-            {
-                Game.Engine.SetTracking(obj);
-            }
             scene.Load(saved.Obj, saved.Layer);
         }
 
