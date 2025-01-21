@@ -21,7 +21,7 @@ public static class SaveManager
 
     public static Scene LoadScene()
     {
-        if (!File.Exists(SaveFilePath)) return new LevelScene(new LevelOneWorld(1000, 1000));
+        if (!File.Exists(SaveFilePath)) return new LevelScene(new LevelOneWorld(1500, 1500));
         var deserializer = new DeserializerBuilder().WithTypeDiscriminatingNodeDeserializer(o =>
             {
                 var type = typeof(GameObject);

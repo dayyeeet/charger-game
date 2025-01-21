@@ -2,15 +2,13 @@ using Engine;
 
 namespace Game;
 
-public class LevelOneWorld(int dimensionX, int dimensionY) : GameWorld(dimensionX, dimensionY,"Game.background.png", new(0xb5, 0x90, 0x74, 0xff))
+public class LevelOneWorld(int dimensionX, int dimensionY, bool shouldLoad = true) : GameWorld(dimensionX, dimensionY,
+    "Game.background.png", new(0xb5, 0x90, 0x74, 0xff), shouldLoad)
 {
-
-    private readonly bool _shouldLoad = true;
-
-    public LevelOneWorld() : this(0, 0)
+    public LevelOneWorld() : this(0, 0, false)
     {
-        _shouldLoad = false;
     }
+
     public override void Load(Scene scene)
     {
         base.Load(scene);
