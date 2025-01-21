@@ -8,9 +8,6 @@ public abstract class Projectile(
     Vector2 startPosition,
     Vector2 direction,
     float shotDuration,
-    float shotVelocity,
-    float damageAmount,
-    float energyCost,
     int maxDistance,
     Color color)
     : GameObject("projectile")

@@ -5,8 +5,14 @@ namespace Game;
 
 public class TestPopover() : PopoverObject("test", KeyboardKey.Escape)
 {
-    public override void DrawToggled()
+    private readonly GuiProvider _gui = new EscapeMenu();
+    public override void OnToggle(bool toggled)
     {
-        Raylib.DrawRectangle(100, 100, 100, 100, Color.Black);
+        if (!toggled)
+        {
+            _scene?.Unload(_gui);
+            return;
+        }
+        _scene?.Load(_gui, Layers.UI);
     }
 }

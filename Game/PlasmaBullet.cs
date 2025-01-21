@@ -16,8 +16,18 @@ public class PlasmaBullet(
     damageAmount,
     energyCost, maxDistance, color, currentPosition, obj => obj is not Player && obj is not PlasmaBullet)
 {
-    private static readonly Lazy<Texture2D> LazyTexture = new(EmbeddedTexture.LoadTexture("Game.plasma-bullet.png")!.Value);
-    public Texture2D Texture => LazyTexture.Value;
+    public PlasmaBullet() : this(Vector2.Zero, Vector2.Zero, 0f, 0f, 0f, 0f, 0, Color.White, Vector2.Zero)
+    {
+    }
+
+    private static readonly Lazy<Texture2D> LazyTexture =
+        new(EmbeddedTexture.LoadTexture("Game.plasma-bullet.png")!.Value);
+
+    public Texture2D Texture
+    {
+        get => LazyTexture.Value;
+        set { }
+    }
 
     public override void Draw()
     {
@@ -26,8 +36,8 @@ public class PlasmaBullet(
         var dest = new Rectangle(Position + new Vector2(ElementWidth / 2, ElementHeight / 2),
             new Vector2(size, size));
         Raylib.DrawTexturePro(Texture, source,
-            dest, new Vector2(size /2, size / 2),
-            ToDegrees(_direction) + 90F, Color.White);
+            dest, new Vector2(size / 2, size / 2),
+            ToDegrees(Direction) + 90F, Color.White);
     }
 
     float ToDegrees(Vector2 direction)

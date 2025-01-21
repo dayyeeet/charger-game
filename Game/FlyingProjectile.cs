@@ -15,18 +15,23 @@ public class FlyingProjectile<TFilter>(
     Color color,
     Vector2 currentPosition,
     Predicate<GameObject>? collisionFilter = null) : Projectile(
-    startPosition, direction, shotDuration, shotVelocity, damageAmount, energyCost,
+    startPosition, direction, shotDuration,
     maxDistance, color), ICollidable where TFilter : GameObject, ICollidable
 {
-    
-    private readonly Vector2 _startPosition = startPosition;
-    protected readonly Vector2 _direction = direction;
-    private readonly float _shotVelocity = shotVelocity;
-    private readonly Color _color = color;
-    private readonly int _maxDistance = maxDistance;
-    private readonly float _damageAmount = damageAmount;
+    public Vector2 StartPosition = startPosition;
+    public Vector2 Direction { get; set; } = direction;
+    public float ShotVelocity = shotVelocity;
+    public Color Color = color;
+    public int MaxDistance = maxDistance;
+    public float DamageAmount = damageAmount;
     private Predicate<GameObject>? _collisionFilter = collisionFilter;
-    public Rectangle BoundingRect => new(Position.X, Position.Y, ElementWidth, ElementHeight);
+
+    public Rectangle BoundingRect
+    {
+        get => new(Position.X, Position.Y, ElementWidth, ElementHeight);
+        set { }
+    }
+
     public bool IsPassThrough()
     {
         return true;
@@ -34,9 +39,9 @@ public class FlyingProjectile<TFilter>(
 
     protected override void UpdateProjectilePosition()
     {
-        Position += _direction * _shotVelocity * Raylib.GetFrameTime();
+        Position += Direction * ShotVelocity * Raylib.GetFrameTime();
 
-        if (Vector2.Distance(_startPosition, Position) > _maxDistance)
+        if (Vector2.Distance(StartPosition, Position) > MaxDistance)
         {
             _scene?.Unload(this);
             return;
@@ -50,7 +55,7 @@ public class FlyingProjectile<TFilter>(
             {
                 if (collider is IDamageable damageable)
                 {
-                    damageable.Health.TakeDamage((int)_damageAmount);
+                    damageable.Health.TakeDamage((int)DamageAmount);
                 }
             }
 
@@ -63,7 +68,7 @@ public class FlyingProjectile<TFilter>(
 
     public override void Draw()
     {
-        Raylib.DrawCircleV(Position, 5f, _color);
+        Raylib.DrawCircleV(Position, 5f, Color);
     }
 
     public Vector2 Position { get; set; } = currentPosition;
