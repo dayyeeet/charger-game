@@ -11,7 +11,7 @@ public class QuitButton : Button
 
     public override void OnClick()
     {
-        Game.Save();
+        if(Game.Engine.GetScene() is LevelScene) Game.Save();
         Game.Engine.Stop();
     }
 }
