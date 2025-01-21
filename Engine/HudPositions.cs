@@ -14,10 +14,12 @@ public class HudPositions
 
 public class HudPosition(Vector2 position, int direction, int marginDirection, float alignmentX, float alignmentY)
 {
-    public Vector2 Position { get; } = position;
-    public int Direction { get; } = direction; //tells to stack elements on top/below of each other
+    public HudPosition() : this(Vector2.Zero, 0, 0, 0, 0) { }
+    public Vector2 Position { get; set; } = position;
+    public int Direction { get; set; } = direction; //tells to stack elements on top/below of each other
 
-    public int MarginDirection { get; } = marginDirection; //tells in which direction margin points depending on side
-    public float AlignmentX { get; } = alignmentX; //tells if element is at the left/right edge of window
-    public float AlignmentY { get; } = alignmentY; //tells if element is at top/bottom edge of window
+    public int MarginDirection { get; set; } = marginDirection; //tells in which direction margin points depending on side
+    public float AlignmentX { get; set; } = alignmentX; //tells if element is at the left/right edge of window
+    public float AlignmentY { get; set; } = alignmentY; //tells if element is at top/bottom edge of window
+    
 }

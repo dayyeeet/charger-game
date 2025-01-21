@@ -11,6 +11,19 @@ public class Scene : IGameUpdatable
     public readonly List<ICollidable> BoundingBoxes = [];
     public bool Paused = false;
 
+    public Dictionary<GameObject, int> GetGameObjectsWithLayers()
+    {
+        var gameObjectsWithLayers = new Dictionary<GameObject, int>();
+        foreach (var gameObjectsKey in _gameObjects.Keys)
+        {
+            foreach (var gameObject in _gameObjects[gameObjectsKey])
+            {
+                gameObjectsWithLayers[gameObject] = gameObjectsKey;
+            }
+        }
+        return gameObjectsWithLayers;
+    }
+    
     //Updates all Game Objects
     public void Update()
     {

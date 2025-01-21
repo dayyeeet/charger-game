@@ -4,6 +4,7 @@ namespace Game;
 
 public class LevelThreeWorld(int dimensionX, int dimensionY) : GameWorld(dimensionX, dimensionY,"Game.level-3.png", new(0x5b, 0x2e, 0x35, 0xff))   
 {
+    public LevelThreeWorld() : this(0, 0) {}
     public override void Load(Scene scene)
     {
         base.Load(scene);

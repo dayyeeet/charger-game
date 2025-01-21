@@ -6,10 +6,14 @@ namespace Game
     {
         private int _currentIndex;
 
-        public int CurrentIndex => _currentIndex;
+        public int CurrentIndex
+        {
+            get => _currentIndex;
+            set {}
+        }
 
-        public List<Item?> Items { get; private set; }
-        public Item? CurrentItem { get; internal set; }
+        public List<Item?> Items { get; set; }
+        public Item? CurrentItem { get; set; }
 
         public EquipmentManager()
         {

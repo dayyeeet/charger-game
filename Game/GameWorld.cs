@@ -8,7 +8,7 @@ public class GameWorld(int dimensionX, int dimensionY, string backgroundTex, Col
 {
     public Player Player { get; set; }
     
-    public Rectangle Dimension { get; } = new(0, 0, dimensionX * 2, dimensionY * 2);
+    public Rectangle Dimension { get; set; } = new(0, 0, dimensionX * 2, dimensionY * 2);
 
     private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture(backgroundTex)!.Value);
     private Texture2D Background => _texture.Value;

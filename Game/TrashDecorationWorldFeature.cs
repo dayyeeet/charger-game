@@ -11,9 +11,13 @@ public class TrashDecorationWorldFeature() : WorldFeature("trash-decoration"), I
     public override Vector2 Position { get; set; }
     public override int Layer { get; set; } = Layers.Decoration;
 
-    public Rectangle BoundingRect => new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
-    
-    
+    public Rectangle BoundingRect
+    {
+        get => new(Position.X, Position.Y, ElementWidth, ElementHeight);
+        set {}
+    }
+
+
     private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.trash-bag.png")!.Value;
 
 

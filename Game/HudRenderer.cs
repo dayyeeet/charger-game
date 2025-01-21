@@ -5,7 +5,18 @@ namespace Game;
 
 public class HudRenderer(int margin = 20) : GameObject("hud-renderer")
 {
-    private readonly Dictionary<HudPosition, List<HudElement>> _hudElements = new(); //Key = Position, List contains Elements in said Positions
+    private Dictionary<HudPosition, List<HudElement>> _hudElements = new(); //Key = Position, List contains Elements in said Positions
+
+    public List<HudElementRegistry> Elements
+    {
+        get => _hudElements.ToList().ConvertAll(it => new HudElementRegistry {Key = it.Key, Value = it.Value});
+        set => _hudElements = value.ToDictionary(it => it.Key, it => it.Value);
+    }
+    
+    public HudRenderer() : this(20)
+    {
+        
+    }
     
     public override void Draw() //loads all Elements into Draw method
     {

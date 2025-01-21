@@ -4,6 +4,7 @@ namespace Game;
 
 public class LevelTwoWorld(int dimensionX, int dimensionY) : GameWorld(dimensionX, dimensionY,"Game.level-2.png", new(0x55, 0x64, 0x34, 0xff))   
 {
+    public LevelTwoWorld() : this(0, 0) {}
     public override void Load(Scene scene)
     {
         base.Load(scene);

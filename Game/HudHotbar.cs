@@ -6,12 +6,11 @@ namespace Game;
 
 public class HudHotbar : HudElement
 {
-    private readonly Color _color;
     private EquipmentManager? _system;
     private readonly int _margin;
     private readonly int _subElementWidth;
 
-    public HudHotbar(Color color) : base("health")
+    public HudHotbar() : base("health")
     {
         ElementWidth = 200;
         ElementHeight = 40;
@@ -20,7 +19,6 @@ public class HudHotbar : HudElement
         int totalMargin = _margin * (elements - 1);
         int itemTotalWidth = ElementWidth - totalMargin;
         _subElementWidth = Math.Min(itemTotalWidth / elements, ElementHeight);
-        _color = color;
     }
 
     public override void Load(Scene scene)
