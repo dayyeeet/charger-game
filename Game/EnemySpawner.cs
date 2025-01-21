@@ -52,10 +52,4 @@ public class EnemySpawner<T>() : WorldFeature("enemy-spawner") where T : Enemy
     public override int ElementHeight { get; set; } = 100;
     public override Vector2 Position { get; set; }
     public override int Layer { get; set; } = Layers.CollisionObject;
-    
-    public Rectangle BoundingRect
-    {
-        get => new(Position.X, Position.Y, ElementWidth, ElementHeight);
-        set {}
-    }
 }

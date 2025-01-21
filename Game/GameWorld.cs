@@ -4,9 +4,11 @@ using Raylib_cs;
 
 namespace Game;
 
-public class GameWorld(int dimensionX, int dimensionY, string backgroundTex, Color backgroundColor) : GameObject("world")
+public class GameWorld(int dimensionX, int dimensionY, string backgroundTex, Color backgroundColor, bool shouldLoad = true) : GameObject("world")
 {
     public Player Player { get; set; }
+    
+    protected readonly bool _shouldLoad = shouldLoad;
     
     public Rectangle Dimension { get; set; } = new(0, 0, dimensionX * 2, dimensionY * 2);
 
