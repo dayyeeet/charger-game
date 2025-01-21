@@ -3,6 +3,12 @@ namespace Engine;
 //Object that can be present in scenes (e.g. Enemy, Player, HUD)
 public abstract class GameObject(string id) : IGameUpdatable
 {
+    public string Type
+    {
+        get => GetType().FullName!;
+        set {}
+    }
+
     public virtual void Update()
     {
     }
@@ -11,7 +17,7 @@ public abstract class GameObject(string id) : IGameUpdatable
     {
     }
 
-    //Called when object is added to scene, returns true if loading was successful. If an exception is thrown during load process, the game object wont be added
+    //Called when object is added to scene, retuSns true if loading was successful. If an exception is thrown during load process, the game object wont be added
     public virtual void Load(Scene scene)
     {
     }

@@ -6,10 +6,14 @@ namespace Game
     {
         private int _currentIndex;
 
-        public int CurrentIndex => _currentIndex;
+        public int CurrentIndex
+        {
+            get => _currentIndex;
+            set {}
+        }
 
-        public List<Item?> Items { get; private set; }
-        public Item? CurrentItem { get; private set; }
+        public List<Item?> Items { get; set; }
+        public Item? CurrentItem { get; set; }
 
         public EquipmentManager()
         {
@@ -20,7 +24,10 @@ namespace Game
                 new SpoonItem(),
                 new ChainsawItem(),
                 new MilkBottleItem(),
-                new SpoonUpgradeItem()
+                null,
+                null,
+                null,
+                null
             ];
 
             CurrentItem = Items.Count > 0 ? Items[0] : null;
@@ -64,7 +71,7 @@ namespace Game
             var hotkey = Raylib.GetKeyPressed();
             if (hotkey <= 0) return;
             hotkey -= 49;
-            if (hotkey >= Items.Count) return;
+            if (hotkey >= Items.Count || hotkey < 0) return;
             _currentIndex = hotkey;
             CurrentItem = Items[_currentIndex];
         }

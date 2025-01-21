@@ -1,4 +1,3 @@
-using System.Numerics;
 using Engine;
 using Raylib_cs;
 
@@ -6,16 +5,15 @@ namespace Game;
 
 public class HudXp : HudElement
 {
-    private readonly Color color;
     private ExperienceSystem? system;
     private int _xpWidth;
-    
-    public HudXp(Color color) : base("Xp")
+
+    public HudXp() : base("Xp")
     {
         ElementWidth = 200;
         ElementHeight = 30;
-        this.color = color;
     }
+
     //Hook into ExperienceSystem
     public override void Load(Scene scene)
     {

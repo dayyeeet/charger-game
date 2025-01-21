@@ -13,9 +13,11 @@ public class LaserGun : Gun
         Vector2 direction = targetPosition - origin.Position;
         direction = Vector2.Normalize(direction);
         Vector2 startPosition = origin.Position;
+        float angle = float.RadiansToDegrees(MathF.Atan2(direction.Y, direction.X)) - 90f;
+        
         if (_laserProjectile == null)
         {
-            _laserProjectile = new LaserProjectile(startPosition, direction, 1000, 10, 5, 10, Color.Green);
+            _laserProjectile = new LaserProjectile(startPosition, direction, angle, 1000, 10, 5, 10, Color.Green);
             _scene = scene;
             scene.Load(_laserProjectile, Layers.CollisionObject);
         }
@@ -23,8 +25,14 @@ public class LaserGun : Gun
         {
             _laserProjectile.StartPosition = startPosition;
             _laserProjectile.Direction = direction;
+            _laserProjectile.RotationDirection = angle;
         }
         _laserProjectile.Raycast();
+    }
+
+    public override float GetCooldown()
+    {
+        return 0f;
     }
 
     public override void CancelShoot()

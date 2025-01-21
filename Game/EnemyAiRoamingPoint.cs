@@ -8,7 +8,8 @@ public class EnemyAiRoamingPoint() : WorldFeature("roaming-point")
 {
     public override void Draw()
     {
-        Raylib.DrawCircle((int)Position.X, (int)Position.Y, 5f, Color.Blue);
+        if (Game.Engine.AiPointsVisible)
+            Raylib.DrawCircle((int)Position.X, (int)Position.Y, 5f, Color.Blue);
     }
 
     public override int ElementWidth { get; set; } = 100;

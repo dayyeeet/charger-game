@@ -17,6 +17,11 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
     // HealthSystem instance to manage health
     public HealthSystem Health { get; private set; }
 
+    public bool IsPlayerPassThrough()
+    {
+        return true;
+    }
+
     // Constructor to initialize Enemy
     protected Enemy(string id, float speed, int initialHealth, float damage, float x, float y, float width,
         float height) : base($"enemy-{id}")
@@ -25,8 +30,8 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
         Damage = damage;
         Health = new HealthSystem(initialHealth);
         Position = new Vector2(x, y);
-        ElementWidth = (int)width;
-        ElementHeight = (int)height;
+        ElementWidth = (int)width*2;
+        ElementHeight = (int)height*2;
     }
 
     // Abstract methods to be implemented by derived classes
@@ -46,12 +51,15 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
         if (_scene == null) return;
         if (Health.IsDead)
         {
+            _scene.Load(new XpPickupable(Position, 10));
+            _scene.Load(new ItemPickupable(Position, new ChainsawItem()));
+
             _scene.Unload(this);
-            var currentLevel = SaveManager.LoadLevel();
+            /*var currentLevel = SaveManager.LoadLevel();
             var nextLevel = currentLevel + 1;
             SaveManager.SaveLevel(nextLevel);
             var newScene = SceneLoader.Load(nextLevel);
-            //Game.Engine.LoadScene(newScene);
+            Game.Engine.LoadScene(newScene); */
             return;
         }
         
@@ -89,6 +97,8 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
     }
 
     public Vector2 Position { get; set; }
+
+    public Vector2 LastPosition { get; set; }
     public int ElementWidth { get; set; }
     public int ElementHeight { get; set; }
 }

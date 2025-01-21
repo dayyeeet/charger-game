@@ -18,6 +18,7 @@ public class FlyingProjectile<TFilter>(
     startPosition, direction, shotDuration, shotVelocity, damageAmount, energyCost,
     maxDistance, color), ICollidable where TFilter : GameObject, ICollidable
 {
+    
     private readonly Vector2 _startPosition = startPosition;
     protected readonly Vector2 _direction = direction;
     private readonly float _shotVelocity = shotVelocity;
@@ -26,6 +27,10 @@ public class FlyingProjectile<TFilter>(
     private readonly float _damageAmount = damageAmount;
     private Predicate<GameObject>? _collisionFilter = collisionFilter;
     public Rectangle BoundingRect => new(Position.X, Position.Y, ElementWidth, ElementHeight);
+    public bool IsPassThrough()
+    {
+        return true;
+    }
 
     protected override void UpdateProjectilePosition()
     {

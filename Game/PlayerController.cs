@@ -7,25 +7,32 @@ public static class PlayerController
 {
     public static Vector2 Movement(Vector2 position, float velocity)
     {
+        Vector2 movement = Vector2.Zero;
+        
         if (Raylib.IsKeyDown(KeyboardKey.D))
         {
-            position.X += velocity * Raylib.GetFrameTime();
+            movement.X += 1;
         }
 
         if (Raylib.IsKeyDown(KeyboardKey.A))
         {
-            position.X -= velocity * Raylib.GetFrameTime();
+            movement.X -= 1;
         }
 
         if (Raylib.IsKeyDown(KeyboardKey.W))
         {
-            position.Y -= velocity * Raylib.GetFrameTime();
+            movement.Y -= 1;
         }
 
         if (Raylib.IsKeyDown(KeyboardKey.S))
         {
-            position.Y += velocity * Raylib.GetFrameTime();
+            movement.Y += 1;
         }
+        
+        movement = Vector2.Normalize(movement);
+        
+        position += movement * velocity * Raylib.GetFrameTime();
+        
         return position;
     }
 }

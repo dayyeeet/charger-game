@@ -11,6 +11,19 @@ public class Scene : IGameUpdatable
     public readonly List<ICollidable> BoundingBoxes = [];
     public bool Paused = false;
 
+    public Dictionary<GameObject, int> GetGameObjectsWithLayers()
+    {
+        var gameObjectsWithLayers = new Dictionary<GameObject, int>();
+        foreach (var gameObjectsKey in _gameObjects.Keys)
+        {
+            foreach (var gameObject in _gameObjects[gameObjectsKey])
+            {
+                gameObjectsWithLayers[gameObject] = gameObjectsKey;
+            }
+        }
+        return gameObjectsWithLayers;
+    }
+    
     //Updates all Game Objects
     public void Update()
     {
@@ -36,7 +49,7 @@ public class Scene : IGameUpdatable
     }
 
     //Renders all Game Objects
-    public void Draw2D()
+    public virtual void Draw2D()
     {
         foreach (var gameObjectsKey in _gameObjects.Keys)
         {
@@ -44,6 +57,7 @@ public class Scene : IGameUpdatable
                 _gameObjects[gameObjectsKey].ToList().ForEach(obj => obj.Draw());
         }
     }
+    
 
     //Loads GameObjects into our scene (Highest Layer = Last drawn Element)
     public void Load(GameObject gameObject, int layer = Layers.Background)
@@ -67,6 +81,16 @@ public class Scene : IGameUpdatable
             updated.Remove(gameObject);
             _gameObjects[layer] = updated;
         }
+    }
+
+    public void ReLayer(GameObject gameObject, int layer)
+    {
+        int? current = _gameObjects.Keys.FirstOrDefault(it => _gameObjects[it].Contains(gameObject));
+        if (current == null) return;
+        _gameObjects[current.Value].Remove(gameObject);
+        var updated = _gameObjects.GetValueOrDefault(layer, []);
+        updated.Add(gameObject);
+        _gameObjects[layer] = updated;
     }
 
     //Unloads GameObjects from the scene
@@ -97,6 +121,12 @@ public class Scene : IGameUpdatable
     {
         return BoundingBoxes.Where(box => Raylib.CheckCollisionRecs(boundingBox, box.BoundingRect)).ToList()
             .ConvertAll(box => box as GameObject)!;
+    }
+    
+    public List<GameObject> CollidesWith(Predicate<GameObject> match, Rectangle boundingBox)
+    {
+        return BoundingBoxes.Where(box => Raylib.CheckCollisionRecs(boundingBox, box.BoundingRect)).ToList()
+            .ConvertAll(box => (box as GameObject)!).Where(obj => match(obj)).ToList();
     }
 
     public List<GameObject> CollidesWith<T>(T self) where T : GameObject, ICollidable
@@ -142,6 +172,6 @@ public class Scene : IGameUpdatable
     //Find Game Objects loaded in the scene with a custom filter
     public List<GameObject> FindObjects(Predicate<GameObject> match, int layer = Layers.Background)
     {
-        return _gameObjects[layer].FindAll(match);
+        return !_gameObjects.TryGetValue(layer, out var value) ? [] : value.FindAll(match);
     }
 }

@@ -11,7 +11,8 @@ class Game
     public static void Main()
     {
         //You will need to load a scene before Start is called
-        Engine.LoadScene(SceneLoader.Load(SaveManager.LoadLevel()));
+        Engine.LoadScene(SaveManager.LoadScene());
+        if(Engine.GetScene() != null) SaveManager.SaveScene(Engine.GetScene()!);
         Engine.Start();
     }
 }

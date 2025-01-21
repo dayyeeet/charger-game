@@ -6,15 +6,13 @@ namespace Game;
 
 public class HudHealth : HudElement
 {
-    private readonly Color color;
     private HealthSystem? system;
     private int _healthWidth;
     
-    public HudHealth(Color color) : base("health")
+    public HudHealth() : base("health")
     {
         ElementWidth = 200;
         ElementHeight = 20;
-        this.color = color;
     }
 
     //Hook into healthSystem
@@ -35,7 +33,7 @@ public class HudHealth : HudElement
         {
             var currentHealth = system.GetCurrentHealth();
             var maxHealth = system.GetMaxHealth();
-            _healthWidth = (int)(ElementWidth * ((float)currentHealth / maxHealth));
+            _healthWidth = (int)(ElementWidth * (currentHealth / maxHealth));
         }
     }
 
