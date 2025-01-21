@@ -6,7 +6,7 @@ namespace Game;
 
 public abstract class CloseCombatItem(String name, float cooldown) : Item($"weapon-{name}"), ICollidable
 {
-    public override Texture2D Texture { get; }
+    public override Texture2D Texture { get; set; }
     public int ElementWidth { get; set; } = 30;
     public int ElementHeight { get; set; }= 30;
     private CooldownWeapon? _cooldown;

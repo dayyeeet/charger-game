@@ -15,6 +15,8 @@ public class HealthSystem
         _currentHealth = _maxHealth;
         IsDead = false;
     }
+    
+    public HealthSystem() : this(100) {}
 
     public void Kill()
     {

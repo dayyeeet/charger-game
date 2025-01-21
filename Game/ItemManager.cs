@@ -4,12 +4,20 @@ using Engine;
 namespace Game;
 
 public class ItemManager(
-    ICollidable parent,
     int offsetX,
     int offsetY,
     int direction = 1,
     int layer = Layers.RightHand) : GameObject("item-manager"), IPositionable
 {
+    public required ICollidable Parent { get; set; }
+    public int OffsetX { get; set; } = offsetX;
+    public int OffsetY { get; set; } = offsetY;
+
+    public ItemManager() : this(0, 0)
+    {
+        
+    }
+    
     private Scene? _scene;
 
     public Item? Item { get; private set; }
@@ -44,7 +52,7 @@ public class ItemManager(
     public override void Update()
     {
         if (Item == null) return;
-        Position = new Vector2(parent.Position.X + parent.ElementWidth / 2 + offsetX * Direction, parent.Position.Y + parent.ElementHeight / 2 + offsetY * Direction);
+        Position = new Vector2(Parent.Position.X + Parent.ElementWidth / 2 + OffsetX * Direction, Parent.Position.Y + Parent.ElementHeight / 2 + OffsetY * Direction);
         Item.Position = Position;
         Item.Direction = Direction;
     }
@@ -54,5 +62,5 @@ public class ItemManager(
         Item?.Draw();
     }
 
-    public Vector2 Position { get; set; } = new(parent.Position.X + offsetX, parent.Position.Y + offsetY);
+    public Vector2 Position { get; set; }
 }

@@ -7,7 +7,11 @@ namespace Game;
 public class SpoonItem() : Item("spoon")
 {
     private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.wood-spoon.png")!.Value);
-    public override Texture2D Texture => _texture.Value;
+    public override Texture2D Texture
+    {
+        get => _texture.Value;
+        set {}
+    }
 
     public override void Draw()
     {

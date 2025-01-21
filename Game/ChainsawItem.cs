@@ -6,7 +6,11 @@ namespace Game;
 public class ChainsawItem : Item
 {
     private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.chainsaw.png")!.Value);
-    public override Texture2D Texture => _texture.Value;
+    public override Texture2D Texture
+    {
+        get => _texture.Value;
+        set {}
+    }
 
     public ChainsawItem() : base("chainsaw")
     {
