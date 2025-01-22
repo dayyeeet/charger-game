@@ -8,6 +8,7 @@ public class MainMenu : Scene
 {
     public MainMenu()
     {
+        SoundLoading.Music.PlayMusic("TitleScreenMusic");
         Load(new SoundHelper());
         Game.Engine.BackgroundColor = new Color(0xff, 0xff, 0xff, 0xff);
         var gui = new GuiProvider(Game.Engine.GetWindow());
@@ -19,6 +20,5 @@ public class MainMenu : Scene
         gui.Add(new NewGameButton(200, 50), new Vector2(0.5f, 0.53f));
         gui.Add(new QuitButton(200, 50), new Vector2(0.5f, 0.61f));
         Load(gui, Layers.UI);
-        SoundLoading.Music.PlayMusic("TitleScreenMusic");
     }
 }
