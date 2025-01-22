@@ -6,8 +6,8 @@ namespace Game;
 
 public class TrashDecorationWorldFeature() : WorldFeature("trash-decoration"), ICollidable
 {
-    public override int ElementWidth { get; set; } = 100;
-    public override int ElementHeight { get; set; } = 100;
+    public override int ElementWidth { get; set; } = 50;
+    public override int ElementHeight { get; set; } = 35;
     public override Vector2 Position { get; set; }
     public override int Layer { get; set; } = Layers.Decoration;
 
@@ -18,14 +18,14 @@ public class TrashDecorationWorldFeature() : WorldFeature("trash-decoration"), I
     }
 
 
-    private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.trash-bag.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.tire1.png")!.Value;
 
 
     public override void Draw()
     {
-        var source = new Rectangle(0, 0, _tex.Width, _tex.Height);
+        var source = new Rectangle(0, 0, Tex.Width, Tex.Height);
         var dest = new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
-        Raylib.DrawTexturePro(_tex, source, dest, Vector2.Zero, 0f, Color.White); 
+        Raylib.DrawTexturePro(Tex, source, dest, Vector2.Zero, 0f, Color.White); 
     }
     
     }

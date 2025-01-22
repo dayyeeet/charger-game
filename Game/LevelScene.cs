@@ -1,21 +1,24 @@
 using System.Numerics;
+using System.Text.Json.Serialization;
 using Engine;
-using Raylib_cs;
 
 namespace Game;
 
 public class LevelScene : Scene
 {
     public GameWorld GameWorld { get; private set; }
-    public LevelScene(GameWorld gameWorld)
+    public LevelScene(GameWorld gameWorld,
+        Player? playerBefore = null)
     {
+        Load(new SoundHelper());
         GameWorld = gameWorld;
         var window = Game.Engine.GetWindow();
-        var player = new Player(new Vector2(window.GetWindowWidth() / 2f, window.GetWindowHeight() / 2f));
+        var player = playerBefore ?? new Player(new Vector2(window.GetWindowWidth() / 2f, window.GetWindowHeight() / 2f));
         Game.Engine.SetTracking(player);
         gameWorld.Player = player;
-        Load(new EnemySpawnManager(0));
+        Load(new EnemySpawnManager(player.Level()));
         Load(gameWorld);
+        Load(new DeathPopover());
         var manager = new HudRenderer();
         manager.RegisterHudElement(HudPositions.TopLeft, new HudHealth());
         manager.RegisterHudElement(HudPositions.TopLeft, new HudXp());
@@ -26,4 +29,3 @@ public class LevelScene : Scene
         Load(new PickupManager());
     }
 }
-

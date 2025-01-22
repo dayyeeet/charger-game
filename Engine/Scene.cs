@@ -57,6 +57,11 @@ public class Scene : IGameUpdatable
                 _gameObjects[gameObjectsKey].ToList().ForEach(obj => obj.Draw());
         }
     }
+
+    public bool Has(GameObject gameObject, int layer = Layers.Background)
+    {
+        return _gameObjects.ContainsKey(layer) && _gameObjects[layer].Contains(gameObject);
+    }
     
 
     //Loads GameObjects into our scene (Highest Layer = Last drawn Element)
@@ -93,6 +98,14 @@ public class Scene : IGameUpdatable
         _gameObjects[layer] = updated;
     }
 
+    public void Close()
+    {
+        foreach (var keyValuePair in _gameObjects)
+        {
+            keyValuePair.Value.ToList().ForEach(obj => obj.Close());
+        }
+    }
+    
     //Unloads GameObjects from the scene
     public void Unload(GameObject gameObject)
     {

@@ -23,13 +23,13 @@ public class LaserProjectile(
     private readonly Color _color = color;
     private GameObject? _hit;
     private RayCollision? _collision;
-    private readonly SoundSystem _soundSystem = SoundLoading.Instance;
+    private readonly SoundSystem _soundSystem = SoundLoading.Sound;
 
     public void Raycast()
     {
         var ray = new Ray(new Vector3(StartPosition.X, StartPosition.Y, 0), new Vector3(Direction.X, Direction.Y, 0));
         var collision = _scene?.CollidesWithRay(ray)
-            .FirstOrDefault(it => it.Key is not Player && it.Key is not Projectile);
+            .FirstOrDefault(it => it.Key is not Player && !((ICollidable)it.Key).IsPassThrough());
         if (collision == null || collision.Equals(default(KeyValuePair<GameObject, RayCollision>)))
         {
             _hit = null;

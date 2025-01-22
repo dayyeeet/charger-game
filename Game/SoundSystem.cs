@@ -5,14 +5,7 @@ namespace Game;
 
 public class SoundSystem
 {
-    private readonly Dictionary<string, Sound> _samples;
-    
-    public SoundSystem()
-    {
-        _samples = new Dictionary<string, Sound>();
-        Raylib.InitAudioDevice();
-        Raylib.SetMasterVolume(1.0f);
-    }
+    private readonly Dictionary<string, Sound> _samples = new();
 
     public void LoadSound(string sampleName, string filePath)
     {
@@ -23,34 +16,24 @@ public class SoundSystem
 
     public void PlaySound(string sampleName)
     {
-        if (_samples.TryGetValue(sampleName, out Sound value))
-        {
-            if(!Raylib.IsSoundPlaying(value))
-                Raylib.PlaySound(value);
-        }
+        if (!_samples.TryGetValue(sampleName, out Sound value)) return;
+        if(!Raylib.IsSoundPlaying(value))
+            Raylib.PlaySound(value);
     }
 
     public void StopSound(string sampleName)
     {
-        if (_samples.TryGetValue(sampleName, out Sound value))
-        {
-            if(Raylib.IsSoundPlaying(value))
-                Raylib.StopSound(value);
-        }
+        if (!_samples.TryGetValue(sampleName, out Sound value)) return;
+        if(Raylib.IsSoundPlaying(value))
+            Raylib.StopSound(value);
     }
     
-    private void UnloadAllSounds()
+    public void UnloadAllSounds()
     {
         foreach (var sound in _samples.Values)
         {
             Raylib.UnloadSound(sound);
         }
         _samples.Clear();
-    }
-
-    public void CloseSounds()
-    {
-        UnloadAllSounds();
-        Raylib.CloseAudioDevice();
     }
 }
