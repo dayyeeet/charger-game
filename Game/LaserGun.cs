@@ -8,11 +8,10 @@ public class LaserGun : Gun
 {
     private LaserProjectile? _laserProjectile;
     private Scene? _scene;
-    public override void Shoot(Scene scene, IPositionable origin, Vector2 targetPosition)
+    public override void Shoot(Scene scene, Vector2 startPosition, Vector2 targetPosition)
     {
-        Vector2 direction = targetPosition - origin.Position;
+        Vector2 direction = targetPosition - startPosition;
         direction = Vector2.Normalize(direction);
-        Vector2 startPosition = origin.Position;
         float angle = float.RadiansToDegrees(MathF.Atan2(direction.Y, direction.X)) - 90f;
         
         if (_laserProjectile == null)

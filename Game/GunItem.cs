@@ -3,7 +3,8 @@ using Raylib_cs;
 
 namespace Game;
 
-public abstract class GunItem(string name, Gun gun) : Item(name)
+public abstract class 
+    GunItem(string name, Gun gun) : Item(name)
 {
     private Scene? _scene;
 
@@ -16,7 +17,7 @@ public abstract class GunItem(string name, Gun gun) : Item(name)
         if (_scene == null) return;
         Cooldown += Raylib.GetFrameTime();
         if (Cooldown < Gun.GetCooldown()) return;
-        if (!ShootingMechanic.ShootIfKeyDown(_scene, this, Gun)) return;
+        if (!ShootingMechanic.ShootIfKeyDown(_scene, Position, Offset, Gun)) return;
         Cooldown = 0;
     }
 

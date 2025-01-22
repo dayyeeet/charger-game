@@ -79,7 +79,7 @@ public class GameEngine
         }
     }
 
-    public void SetTracking(IPositionable? tracking)
+    public void SetTracking(ICollidable? tracking)
     {
         if (tracking == null)
         {

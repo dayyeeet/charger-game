@@ -59,6 +59,7 @@ public class ItemManager(
         Position = new Vector2(Parent.Position.X + Parent.ElementWidth / 2 + OffsetX * Direction,
             Parent.Position.Y + Parent.ElementHeight / 2 + OffsetY * Direction);
         Item.Position = Position;
+        Item.Offset = new Vector2(OffsetX, OffsetY);
         Item.Direction = Direction;
     }
 
