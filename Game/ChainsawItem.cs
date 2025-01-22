@@ -1,9 +1,10 @@
 using System.Numerics;
+using Engine;
 using Raylib_cs;
 
 namespace Game;
 
-public class ChainsawItem : Item
+public class ChainsawItem() : CloseCombatItem("chainsaw",10f)
 {
     private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.chainsaw.png")!.Value);
     public override Texture2D Texture
@@ -12,9 +13,14 @@ public class ChainsawItem : Item
         set {}
     }
 
-    public ChainsawItem() : base("chainsaw")
+    public override void OnHit<T>(T other)
     {
+        if (other is Player player)
+        {
+            player.TakeDamage(10);
+        }
     }
+
 
     public override void Draw()
     {
@@ -24,4 +30,5 @@ public class ChainsawItem : Item
         var destination = new Rectangle(Position.X, Position.Y, 64, 64);
         Raylib.DrawTexturePro(Texture, source, destination, Vector2.Zero, 0f, Color.White);
     }
+    
 }
