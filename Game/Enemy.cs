@@ -57,7 +57,7 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
         if (Health.IsDead)
         {
             _scene.Load(new XpPickupable(Position, 10));
-            _scene.Load(new ItemPickupable(Position, new ChainsawItem()));
+            ItemLootTable.SpawnLoot(Position, _scene);
 
             _scene.Unload(this);
             /*var currentLevel = SaveManager.LoadLevel();
