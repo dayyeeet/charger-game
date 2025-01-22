@@ -4,7 +4,11 @@ namespace Engine;
 
 public interface ICollidable : IPositionable, ISizeableObject
 {
-    Rectangle BoundingRect => new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
+    Rectangle BoundingRect
+    {
+        get => new(Position.X, Position.Y, ElementWidth, ElementHeight);
+        set {}
+    }
 
     public bool IsPassThrough()
     {

@@ -17,12 +17,12 @@ public class LevelScene : Scene
         Load(new EnemySpawnManager(0));
         Load(gameWorld);
         var manager = new HudRenderer();
-        manager.RegisterHudElement(HudPositions.TopLeft, new HudHealth(Color.Green));
-        manager.RegisterHudElement(HudPositions.TopLeft, new HudXp(Color.Blue));
-        manager.RegisterHudElement(HudPositions.Bottom, new HudHotbar(Color.Orange));
+        manager.RegisterHudElement(HudPositions.TopLeft, new HudHealth());
+        manager.RegisterHudElement(HudPositions.TopLeft, new HudXp());
+        manager.RegisterHudElement(HudPositions.Bottom, new HudHotbar());
         Load(manager, Layers.HUD);
         Load(new TestPopover(), Layers.UI);
-        Load(new DebugKeyHandler(Game.Engine));
+        Load(new DebugKeyHandler());
         Load(new PickupManager());
     }
 }

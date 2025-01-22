@@ -4,11 +4,13 @@ using Raylib_cs;
 
 namespace Game;
 
-public class GameWorld(int dimensionX, int dimensionY, string backgroundTex, Color backgroundColor) : GameObject("world")
+public class GameWorld(int dimensionX, int dimensionY, string backgroundTex, Color backgroundColor, bool shouldLoad = true) : GameObject("world")
 {
     public Player Player { get; set; }
     
-    public Rectangle Dimension { get; } = new(0, 0, dimensionX * 2, dimensionY * 2);
+    protected readonly bool _shouldLoad = shouldLoad;
+    
+    public Rectangle Dimension { get; set; } = new(0, 0, dimensionX * 2, dimensionY * 2);
 
     private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture(backgroundTex)!.Value);
     private Texture2D Background => _texture.Value;

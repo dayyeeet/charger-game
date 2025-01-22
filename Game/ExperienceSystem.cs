@@ -3,18 +3,14 @@ using Raylib_cs;
 
 namespace Game
 {
-    public class ExperienceSystem
+    public class ExperienceSystem(double initialXp = 0, int initialLevel = 1, double initialDifficulty = 0.0)
     {
-        public double Xp { get; private set; } // Current XP of the player
-        public int Level { get; private set; } // Current level of the player
-        public double Difficulty { get; private set; } // Difficulty level that increases with each level up
+        public double Xp { get; private set; } = initialXp; // Current XP of the player
+        public int Level { get; private set; } = initialLevel; // Current level of the player
+        public double Difficulty { get; private set; } = initialDifficulty; // Difficulty level that increases with each level up
 
-        public ExperienceSystem(double initialXp = 0, int initialLevel = 1, double initialDifficulty = 0.0)
-        {
-            Xp = initialXp;
-            Level = initialLevel;
-            Difficulty = initialDifficulty;
-        }
+        public ExperienceSystem() : this(0) {}
+        
 
         public void AddXp(double amount)
         {

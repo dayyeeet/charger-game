@@ -5,7 +5,6 @@ namespace Game;
 
 public abstract class GunItem(string name, Gun gun) : Item(name)
 {
-    public Gun Gun { get; } = gun;
     private Scene? _scene;
 
     private float _cooldown;
@@ -15,8 +14,8 @@ public abstract class GunItem(string name, Gun gun) : Item(name)
         base.Update();
         if (_scene == null) return;
         _cooldown += Raylib.GetFrameTime();
-        if (_cooldown < Gun.GetCooldown()) return;
-        if (!ShootingMechanic.ShootIfKeyDown(_scene, this, Gun)) return;
+        if (_cooldown < gun.GetCooldown()) return;
+        if (!ShootingMechanic.ShootIfKeyDown(_scene, this, gun)) return;
         _cooldown = 0;
     }
 

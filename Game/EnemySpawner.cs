@@ -6,14 +6,15 @@ namespace Game;
 
 public class EnemySpawner<T>() : WorldFeature("enemy-spawner") where T : Enemy
 {
-    private float _spawnRate = 12;
     private float _currentSpawnRate;
     private Scene? _scene;
     private EnemySpawnManager? _spawnManager;
-
+    
+    public float SpawnRate { get; set; } = 12;
+    
     public EnemySpawner(float spawnRate) : this()
     {
-        _spawnRate = spawnRate;
+        SpawnRate = spawnRate;
     }
 
     public override void Load(Scene scene)
@@ -32,7 +33,7 @@ public class EnemySpawner<T>() : WorldFeature("enemy-spawner") where T : Enemy
         _currentSpawnRate -= Raylib.GetFrameTime();
         
         if(_currentSpawnRate > 0) return;
-        _currentSpawnRate = _spawnRate;
+        _currentSpawnRate = SpawnRate;
 
         if (!_spawnManager.CanSpawnEnemies()) return;
 
@@ -51,6 +52,4 @@ public class EnemySpawner<T>() : WorldFeature("enemy-spawner") where T : Enemy
     public override int ElementHeight { get; set; } = 100;
     public override Vector2 Position { get; set; }
     public override int Layer { get; set; } = Layers.CollisionObject;
-    
-    public Rectangle BoundingRect => new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
 }

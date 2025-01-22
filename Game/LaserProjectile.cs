@@ -12,7 +12,7 @@ public class LaserProjectile(
     float damageAmount,
     float energyCost,
     int maxDistance,
-    Color color) : Projectile(startPosition, direction, -1f, shotVelocity, damageAmount, energyCost,
+    Color color) : Projectile(startPosition, direction, -1f,
     maxDistance, color)
 {
     private static readonly Texture2D Texture = EmbeddedTexture.LoadTexture("Game.laser-beam.png")!.Value;

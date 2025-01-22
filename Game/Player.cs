@@ -11,8 +11,17 @@ public class Player : GameObject, ICollidable, IDamageable
     public Vector2 LastDelta { get; set; }
     public HealthSystem Health { get; private set; } = new(100);
 
-    public Rectangle BoundingRect => new(Position.X + 30, Position.Y + 10, ElementWidth - 60, ElementHeight - 20);
-    public Rectangle CollideRect => new(Position.X + 30, Position.Y + ElementHeight - 40, ElementWidth - 60, 20);
+    public Rectangle BoundingRect
+    {
+        get => new(Position.X + 30, Position.Y + 10, ElementWidth - 60, ElementHeight - 20);
+        set { }
+    }
+
+    public Rectangle CollideRect
+    {
+        get => new(Position.X + 30, Position.Y + ElementHeight - 40, ElementWidth - 60, 20);
+        set { }
+    }
 
     public ExperienceSystem Experience { get; private set; } = new();
     public float Velocity { get; set; } = 500;
@@ -28,9 +37,13 @@ public class Player : GameObject, ICollidable, IDamageable
     public Player(Vector2 spawnLocation) : base("player")
     {
         Position = spawnLocation;
-        RightHand = new ItemManager(this, ElementWidth / 5, ElementHeight / 9);
-        LeftHand = new ItemManager(this, ElementWidth / 5, - ElementHeight / 9, -1, Layers.LeftHand);
+        RightHand = new ItemManager(ElementWidth / 5, ElementHeight / 9) { Parent = this };
+        LeftHand = new ItemManager(ElementWidth / 5, -ElementHeight / 9, -1, Layers.LeftHand) { Parent = this };
         Equipment = new EquipmentManager();
+    }
+
+    public Player() : this(Vector2.Zero)
+    {
     }
 
     public override void Load(Scene scene)
@@ -88,7 +101,10 @@ public class Player : GameObject, ICollidable, IDamageable
     private bool MovementCollides()
     {
         if (_scene == null) return true;
-        return _scene.CollidesWith(obj => obj != this && !((ICollidable)obj).IsPassThrough() && !((ICollidable)obj).IsPlayerPassThrough(), CollideRect).Count > 0;
+        return _scene
+            .CollidesWith(
+                obj => obj != this && !((ICollidable)obj).IsPassThrough() && !((ICollidable)obj).IsPlayerPassThrough(),
+                CollideRect).Count > 0;
     }
 
     private bool NotInWorld()

@@ -1,8 +1,8 @@
+using Engine;
 using Raylib_cs;
 
-namespace Engine;
-
-public class DebugKeyHandler(GameEngine engine) : GameObject("debug-key-handler")
+namespace Game;
+public class DebugKeyHandler() : GameObject("debug-key-handler")
 {
     
     public override void Update()
@@ -10,17 +10,17 @@ public class DebugKeyHandler(GameEngine engine) : GameObject("debug-key-handler"
         base.Update();
         if (Raylib.IsKeyPressed(KeyboardKey.B))
         {
-            engine.HitBoxesVisible = !engine.HitBoxesVisible;
+            Game.Engine.HitBoxesVisible = !Game.Engine.HitBoxesVisible;
         }
 
         if (Raylib.IsKeyPressed(KeyboardKey.V))
         {
-            engine.AiPointsVisible = !engine.AiPointsVisible;
+            Game.Engine.AiPointsVisible = !Game.Engine.AiPointsVisible;
         }
 
         if (Raylib.IsKeyPressed(KeyboardKey.J))
         {
-            engine.FpsVisible = !engine.FpsVisible;
+            Game.Engine.FpsVisible = !Game.Engine.FpsVisible;
         }
     }
 }

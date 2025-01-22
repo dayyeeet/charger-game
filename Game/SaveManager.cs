@@ -1,38 +1,54 @@
-using Raylib_cs;
+using System.Reflection;
+using Engine;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
-namespace Game
+namespace Game;
+
+public static class SaveManager
 {
-    public class SaveManager
+    private const string SaveFilePath = "savegame.yaml";
+
+    public static void SaveScene(Scene scene)
     {
-        private const string SaveFilePath = "savegame.txt";
+        var serializer = new SerializerBuilder()
+            .WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
+        var objects = scene.GetGameObjectsWithLayers().ToList().FindAll(it => it.Key is not (GuiProvider or Projectile))
+            .ConvertAll(element => new GameObjectConfigEntry(element.Key, element.Value));
+        var yml = serializer.Serialize(objects);
+        if (File.Exists(SaveFilePath)) File.Delete(SaveFilePath);
+        File.WriteAllText(SaveFilePath, yml);
+    }
 
-        public static void SaveLevel(int level)
+    public static Scene LoadScene()
+    {
+        if (!File.Exists(SaveFilePath)) return new LevelScene(new LevelOneWorld(1500, 1500));
+        var deserializer = new DeserializerBuilder().WithTypeDiscriminatingNodeDeserializer(o =>
+            {
+                var type = typeof(GameObject);
+                var assembly = Assembly.GetExecutingAssembly();
+                var subclasses = assembly.GetTypes()
+                    .Where(t => type.IsAssignableFrom(t) && t != type && !t.IsAbstract)
+                    .ToList();
+                var valueMappings =
+                    subclasses.ConvertAll(clazz => new KeyValuePair<string, Type>(clazz.FullName!, clazz))
+                        .ToDictionary();
+                o.AddKeyValueTypeDiscriminator<GameObject>("Type", valueMappings);
+            }).WithNamingConvention(PascalCaseNamingConvention.Instance)
+            .Build();
+        var content = File.ReadAllText(SaveFilePath);
+        var objects = deserializer.Deserialize<List<GameObjectConfigEntry>>(content);
+        var scene = new Scene();
+        var world = objects.First(it => it.Obj is GameWorld);
+        var player = objects.First(it => it.Obj is Player);
+        scene.Load(world.Obj, world.Layer);
+        scene.Load(player.Obj, player.Layer);
+        Game.Engine.SetTracking((Player) player.Obj);
+        foreach (var saved in objects.Where(it => it.Obj is not (GameWorld or Player)))
         {
-            try
-            {
-                File.WriteAllText(SaveFilePath, level.ToString());
-            }
-            catch (Exception e)
-            {
-                Raylib.TraceLog(TraceLogLevel.Error, $"Failed to save level: {e.Message}");
-            }
+            scene.Load(saved.Obj, saved.Layer);
         }
 
-        public static int LoadLevel()
-        {
-            try
-            {
-                if (File.Exists(SaveFilePath))
-                {
-                    var level = File.ReadAllText(SaveFilePath);
-                    return int.TryParse(level, out var levelNumber) ? levelNumber : 0;
-                }
-            }
-            catch (Exception e)
-            {
-                Raylib.TraceLog(TraceLogLevel.Error, $"Failed to load level: {e.Message}");
-            }
-            return 0; // Default to level 0 if no save file exists
-        }
+        return scene;
     }
 }
