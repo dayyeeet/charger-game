@@ -23,7 +23,7 @@ public class LaserProjectile(
     private readonly Color _color = color;
     private GameObject? _hit;
     private RayCollision? _collision;
-    private readonly SoundSystem _soundSystem = SoundLoading.Instance;
+    private readonly SoundSystem _soundSystem = SoundLoading.Sound;
 
     public void Raycast()
     {
