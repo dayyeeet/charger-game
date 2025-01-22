@@ -20,6 +20,11 @@ public static class SaveManager
         File.WriteAllText(SaveFilePath, yml);
     }
 
+    public static void WipeSave()
+    {
+        if (File.Exists(SaveFilePath)) File.Delete(SaveFilePath);
+    }
+
     public static Scene LoadScene()
     {
         if (!File.Exists(SaveFilePath)) return new LevelScene(new LevelOneWorld(1500, 1500));

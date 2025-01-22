@@ -8,10 +8,12 @@ public class MainMenuButton : Button
     }
     
     public MainMenuButton() : this(200, 50) {}
+    
+    public bool ShouldSave { get; set; } = true;
 
     public override void OnClick()
     {
-        Game.Save();
+        if(ShouldSave) Game.Save();
         Game.Engine.LoadScene(new MainMenu());
     }
 }
