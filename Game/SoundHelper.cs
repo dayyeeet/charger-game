@@ -17,7 +17,7 @@ public class SoundHelper() : GameObject("sound-helper")
         base.Update();
         if (SoundLoading.Music.CurrentMusic == null) return;
         var value = SoundLoading.Music.CurrentMusic!.Value;
-        if (!Raylib.IsMusicReady(value)) return;
+        if (!Raylib.IsMusicValid(value)) return;
         if (!Raylib.IsMusicStreamPlaying(value)) return;
         Raylib.UpdateMusicStream(value);
     }
