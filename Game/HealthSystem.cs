@@ -4,15 +4,15 @@ namespace Game;
 
 public class HealthSystem
 {
-    private float _currentHealth;
-    private int _maxHealth;
-    public float coolDown;
+    public float CurrentHealth { get; set; }
+    public int MaxHealth {get; set;}
+    public float CoolDown { get; set; }
     public bool IsDead { get; private set; }
 
     public HealthSystem(int initialHealth = 100)
     {
-        _maxHealth = initialHealth;
-        _currentHealth = _maxHealth;
+        MaxHealth = initialHealth;
+        CurrentHealth = MaxHealth;
         IsDead = false;
     }
     
@@ -20,13 +20,13 @@ public class HealthSystem
 
     public void Kill()
     {
-        _currentHealth = 0;
+        CurrentHealth = 0;
         IsDead = true;
     }
 
     public bool TakeDamage(int damageAmount)
     {
-        coolDown = 5;
+        CoolDown = 5;
         return TakeDamage((float)damageAmount);
     }
 
@@ -34,9 +34,9 @@ public class HealthSystem
     {
         if (IsDead) return true;
 
-        _currentHealth -= damageAmount;
+        CurrentHealth -= damageAmount;
 
-        if (_currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Kill();
         }
@@ -47,8 +47,8 @@ public class HealthSystem
     {
         if (IsDead) return;
 
-        _currentHealth = Math.Min(_currentHealth + repairAmount, _maxHealth);
+        CurrentHealth = Math.Min(CurrentHealth + repairAmount, MaxHealth);
     }
-    public float GetCurrentHealth() => _currentHealth;
-    public int GetMaxHealth() => _maxHealth;
+    public float GetCurrentHealth() => CurrentHealth;
+    public int GetMaxHealth() => MaxHealth;
 }

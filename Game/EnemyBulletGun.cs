@@ -11,7 +11,7 @@ public class EnemyBulletGun : Gun
         Vector2 direction = targetPosition - origin.Position;
         direction = Vector2.Normalize(direction);
         Vector2 startPosition = origin.Position;
-        var projectile = new FlyingProjectile<Player>(startPosition, direction, 100, 1000, 5, 10, 1000, Color.Red, origin.Position);
+        var projectile = new FlyingProjectile<Player>(startPosition, direction, 100, 1000, 5, 10, 1000, Color.Red, origin.Position, it => !((ICollidable)it).IsPassThrough() && it is not Enemy);
         scene.Load(projectile, Layers.CollisionObject);
     }
 }

@@ -11,10 +11,10 @@ public class GameEngine
     private Scene? _currentScene;
     private TrackingCamera? _trackingCamera;
     public Color BackgroundColor { get; set; } = Color.White;
-    
-    public bool HitBoxesVisible { get; set; } = false;
-    public bool AiPointsVisible { get; set; } = false;
-    public bool FpsVisible { get; set; } = false;
+
+    public bool HitBoxesVisible { get; set; }
+    public bool AiPointsVisible { get; set; }
+    public bool FpsVisible { get; set; }
 
     public GameEngine()
     {
@@ -22,7 +22,7 @@ public class GameEngine
     }
 
     public delegate void OnStart();
-    
+
     public void Start(OnStart onStart)
     {
         _running = true;
@@ -48,11 +48,11 @@ public class GameEngine
             {
                 BeginMode2D(_trackingCamera.GetCamera());
                 _currentScene.Draw2D();
-                if(HitBoxesVisible)
+                if (HitBoxesVisible)
                     ShowHitBoxes();
                 EndMode2D();
                 _currentScene.Draw();
-                if(FpsVisible)
+                if (FpsVisible)
                     DrawFPS(5, _window.GetWindowHeight() - 25);
             }
 
@@ -72,6 +72,7 @@ public class GameEngine
 
     private void ShowHitBoxes()
     {
+        if (_currentScene?.BoundingBoxes == null) return;
         foreach (var rect in _currentScene.BoundingBoxes)
         {
             DrawRectangleLinesEx(rect.BoundingRect, 2f, Color.Yellow);

@@ -11,6 +11,6 @@ public class NewGameButton : Button
     
     public override void OnClick()
     {
-        Game.NewGame();
+        Game.LoadNextLevel();
     }
 }

@@ -1,10 +1,11 @@
+ 
 using System.Numerics;
 using Engine;
 using Raylib_cs;
 
 namespace Game;
 
-public class Trash2Decoration() : WorldFeature("trash-decoration"), ICollidable
+public class BushDecoration() : WorldFeature("bush-decoration"), ICollidable
 {
     public override int ElementWidth { get; set; } = 50;
     public override int ElementHeight { get; set; } = 35;
@@ -18,14 +19,14 @@ public class Trash2Decoration() : WorldFeature("trash-decoration"), ICollidable
     }
 
 
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.reifen-2.png")!.Value;
+    private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.bush-level-2.png")!.Value;
 
 
     public override void Draw()
     {
-        var source = new Rectangle(0, 0, Tex.Width, Tex.Height);
+        var source = new Rectangle(0, 0, _tex.Width, _tex.Height);
         var dest = new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
-        Raylib.DrawTexturePro(Tex, source, dest, Vector2.Zero, 0f, Color.White); 
+        Raylib.DrawTexturePro(_tex, source, dest, Vector2.Zero, 0f, Color.White); 
     }
     
 }
