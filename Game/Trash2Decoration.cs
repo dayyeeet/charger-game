@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace Game;
 
-public class TrashDecorationWorldFeature() : WorldFeature("trash-decoration"), ICollidable
+public class Trash2Decoration() : WorldFeature("trash-decoration"), ICollidable
 {
     public override int ElementWidth { get; set; } = 50;
     public override int ElementHeight { get; set; } = 35;
@@ -18,7 +18,7 @@ public class TrashDecorationWorldFeature() : WorldFeature("trash-decoration"), I
     }
 
 
-    private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.tire1.png")!.Value;
+    private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.reifen-2.png")!.Value;
 
 
     public override void Draw()
@@ -28,4 +28,4 @@ public class TrashDecorationWorldFeature() : WorldFeature("trash-decoration"), I
         Raylib.DrawTexturePro(_tex, source, dest, Vector2.Zero, 0f, Color.White); 
     }
     
-    }
+}
