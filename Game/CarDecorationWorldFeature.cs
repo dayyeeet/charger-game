@@ -14,7 +14,7 @@ public class CarDecorationWorldFeature() : WorldFeature("car-decoration"), IColl
     public Rectangle BoundingRect => new Rectangle(Position.X, Position.Y, ElementWidth, ElementHeight);
     
     
-    private Texture2D _tex = EmbeddedTexture.LoadTexture("Game.trash-car.png")!.Value;
+    private Texture2D _tex = EmbeddedTexture.LoadTexture("Game.blue-car.png")!.Value;
 
 
     public override void Draw()

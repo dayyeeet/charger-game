@@ -9,7 +9,8 @@ public class LevelOneWorld(int dimensionX, int dimensionY) : GameWorld(dimension
         base.Load(scene);
         var populator = new WorldPopulator(scene);
         populator.Populate(Player, dimensionX, dimensionY, Layers.Player);
-        populator.Populate<EnemySpawner<TestEnemy>>(Dimension, 0.01f);
+        //populator.Populate<EnemySpawner<TestEnemy>>(Dimension, 0.01f);
+        populator.Populate<EnemySpawner<Enemy2>>(Dimension, 0.1f);
         populator.Populate<EnemyAiRoamingPoint>(Dimension, 0.05f);
         populator.Populate<CarDecorationWorldFeature>(Dimension, 0.05f);
         populator.Populate<TrashDecorationWorldFeature>(Dimension, 0.01f);
