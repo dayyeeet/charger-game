@@ -8,12 +8,15 @@ public static class ShootingMechanic
 {
     private const MouseButton ShootKeyBind = MouseButton.Left;
 
-    public static bool ShootIfKeyDown(Scene scene, IPositionable player, Gun currentGun)
+    public static bool ShootIfKeyDown(Scene scene, Vector2 from, Vector2 offset, Gun currentGun)
     {
         if (Raylib.IsMouseButtonDown(ShootKeyBind))
         {
-            var normalized = Raylib.GetMousePosition() - new Vector2(Game.Engine.GetWindow().GetWindowWidth() / 2f, Game.Engine.GetWindow().GetWindowHeight() / 2f);
-            Shoot(scene, player, player.Position + normalized, currentGun);
+            var center = new Vector2(Game.Engine.GetWindow().GetWindowWidth(),
+                Game.Engine.GetWindow().GetWindowHeight()) / 2;
+            var normalized = Raylib.GetMousePosition() - center;
+            
+            Shoot(scene, from, from + normalized - offset, currentGun);
             return true;
         }
 
@@ -23,13 +26,13 @@ public static class ShootingMechanic
 
     }
 
-    public static void Shoot(Scene scene, IPositionable from, Vector2 to, Gun currentGun)
+    public static void Shoot(Scene scene, Vector2 from, Vector2 to, Gun currentGun)
     {
         currentGun.Shoot(scene, from, to);
     }
     
     public static void Shoot(Scene scene, IPositionable from, ICollidable to, Gun currentGun)
     {
-        Shoot(scene, from, to.Position + new Vector2(to.ElementWidth / 2, to.ElementHeight / 2), currentGun);
+        Shoot(scene, from.Position, to.Position + new Vector2(to.ElementWidth / 2, to.ElementHeight / 2), currentGun);
     }
 }

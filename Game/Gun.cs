@@ -12,7 +12,7 @@ public abstract class Gun
         set {}
     }
     
-    public abstract void Shoot(Scene scene, IPositionable origin, Vector2 targetPosition);
+    public abstract void Shoot(Scene scene, Vector2 startPosition, Vector2 targetPosition);
 
     public virtual float GetCooldown()
     {
