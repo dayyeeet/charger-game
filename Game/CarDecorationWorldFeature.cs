@@ -10,16 +10,13 @@ public class CarDecorationWorldFeature() : WorldFeature("car-decoration"), IColl
     public override int ElementHeight { get; set; } = 100;
     public override Vector2 Position { get; set; }
     public override int Layer { get; set; } = Layers.Decoration;
-
+    
+    private Texture2D _tex = EmbeddedTexture.LoadTexture("Game.blue-car.png")!.Value;
     public Rectangle BoundingRect
     {
         get => new(Position.X, Position.Y, ElementWidth, ElementHeight);
         set { }
     }
-
-
-    private static readonly List<Texture2D> Tex = [EmbeddedTexture.LoadTexture("Game.trash-car.png")!.Value];
-    private readonly Texture2D _tex = Tex[new Random().Next(Tex.Count)];
 
     public override void Draw()
     {
