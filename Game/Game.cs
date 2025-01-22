@@ -10,13 +10,16 @@ class Game
 
     public static void Main()
     {
-        //You will need to load a scene before Start is called
-        Engine.LoadScene(new MainMenu());
-        Engine.Start();
+        Engine.Start(() =>
+        {
+            SoundLoading.Load();
+            Engine.LoadScene(new MainMenu());
+        });
     }
 
     public static void Start()
     {
+        SoundLoading.Music.StopMusic("TitleScreenMusic");
         Engine.LoadScene(SaveManager.LoadScene());
         Save();
     }
@@ -27,6 +30,7 @@ class Game
 
     public static void NewGame()
     {
+        SoundLoading.Music.StopMusic("TitleScreenMusic");
         Engine.LoadScene(new LevelScene(new LevelOneWorld(1500, 1500)));
         Save();
     }
