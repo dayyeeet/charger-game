@@ -7,8 +7,8 @@ namespace Game;
 public class Tank2Decoration() : WorldFeature("Tank-2-decoration"), ICollidable
 {
     private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.tank-2.png")!.Value;
-    public override int ElementWidth { get; set; } = (int)(250.0 * (Tex.Width/Tex.Height));
-    public override int ElementHeight { get; set; } = (int)(250.0 * ((double)Tex.Height / Tex.Width));
+    public override int ElementWidth { get; set; } = 300;
+    public override int ElementHeight { get; set; } = (int)(300.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }
     public override int Layer { get; set; } = Layers.Decoration;
     
