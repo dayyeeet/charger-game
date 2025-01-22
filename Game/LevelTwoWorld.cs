@@ -17,7 +17,7 @@ public class LevelTwoWorld(int dimensionX, int dimensionY, bool shouldLoad = tru
         populator.Populate(Player, dimensionX, dimensionY, Layers.Player);
         populator.Populate<TestEnemySpawner>(Dimension, 0.01f);
         populator.Populate<EnemyAiRoamingPoint>(Dimension, 0.05f);
-        populator.Populate<CarDecorationWorldFeature>(Dimension, 0.05f);
+        populator.Populate<PlaneDecoration>(Dimension, 0.05f);
         populator.Populate<TrashDecorationWorldFeature>(Dimension, 0.01f);
         populator.Populate<TestDestroyableObject>(Dimension, 0.001f);
     }
