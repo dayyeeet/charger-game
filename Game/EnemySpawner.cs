@@ -40,7 +40,6 @@ public class EnemySpawner<T>() : WorldFeature("enemy-spawner") where T : Enemy
         var enemy = Activator.CreateInstance<T>();
         enemy.Position = Position;
         _scene.Load(enemy, Layers.Entity);
-        _spawnManager.NeededEnemyAmount--;
     }
 
     public override void Draw()

@@ -87,10 +87,10 @@ public class Player : GameObject, ICollidable, IDamageable
         _controller.Animate();
         if (Health.GetCurrentHealth() < Health.GetMaxHealth())
         {
-            Health.coolDown -= Raylib.GetFrameTime();
+            Health.CoolDown -= Raylib.GetFrameTime();
         }
 
-        if (Health.coolDown > 0) return;
+        if (Health.CoolDown > 0) return;
 
         _regenInterval -= Raylib.GetFrameTime();
         if (_regenInterval > 0) return;
@@ -189,7 +189,12 @@ public class Player : GameObject, ICollidable, IDamageable
 
     public void AddXp(double amount)
     {
-        Experience.AddXp(amount);
+        Experience.AddXp(amount, OnLevelUp);
+    }
+
+    private void OnLevelUp()
+    {
+        Game.LoadNextLevel(this);
     }
 
     public double Difficulty()

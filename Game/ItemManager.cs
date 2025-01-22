@@ -15,9 +15,8 @@ public class ItemManager(
 
     public ItemManager() : this(0, 0)
     {
-        
     }
-    
+
     private Scene? _scene;
 
     public Item? Item { get; private set; }
@@ -29,6 +28,11 @@ public class ItemManager(
     public override void Load(Scene scene)
     {
         _scene = scene;
+        if (Item == null) return;
+        if (!_scene.Has(Item, Layer))
+        {
+            _scene.Load(Item, Layer);
+        }
     }
 
     public void UpdateLayer(int layer)
@@ -52,7 +56,8 @@ public class ItemManager(
     public override void Update()
     {
         if (Item == null) return;
-        Position = new Vector2(Parent.Position.X + Parent.ElementWidth / 2 + OffsetX * Direction, Parent.Position.Y + Parent.ElementHeight / 2 + OffsetY * Direction);
+        Position = new Vector2(Parent.Position.X + Parent.ElementWidth / 2 + OffsetX * Direction,
+            Parent.Position.Y + Parent.ElementHeight / 2 + OffsetY * Direction);
         Item.Position = Position;
         Item.Direction = Direction;
     }

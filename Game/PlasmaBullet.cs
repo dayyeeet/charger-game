@@ -1,4 +1,5 @@
 using System.Numerics;
+using Engine;
 using Raylib_cs;
 
 namespace Game;
@@ -14,7 +15,7 @@ public class PlasmaBullet(
     Color color,
     Vector2 currentPosition) : FlyingProjectile<Player>(startPosition, direction, shotDuration, shotVelocity,
     damageAmount,
-    energyCost, maxDistance, color, currentPosition, obj => obj is not Player && obj is not PlasmaBullet)
+    energyCost, maxDistance, color, currentPosition, obj => obj is not Player && !((ICollidable)obj).IsPassThrough())
 {
     public PlasmaBullet() : this(Vector2.Zero, Vector2.Zero, 0f, 0f, 0f, 0f, 0, Color.White, Vector2.Zero)
     {

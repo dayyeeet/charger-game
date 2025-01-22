@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using Engine;
+﻿using Engine;
 
 namespace Game;
 
@@ -23,15 +22,32 @@ class Game
         Engine.LoadScene(SaveManager.LoadScene());
         Save();
     }
+
     public static void Save()
     {
-        if(Engine.GetScene() != null) SaveManager.SaveScene(Engine.GetScene()!);
+        if (Engine.GetScene() != null) SaveManager.SaveScene(Engine.GetScene()!);
     }
 
-    public static void NewGame()
+    public static void LoadNextLevel(Player? player = null)
     {
+        var level = player?.Level() ?? 0;
+        GameWorld world = new LevelOneWorld(1500, 1500);
+        switch (level)
+        {
+            case 1:
+                world = new LevelOneWorld(1500, 1500);
+                break;
+            case 2:
+                world = new LevelTwoWorld(1500, 1500);
+                break;
+            case 3:
+                world = new LevelThreeWorld(1500, 1500);
+                break;
+        }
+
+        var scene = new LevelScene(world, player);
         SoundLoading.Music.StopMusic("TitleScreenMusic");
-        Engine.LoadScene(new LevelScene(new LevelOneWorld(1500, 1500)));
+        Engine.LoadScene(scene);
         Save();
     }
 }
