@@ -16,6 +16,7 @@ public class LevelScene : Scene
         gameWorld.Player = player;
         Load(new EnemySpawnManager(0));
         Load(gameWorld);
+        Load(new DeathPopover());
         var manager = new HudRenderer();
         manager.RegisterHudElement(HudPositions.TopLeft, new HudHealth());
         manager.RegisterHudElement(HudPositions.TopLeft, new HudXp());
