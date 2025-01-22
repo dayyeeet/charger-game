@@ -18,6 +18,11 @@ public class BushDecoration() : WorldFeature("bush-decoration"), ICollidable
         set {}
     }
 
+    public bool IsPassThrough()
+    {
+        return true;
+    }
+
 
     private readonly Texture2D _tex = EmbeddedTexture.LoadTexture("Game.bush-level-2.png")!.Value;
 
