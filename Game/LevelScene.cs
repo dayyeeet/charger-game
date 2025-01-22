@@ -9,6 +9,7 @@ public class LevelScene : Scene
     public GameWorld GameWorld { get; private set; }
     public LevelScene(GameWorld gameWorld)
     {
+        Load(new SoundHelper());
         GameWorld = gameWorld;
         var window = Game.Engine.GetWindow();
         var player = new Player(new Vector2(window.GetWindowWidth() / 2f, window.GetWindowHeight() / 2f));
@@ -16,6 +17,7 @@ public class LevelScene : Scene
         gameWorld.Player = player;
         Load(new EnemySpawnManager(0));
         Load(gameWorld);
+        Load(new DeathPopover());
         var manager = new HudRenderer();
         manager.RegisterHudElement(HudPositions.TopLeft, new HudHealth());
         manager.RegisterHudElement(HudPositions.TopLeft, new HudXp());

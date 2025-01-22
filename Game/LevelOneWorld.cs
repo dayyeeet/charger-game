@@ -20,6 +20,8 @@ public class LevelOneWorld(int dimensionX, int dimensionY, bool shouldLoad = tru
         populator.Populate<CarDecorationWorldFeature>(Dimension, 0.05f);
         populator.Populate<TrashDecorationWorldFeature>(Dimension, 0.005f);
         populator.Populate<Trash2Decoration>(Dimension, 0.005f);
+        populator.Populate<Car2Decoration>(Dimension, 0.05f);
+        populator.Populate<TrashDecorationWorldFeature>(Dimension, 0.01f);
         populator.Populate<TestDestroyableObject>(Dimension, 0.001f);
     }
 }

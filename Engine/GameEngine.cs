@@ -21,11 +21,16 @@ public class GameEngine
         _window.CreateWindow("Team SkEPsis - Game");
     }
 
-    public void Start()
+    public delegate void OnStart();
+    
+    public void Start(OnStart onStart)
     {
         _running = true;
         SetExitKey(KeyboardKey.Delete);
         SetTargetFPS(60);
+        InitAudioDevice();
+        SetMasterVolume(1.0f);
+        onStart();
         while (!WindowShouldClose() && _running)
         {
             if (_currentScene == null) continue;
@@ -54,6 +59,8 @@ public class GameEngine
             EndDrawing();
         }
 
+        _currentScene?.Close();
+        CloseAudioDevice();
         CloseWindow();
     }
 

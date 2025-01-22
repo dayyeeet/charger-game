@@ -6,12 +6,14 @@ public class QuitButton : Button
     {
         Text = "Quit";
     }
+
+    public bool ShouldSave { get; set; } = true;
     
     public QuitButton() : this(200, 50) {}
 
     public override void OnClick()
     {
-        if(Game.Engine.GetScene() is LevelScene) Game.Save();
+        if(Game.Engine.GetScene() is LevelScene && ShouldSave) Game.Save();
         Game.Engine.Stop();
     }
 }

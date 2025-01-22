@@ -23,6 +23,7 @@ public class LaserProjectile(
     private readonly Color _color = color;
     private GameObject? _hit;
     private RayCollision? _collision;
+    private readonly SoundSystem _soundSystem = SoundLoading.Sound;
 
     public void Raycast()
     {
@@ -60,9 +61,16 @@ public class LaserProjectile(
 
     public override void Update()
     {
+        _soundSystem.PlaySound("LaserGunBeam");
         if(_hit is IDamageable damageable)
         {
               damageable.Health.TakeDamage(damageAmount * Raylib.GetFrameTime());
         }
+    }
+
+    public override void Unload(Scene scene)
+    {
+        base.Unload(scene);
+        _soundSystem.StopSound("LaserGunBeam");
     }
 }
