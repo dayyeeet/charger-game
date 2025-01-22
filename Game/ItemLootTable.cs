@@ -1,0 +1,28 @@
+using System.Numerics;
+using Engine;
+
+namespace Game;
+
+public class ItemLootTable
+{
+    private static readonly Dictionary<Type, double> Loot = new();
+
+    static ItemLootTable()
+    {
+        Loot.Add(typeof(LaserGunItem), 0.05);
+        Loot.Add(typeof(PlasmaGunItem), 0.05);
+        Loot.Add(typeof(BatteryItem), 0.4);
+        Loot.Add(typeof(ChainsawItem), 0.2);
+        Loot.Add(typeof(SpoonItem), 0.1);
+        Loot.Add(typeof(MilkBottleItem), 0.2);
+    }
+
+    public static void SpawnLoot(Vector2 position, Scene scene)
+    {
+        var result = LootTable.RandomOfLootTable(Loot);
+
+        var instance = Activator.CreateInstance(result) as Item;
+        var itemPickupable = new ItemPickupable(position, instance);
+        scene.Load(itemPickupable, Layers.Decoration);
+    }
+}
