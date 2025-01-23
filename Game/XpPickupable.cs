@@ -19,6 +19,7 @@ public class XpPickupable : Pickupable
     protected override void OnPickup(Player player)
     {
         player.AddXp(Xp);
+        SoundLoading.Sound.PlaySound("XpPickUp", true);
         ShouldUnload = true;
     }
 

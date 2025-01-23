@@ -48,12 +48,14 @@ namespace Game
         {
             if (Raylib.IsKeyPressed(KeyboardKey.Q))
             {
+                SoundLoading.Sound.PlaySound("Equip1", true);
                 UpdateEquipped(leftHand);
                 return;
             }
 
             if (Raylib.IsKeyPressed(KeyboardKey.E))
             {
+                SoundLoading.Sound.PlaySound("Equip2", true);
                 UpdateEquipped(rightHand);
             }
         }

@@ -21,7 +21,13 @@ public abstract class DestroyableObject(string id, int initialHealth) : WorldFea
         base.Update();
         if (Health.IsDead)
         {
+            OnDestroy();
             Scene?.Unload(this);
         }
+    }
+
+    public virtual void OnDestroy()
+    {
+        SoundLoading.Sound.PlaySound("Break2", true);
     }
 }
