@@ -10,6 +10,17 @@ public class SoundLoading
     public static void Load()
     {
         Sound.LoadSound("LaserGunBeam", "Game.soundEffects.LaserGunBeam.wav");
+        Sound.LoadSound("PlasmaGun", "Game.soundEffects.ShotSound.wav");
+        Sound.LoadSound("Chainsaw", "Game.soundEffects.Chainsaw.wav");
+        Sound.LoadSound("Equip1", "Game.soundEffects.Equip1.wav");
+        Sound.LoadSound("Equip2", "Game.soundEffects.Equip2.wav");
+        Sound.LoadSound("HitSound", "Game.soundEffects.HitSound.wav");
+        Sound.LoadSound("XpPickUp","Game.soundEffects.XpPickUp.wav");
+        Sound.LoadSound("Break", "Game.soundEffects.Break.wav");
+        Sound.LoadSound("Break2", "Game.soundEffects.Break2.wav");
+        Sound.LoadSound("Boss", "Game.soundEffects.BossSound.wav");
+        Sound.LoadSound("ChestOpen", "Game.soundEffects.ChestOpen.wav");
+        
         Music.LoadMusic("TitleScreenMusic", "Game.soundTracks.AmbientSwellTitleScreen1.mp3");
     }
 }
