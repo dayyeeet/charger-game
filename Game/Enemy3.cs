@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace Game;
 
-public class Enemy3() : Enemy("enemy-3", 1, 1, 1, 0, 0, 120, 120)
+public class Enemy3() : Enemy("enemy-3", 1, 50, 1, 0, 0, 120, 120)
 {
     private int _direction = 1;
     private readonly Animation _anim = new Animation("Game.Dragon.png", 0.3f);
@@ -14,7 +14,7 @@ public class Enemy3() : Enemy("enemy-3", 1, 1, 1, 0, 0, 120, 120)
     private List<EnemyAiRoamingPoint>? _roamingPoints;
     private float _cooldown = 0.2f;
     private float _cooldownTimer = 0f;
-    private readonly Gun _gun = new EnemyBulletGun();
+    private readonly Gun _gun = new DragonBulletGun();
     private static readonly OutlineShader OutlineShader = new();
 
     public override void Load(Scene scene)
