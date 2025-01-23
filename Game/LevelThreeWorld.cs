@@ -15,6 +15,7 @@ public class LevelThreeWorld(int dimensionX, int dimensionY, bool shouldLoad = t
         if (!_shouldLoad) return;
         var populator = new WorldPopulator(scene);
         populator.Populate(Player, dimensionX, dimensionY, Layers.Player);
+        populator.Populate<Enemy3Spawner>(Dimension, 0.05f); 
         populator.Populate<TestEnemySpawner>(Dimension, 0.01f);
         populator.Populate<EnemyAiRoamingPoint>(Dimension, 0.05f);
         populator.Populate<CarDecorationWorldFeature>(Dimension, 0.05f);

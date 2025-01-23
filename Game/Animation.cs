@@ -5,6 +5,7 @@ namespace Game;
 
 public class Animation(Texture2D tex, float frameTime)
 {
+    public int Direction { get; set; } = 1;
     private readonly int _totalFrames = tex.Width / tex.Height;
     private int _currentFrame;
     private float _currentFrameTime;
@@ -35,7 +36,7 @@ public class Animation(Texture2D tex, float frameTime)
 
     private void CalculateFrame()
     {
-        _currentSrc = new Rectangle(_currentFrame * tex.Height, 0, tex.Height, tex.Height);
+        _currentSrc = new Rectangle(_currentFrame * tex.Height, 0, tex.Height * Direction, tex.Height);
     }
 
     public virtual void Animate()

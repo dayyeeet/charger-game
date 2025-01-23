@@ -31,7 +31,7 @@ class Game
     public static void LoadNextLevel(Player? player = null)
     {
         var level = player?.Level() ?? 0;
-        GameWorld world = new LevelOneWorld(1500, 1500);
+        GameWorld world = new LevelThreeWorld(1500, 1500);
         switch (level)
         {
             case 1:
