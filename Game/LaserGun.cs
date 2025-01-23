@@ -4,12 +4,21 @@ using Color = Raylib_cs.Color;
 
 namespace Game;
 
-public class LaserGun : Gun
+public class LaserGun : Gun, IPlayerGun
 {
     private LaserProjectile? _laserProjectile;
     private Scene? _scene;
+    public Player? Player { get; set; }
+    public float EnergyCost { get; set; } = 0.1f;
     public override void Shoot(Scene scene, Vector2 startPosition, Vector2 targetPosition)
     {
+        if (Player == null) return;
+        if (Player.GetCurrentHealth() <= 30)
+        {
+            CancelShoot();
+            return;
+        }
+        Player.TakeDamage(EnergyCost);
         Vector2 direction = targetPosition - startPosition;
         direction = Vector2.Normalize(direction);
         float angle = float.RadiansToDegrees(MathF.Atan2(direction.Y, direction.X)) - 90f;

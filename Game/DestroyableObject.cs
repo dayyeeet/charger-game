@@ -7,4 +7,21 @@ public abstract class DestroyableObject(string id, int initialHealth) : WorldFea
 {
     public override Vector2 Position { get; set; }
     public HealthSystem Health { get; set; } = new(initialHealth);
+
+    protected Scene? Scene = null;
+
+    public override void Load(Scene scene)
+    {
+        base.Load(scene);
+        Scene = scene;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if (Health.IsDead)
+        {
+            Scene?.Unload(this);
+        }
+    }
 }
