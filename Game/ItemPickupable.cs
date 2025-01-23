@@ -45,7 +45,7 @@ public class ItemPickupable : Pickupable
     {
     }
 
-    public void OnControlledPickup(Player player)
+    public virtual void OnControlledPickup(Player player)
     {
         var freeSlot = player.Equipment.Items.FindIndex(item => item == null);
         if (freeSlot >= 0)

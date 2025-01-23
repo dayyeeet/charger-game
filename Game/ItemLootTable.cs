@@ -20,9 +20,9 @@ public class ItemLootTable
     public static void SpawnLoot(Vector2 position, Scene scene)
     {
         var result = LootTable.RandomOfLootTable(Loot);
-
         var instance = Activator.CreateInstance(result) as Item;
         var itemPickupable = new ItemPickupable(position, instance);
+        if (instance is BatteryItem) itemPickupable = new BatteryFunktion(position, instance);
         scene.Load(itemPickupable, Layers.Decoration);
     }
 }

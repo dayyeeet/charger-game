@@ -3,7 +3,7 @@ using Raylib_cs;
 namespace Game;
 
 public class HealthSystem
-{
+{ 
     public float CurrentHealth { get; set; }
     public int MaxHealth {get; set;}
     public float CoolDown { get; set; }
