@@ -1,4 +1,5 @@
 using Engine;
+using Game.level.three;
 
 namespace Game;
 
@@ -32,7 +33,7 @@ class Game
     {
         Engine.StopCurrentMusic();
         var level = player?.Level() ?? 0;
-        GameWorld world = new LevelTwoWorld(1500, 1500);
+        GameWorld world = new LevelThreeWorld(1500, 1500);
         switch (level)
         {
             case 1:
