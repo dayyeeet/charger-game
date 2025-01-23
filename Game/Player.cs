@@ -167,7 +167,7 @@ public class Player : GameObject, ICollidable, IDamageable
         Health.Kill();
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(float damageAmount)
     {
         Health.TakeDamage(damageAmount);
     }
@@ -177,9 +177,9 @@ public class Player : GameObject, ICollidable, IDamageable
         Health.Heal(healAmount);
     }
 
-    public void GetCurrentHealth()
+    public float GetCurrentHealth()
     {
-        Health.GetCurrentHealth();
+        return Health.GetCurrentHealth();
     }
 
     public bool IsDead()

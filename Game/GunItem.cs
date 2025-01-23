@@ -24,6 +24,10 @@ public abstract class
     public override void Load(Scene scene)
     {
         _scene = scene;
+        if (Gun is IPlayerGun playerGun)
+        {
+            playerGun.Player = _scene.FindObjectsById("player", Layers.Player).FirstOrDefault() as Player;
+        }
     }
 
     public override void Draw()
