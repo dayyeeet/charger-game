@@ -4,11 +4,11 @@ using System.Numerics;
 using Engine;
 using Raylib_cs;
 
-public class SmallRockDecoration() : DestroyableObject("small-rock-decoration", 30)
+public class FallenLogDecoration() : WorldFeature("fallen-log-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.small-rock.png")!.Value;
-    public override int ElementWidth { get; set; } = 100;
-    public override int ElementHeight { get; set; } = (int)(100.0 * ((double)Tex.Height / Tex.Width));
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.fallen-log.png")!.Value;
+    public override int ElementWidth { get; set; } = 200;
+    public override int ElementHeight { get; set; } = (int)(200.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }
     public override int Layer { get; set; } = Layers.Decoration;
     
