@@ -18,6 +18,7 @@ public class LevelThreeWorld(int dimensionX, int dimensionY, bool shouldLoad = t
         populator.Populate<LevelThreeChest>(Dimension, 0.002f);
         populator.Populate<LavaBigRockDecoration>(Dimension, 0.05f);
         populator.Populate<LavaStone>(Dimension, 0.05f);
+        populator.Populate<LevelThreeRock1>(Dimension, 0.05f);
         populator.Populate<Enemy3Spawner>(Dimension, 0.05f);
         populator.Populate<TestEnemySpawner>(Dimension, 0.01f);
         populator.Populate<EnemyAiRoamingPoint>(Dimension, 0.05f);
