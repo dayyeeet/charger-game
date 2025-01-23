@@ -1,17 +1,22 @@
+namespace Game;
+
 using System.Numerics;
 using Engine;
 using Raylib_cs;
 
-namespace Game;
-
-public class CarDecorationWorldFeature() : WorldFeature("car-decoration"), ICollidable
+public class LevelOneGrassDecoration() : WorldFeature("level-one-grass-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.madMaxCar1.png")!.Value;
-    public override int ElementWidth { get; set; } = 250;
-    public override int ElementHeight { get; set; } = (int)(250.0 * ((double)Tex.Height / Tex.Width));
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.Level1Grass.png")!.Value;
+    public override int ElementWidth { get; set; } = 64;
+    public override int ElementHeight { get; set; } = (int)(64.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }
     public override int Layer { get; set; } = Layers.Decoration;
-    
+
+    public bool IsPassThrough()
+    {
+        return true;
+    }
+
     public Rectangle BoundingRect
     {
         get => new(Position.X, Position.Y, ElementWidth, ElementHeight);
