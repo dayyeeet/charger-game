@@ -30,7 +30,7 @@ public static class SaveManager
 
     public static Scene LoadScene()
     {
-        if (!File.Exists(SaveFilePath)) return new LevelScene(new LevelThreeWorld(1500, 1500));
+        if (!File.Exists(SaveFilePath)) return new LevelScene(new LevelOneWorld(1500, 1500));
         var deserializer = new DeserializerBuilder().WithTypeDiscriminatingNodeDeserializer(o =>
             {
                 o.AddKeyValueTypeDiscriminator<GameObject>("Type", GetTypeMappings(typeof(GameObject)));
