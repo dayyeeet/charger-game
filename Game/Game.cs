@@ -46,7 +46,7 @@ class Game
         }
 
         var scene = new LevelScene(world, player);
-        SoundLoading.Music.StopMusic("TitleScreenMusic");
+        Engine.StopCurrentMusic();
         Engine.LoadScene(scene);
         Save();
     }

@@ -14,6 +14,7 @@ public class MainMenuButton : Button
     public override void OnClick()
     {
         if(ShouldSave) Game.Save();
+        Game.Engine.StopCurrentMusic();
         Game.Engine.LoadScene(new MainMenu());
     }
 }
