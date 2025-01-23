@@ -30,8 +30,9 @@ class Game
 
     public static void LoadNextLevel(Player? player = null)
     {
+        SoundLoading.Music.StopMusic("TitleScreenMusic");
         var level = player?.Level() ?? 0;
-        GameWorld world = new LevelOneWorld(1500, 1500);
+        GameWorld world = new LevelTwoWorld(1500, 1500);
         switch (level)
         {
             case 1:
@@ -46,7 +47,6 @@ class Game
         }
 
         var scene = new LevelScene(world, player);
-        SoundLoading.Music.StopMusic("TitleScreenMusic");
         Engine.LoadScene(scene);
         Save();
     }
