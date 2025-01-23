@@ -13,7 +13,7 @@ public static class SaveManager
     {
         var serializer = new SerializerBuilder()
             .WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
-        var objects = scene.GetGameObjectsWithLayers().ToList().FindAll(it => it.Key is not (GuiProvider or Projectile or SoundHelper))
+        var objects = scene.GetGameObjectsWithLayers().ToList().FindAll(it => it.Key is not (GuiProvider or Projectile))
             .ConvertAll(element => new GameObjectConfigEntry(element.Key, element.Value));
         var yml = serializer.Serialize(objects);
         if (File.Exists(SaveFilePath)) File.Delete(SaveFilePath);

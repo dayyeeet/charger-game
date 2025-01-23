@@ -1,4 +1,5 @@
-﻿using Engine;
+using Engine;
+using Game.level.three;
 
 namespace Game;
 
@@ -30,6 +31,7 @@ class Game
 
     public static void LoadNextLevel(Player? player = null)
     {
+        Engine.StopCurrentMusic();
         var level = player?.Level() ?? 0;
         GameWorld world = new LevelThreeWorld(1500, 1500);
         switch (level)
@@ -46,7 +48,6 @@ class Game
         }
 
         var scene = new LevelScene(world, player);
-        SoundLoading.Music.StopMusic("TitleScreenMusic");
         Engine.LoadScene(scene);
         Save();
     }

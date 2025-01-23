@@ -11,10 +11,11 @@ public class GameEngine
     private Scene? _currentScene;
     private TrackingCamera? _trackingCamera;
     public Color BackgroundColor { get; set; } = Color.White;
-
     public bool HitBoxesVisible { get; set; }
     public bool AiPointsVisible { get; set; }
     public bool FpsVisible { get; set; }
+    
+    public Music? CurrentMusic { get; set; }
 
     public GameEngine()
     {
@@ -35,6 +36,8 @@ public class GameEngine
         {
             if (_currentScene == null) continue;
             _currentScene.Update();
+            if(CurrentMusic != null)
+                UpdateMusicStream(CurrentMusic.Value);
             _trackingCamera?.Update();
             BeginDrawing();
             ClearBackground(BackgroundColor);
@@ -102,6 +105,15 @@ public class GameEngine
         return _currentScene;
     }
 
+    public void StopCurrentMusic()
+    {
+        if (CurrentMusic != null && IsMusicStreamPlaying(CurrentMusic.Value))
+        {
+            StopMusicStream(CurrentMusic.Value);
+        }
+        CurrentMusic = null;
+    }
+    
     public void Stop()
     {
         _running = false;

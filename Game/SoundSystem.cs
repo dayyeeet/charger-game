@@ -14,10 +14,10 @@ public class SoundSystem
             _samples[sampleName] = sample;
     }
 
-    public void PlaySound(string sampleName)
+    public void PlaySound(string sampleName, bool overlap = false)
     {
         if (!_samples.TryGetValue(sampleName, out Sound value)) return;
-        if(!Raylib.IsSoundPlaying(value))
+        if(overlap || !Raylib.IsSoundPlaying(value))
             Raylib.PlaySound(value);
     }
 

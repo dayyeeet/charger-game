@@ -10,7 +10,6 @@ public class FlyingProjectile<TFilter>(
     float shotDuration,
     float shotVelocity,
     float damageAmount,
-    float energyCost,
     int maxDistance,
     Color color,
     Vector2 currentPosition,
@@ -56,6 +55,8 @@ public class FlyingProjectile<TFilter>(
                 if (collider is IDamageable damageable)
                 {
                     damageable.Health.TakeDamage((int)DamageAmount);
+                    if(collider is Enemy)
+                        SoundLoading.Sound.PlaySound("HitSound", true);
                 }
             }
 
