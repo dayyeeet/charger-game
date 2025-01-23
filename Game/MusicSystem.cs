@@ -5,7 +5,7 @@ namespace Game;
 public class MusicSystem
 {
     private readonly Dictionary<string, Music> _samples = new();
-    public Music? CurrentMusic { get; private set; }
+
     
     public void LoadMusic(string sampleName, string filePath)
     {
@@ -17,9 +17,14 @@ public class MusicSystem
     public void PlayMusic(string sampleName)
     {
         if (!_samples.TryGetValue(sampleName, out Music value)) return;
-        if (Raylib.IsMusicStreamPlaying(value)) return;
+        
+        if (Game.Engine.CurrentMusic != null && Raylib.IsMusicStreamPlaying(Game.Engine.CurrentMusic.Value))
+        {
+            Raylib.StopMusicStream(Game.Engine.CurrentMusic.Value);
+        }
+        
         Raylib.PlayMusicStream(value);
-        CurrentMusic = value;
+        Game.Engine.CurrentMusic = value;
     }
 
     public void StopMusic(string sampleName)
@@ -27,7 +32,7 @@ public class MusicSystem
         if (!_samples.TryGetValue(sampleName, out Music value)) return;
         if(Raylib.IsMusicStreamPlaying(value))
             Raylib.StopMusicStream(value);
-        CurrentMusic = null;
+        Game.Engine.CurrentMusic = null;
     }
     
     public void UnloadAllMusic()

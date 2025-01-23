@@ -9,7 +9,6 @@ public class MainMenu : Scene
     public MainMenu()
     {
         SoundLoading.Music.PlayMusic("TitleScreenMusic");
-        Load(new SoundHelper());
         Game.Engine.BackgroundColor = new Color(0xff, 0xff, 0xff, 0xff);
         var gui = new GuiProvider(Game.Engine.GetWindow());
         gui.Add(new TextGuiElement(70)

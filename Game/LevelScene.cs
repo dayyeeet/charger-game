@@ -10,7 +10,6 @@ public class LevelScene : Scene
     public LevelScene(GameWorld gameWorld,
         Player? playerBefore = null)
     {
-        Load(new SoundHelper());
         GameWorld = gameWorld;
         var window = Game.Engine.GetWindow();
         var player = playerBefore ?? new Player(new Vector2(window.GetWindowWidth() / 2f, window.GetWindowHeight() / 2f));
