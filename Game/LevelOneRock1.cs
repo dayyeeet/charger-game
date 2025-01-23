@@ -4,10 +4,10 @@ using Raylib_cs;
 
 namespace Game;
 
-public class CarDecorationWorldFeature() : WorldFeature("car-decoration"), ICollidable
+public class LevelOneRock1 (): WorldFeature("level-one-rock-one-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.madMaxCar1.png")!.Value;
-    public override int ElementWidth { get; set; } = 250;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.RockLevelOne1.png")!.Value;
+    public override int ElementWidth { get; set; } = (int)(250.0 * (Tex.Width/Tex.Height));
     public override int ElementHeight { get; set; } = (int)(250.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }
     public override int Layer { get; set; } = Layers.Decoration;
