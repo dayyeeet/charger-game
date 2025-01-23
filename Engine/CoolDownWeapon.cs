@@ -24,7 +24,7 @@ namespace Engine
 
         public bool CanHit(ICollidable other)
         {
-           return CanSwing()&& Raylib.CheckCollisionRecs(hitBox.BoundingRect,other.BoundingRect);
+           return CanSwing()&& Raylib.CheckCollisionRecs(hitBox.BoundingRect, other.BoundingRect);
         }
         
     }

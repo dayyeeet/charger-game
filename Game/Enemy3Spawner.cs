@@ -4,8 +4,6 @@ using Raylib_cs;
 
 namespace Game;
 
-public class Enemy3Spawner : EnemySpawner<Enemy3>
+public class Enemy3Spawner() : EnemySpawner<Enemy3>(60, 240, 240)
 {
-    public Enemy3Spawner() : base(60)
-    {}
 }

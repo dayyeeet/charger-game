@@ -12,9 +12,11 @@ public class EnemySpawner<T>() : WorldFeature("enemy-spawner") where T : Enemy
     
     public float SpawnRate { get; set; } = 12;
     
-    public EnemySpawner(float spawnRate) : this()
+    public EnemySpawner(float spawnRate, int width = 100, int height = 100) : this()
     {
         SpawnRate = spawnRate;
+        ElementWidth = width;
+        ElementHeight = height;
     }
 
     public override void Load(Scene scene)
@@ -47,8 +49,8 @@ public class EnemySpawner<T>() : WorldFeature("enemy-spawner") where T : Enemy
         if(Game.Engine.HitBoxesVisible)Raylib.DrawRectangleLines((int)Position.X, (int)Position.Y, ElementWidth, ElementHeight, Color.Magenta);
     }
 
-    public override int ElementWidth { get; set; } = 100;
-    public override int ElementHeight { get; set; } = 100;
+    public sealed override int ElementWidth { get; set; } = 100;
+    public sealed override int ElementHeight { get; set; } = 100;
     public override Vector2 Position { get; set; }
     public override int Layer { get; set; } = Layers.CollisionObject;
 }

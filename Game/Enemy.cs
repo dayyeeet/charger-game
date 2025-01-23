@@ -8,10 +8,11 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
 {
     // Properties for speed and damage
     public float Speed { get; protected set; }
+
     public Rectangle BoundingRect
     {
         get => new(Position.X, Position.Y, ElementWidth, ElementHeight);
-        set {}
+        set { }
     }
 
     public float Damage { get; protected set; }
@@ -35,14 +36,14 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
         Damage = damage;
         Health = new HealthSystem(initialHealth);
         Position = new Vector2(x, y);
-        ElementWidth = (int)width*2;
-        ElementHeight = (int)height*2;
+        ElementWidth = (int)width * 2;
+        ElementHeight = (int)height * 2;
     }
 
     // Abstract methods to be implemented by derived classes
     public abstract void Move();
     public abstract void Attack();
-    
+
     private Scene? _scene;
 
     public override void Load(Scene scene)
@@ -56,8 +57,8 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
         if (_scene == null) return;
         if (Health.IsDead)
         {
-            _scene.Load(new XpPickupable(Position, 10));
-            ItemLootTable.SpawnLoot(Position, _scene);
+            _scene.Load(new XpPickupable(Position + new Vector2(ElementWidth, ElementHeight) / 2, 10));
+            ItemLootTable.SpawnLoot(Position + new Vector2(ElementWidth, ElementHeight) / 2, _scene);
 
             _scene.Unload(this);
             /*var currentLevel = SaveManager.LoadLevel();
@@ -67,7 +68,7 @@ public abstract class Enemy : GameObject, ICollidable, IDamageable
             Game.Engine.LoadScene(newScene); */
             return;
         }
-        
+
         base.Update();
         if (CanMove) Move();
         if (CanAttack) Attack();
