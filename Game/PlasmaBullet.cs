@@ -10,14 +10,13 @@ public class PlasmaBullet(
     float shotDuration,
     float shotVelocity,
     float damageAmount,
-    float energyCost,
     int maxDistance,
     Color color,
     Vector2 currentPosition) : FlyingProjectile<Player>(startPosition, direction, shotDuration, shotVelocity,
     damageAmount,
-    energyCost, maxDistance, color, currentPosition, obj => obj is not Player && !((ICollidable)obj).IsPassThrough())
+    maxDistance, color, currentPosition, obj => obj is not Player && !((ICollidable)obj).IsPassThrough())
 {
-    public PlasmaBullet() : this(Vector2.Zero, Vector2.Zero, 0f, 0f, 0f, 0f, 0, Color.White, Vector2.Zero)
+    public PlasmaBullet() : this(Vector2.Zero, Vector2.Zero, 0f, 0f, 0f, 0, Color.White, Vector2.Zero)
     {
     }
 

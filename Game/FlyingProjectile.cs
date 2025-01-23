@@ -10,7 +10,6 @@ public class FlyingProjectile<TFilter>(
     float shotDuration,
     float shotVelocity,
     float damageAmount,
-    float energyCost,
     int maxDistance,
     Color color,
     Vector2 currentPosition,
