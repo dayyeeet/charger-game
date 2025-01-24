@@ -36,4 +36,10 @@ public class SoundSystem
         }
         _samples.Clear();
     }
+
+    public void SetEffectVolume(float volume)
+    {
+        foreach (var sound in _samples.Values)
+            Raylib.SetSoundVolume(sound, volume);
+    }
 }

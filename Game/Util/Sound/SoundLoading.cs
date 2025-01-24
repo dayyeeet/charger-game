@@ -19,6 +19,7 @@ public class SoundLoading
         Sound.LoadSound("swing", "Game.sound.effects.swing.wav");
         Sound.LoadSound("hit", "Game.sound.effects.hit.wav");
         Sound.LoadSound("fireball", "Game.sound.effects.fireball.wav");
+        Sound.LoadSound("battery", "Game.sound.effects.battery.wav");
         
         Music.LoadMusic("ingame", "Game.sound.tracks.ingame.mp3");
         Music.LoadMusic("heart-beat", "Game.sound.tracks.heart-beat.mp3");

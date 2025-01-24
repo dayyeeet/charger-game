@@ -20,4 +20,10 @@ public class MusicSystem
         Game.Engine.Music = EmbeddedAudio.LoadMusic(value)!.Value;
         Raylib.PlayMusicStream(Game.Engine.Music!.Value);
     }
+    
+    public void SetMusicVolume(float volume)
+    {
+        if(Game.Engine.Music == null) return;
+        Raylib.SetMusicVolume(Game.Engine.Music.Value, volume);
+    }
 }
