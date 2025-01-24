@@ -28,6 +28,6 @@ public abstract class DestroyableObject(string id, int initialHealth) : WorldFea
 
     public virtual void OnDestroy()
     {
-        SoundLoading.Sound.PlaySound("Break2", true);
+        SoundLoading.Sound.PlaySound("break", true);
     }
 }

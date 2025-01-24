@@ -6,7 +6,7 @@ namespace Game;
 
 public class SpoonItem : CloseCombatItem
 {
-    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.wood-spoon.png")!.Value);
+    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.item.wood-spoon.png")!.Value);
     
     public SpoonItem() : base("spoon", 0.1f)
     {
@@ -25,7 +25,7 @@ public class SpoonItem : CloseCombatItem
     {
         if (other is not Player)
         {
-            SoundLoading.Sound.PlaySound("CloseWeaponHit");
+            SoundLoading.Sound.PlaySound("hit");
             other.Health.TakeDamage(2);
         }
     }
@@ -33,7 +33,7 @@ public class SpoonItem : CloseCombatItem
     public override void OnSwing()
     {
         base.OnSwing();
-        SoundLoading.Sound.PlaySound("CloseWeaponSwing");
+        SoundLoading.Sound.PlaySound("swing");
     }
 
 

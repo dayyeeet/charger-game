@@ -14,7 +14,7 @@ public class PlasmaGun : Gun, IPlayerGun
         if (Player == null) return;
         if (Player.GetCurrentHealth() <= 30) return;
         Player.TakeDamage(EnergyCost);
-        SoundLoading.Sound.PlaySound("PlasmaGun", true);
+        SoundLoading.Sound.PlaySound("shoot", true);
         Vector2 direction = targetPosition - startPosition;
         direction = Vector2.Normalize(direction);
         var projectile = new PlasmaBullet(startPosition, direction, 100, 1000, 5, 1000, Color.Red, startPosition);

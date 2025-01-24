@@ -24,7 +24,7 @@ public class PaleFlowerDecoration() : WorldFeature("pale-flowers-decoration"), I
     }
 
 
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.pale-flowers.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.two.pale-flowers.png")!.Value;
 
 
     public override void Draw()

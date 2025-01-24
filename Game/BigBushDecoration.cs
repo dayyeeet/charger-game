@@ -6,7 +6,7 @@ using Raylib_cs;
 
 public class BigBushDecoration() : DestroyableObject("big-bush-decoration", 20)
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.big-bush.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.two.big-bush.png")!.Value;
     public override int ElementWidth { get; set; } = 120;
     public override int ElementHeight { get; set; } = (int)(120.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }

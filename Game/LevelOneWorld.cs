@@ -3,7 +3,7 @@ using Engine;
 namespace Game;
 
 public class LevelOneWorld(int dimensionX, int dimensionY, bool shouldLoad = true) : GameWorld(dimensionX, dimensionY,
-    "Game.background.png", new(0xb5, 0x90, 0x74, 0xff), shouldLoad)
+    "Game.level.one.background.png", new(0xb5, 0x90, 0x74, 0xff), shouldLoad)
 {
     public LevelOneWorld() : this(0, 0, false)
     {

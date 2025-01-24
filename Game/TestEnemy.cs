@@ -7,7 +7,7 @@ namespace Game;
 public class TestEnemy() : Enemy("test", 2, 10, 1, 0, 0, 50, 50)
 {
     private int _direction = 1;
-    private readonly Animation _anim = new Animation("Game.EnemyRobot1RightWalk.png", 0.3f);
+    private readonly Animation _anim = new("Game.entity.hunter.walk.png", 0.3f);
     private EnemyAi _ai = new(600f, 250f, 0.01f);
     private Player? _player;
     private Scene? _scene;

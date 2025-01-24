@@ -5,7 +5,7 @@ namespace Game;
 
 public class PlasmaGunItem() : GunItem("plasma", new PlasmaGun())
 {
-    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.plasma-gun.png")!.Value);
+    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.item.plasma-gun.png")!.Value);
     public override Texture2D Texture
     {
         get => _texture.Value;

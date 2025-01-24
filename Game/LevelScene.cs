@@ -10,7 +10,7 @@ public class LevelScene : Scene
 
     public LevelScene()
     {
-        SoundLoading.Music.PlayMusic("SoundTrack1");
+        SoundLoading.Music.PlayMusic("ingame");
     }
     public LevelScene(GameWorld gameWorld,
         Player? playerBefore = null) : this()
@@ -28,7 +28,7 @@ public class LevelScene : Scene
         manager.RegisterHudElement(HudPositions.TopLeft, new HudXp());
         manager.RegisterHudElement(HudPositions.Bottom, new HudHotbar());
         Load(manager, Layers.HUD);
-        Load(new TestPopover(), Layers.UI);
+        Load(new EscapePopover(), Layers.UI);
         Load(new DebugKeyHandler());
         Load(new PickupManager());
     }

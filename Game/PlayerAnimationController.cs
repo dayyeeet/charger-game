@@ -6,10 +6,10 @@ namespace Game;
 public class PlayerAnimationController : IAnimationController<Player>
 {
     private const float FrameTime = 0.15f;
-    private readonly SingleTextureAnimation _idleLeft = new("Game.player-left.png");
-    private readonly SingleTextureAnimation _idleRight = new("Game.player-right.png");
-    private readonly Animation _walkLeft = new("Game.player-left-walk.png", FrameTime);
-    private readonly Animation _walkRight = new("Game.player-right-walk.png", FrameTime);
+    private readonly SingleTextureAnimation _idleLeft = new("Game.entity.player.left.png");
+    private readonly SingleTextureAnimation _idleRight = new("Game.entity.player.right.png");
+    private readonly Animation _walkLeft = new("Game.entity.player.left-walk.png", FrameTime);
+    private readonly Animation _walkRight = new("Game.entity.player.right-walk.png", FrameTime);
 
     private Animation? _current;
 

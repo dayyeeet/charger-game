@@ -15,7 +15,7 @@ public class LaserProjectile(
     Color color) : Projectile(startPosition, direction, -1f,
     maxDistance, color)
 {
-    private static readonly Texture2D Texture = EmbeddedTexture.LoadTexture("Game.laser-beam.png")!.Value;
+    private static readonly Texture2D Texture = EmbeddedTexture.LoadTexture("Game.projectile.laser-beam.png")!.Value;
     public Vector2 StartPosition = startPosition;
     public Vector2 Direction = direction;
     public float RotationDirection = rotationDirection;
@@ -61,7 +61,7 @@ public class LaserProjectile(
 
     public override void Update()
     {
-        _soundSystem.PlaySound("LaserGunBeam");
+        _soundSystem.PlaySound("laser-beam");
         if(_hit is IDamageable damageable)
         {
               damageable.Health.TakeDamage(damageAmount * Raylib.GetFrameTime());
@@ -71,6 +71,6 @@ public class LaserProjectile(
     public override void Unload(Scene scene)
     {
         base.Unload(scene);
-        _soundSystem.StopSound("LaserGunBeam");
+        _soundSystem.StopSound("laser-beam");
     }
 }

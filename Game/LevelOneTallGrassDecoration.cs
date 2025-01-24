@@ -6,7 +6,7 @@ using Raylib_cs;
 
 public class LevelOneTallGrassDecoration() : WorldFeature("level-one-tall-grass-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.Level1Tall-grass.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.one.tall-grass.png")!.Value;
     public override int ElementWidth { get; set; } = 64;
     public override int ElementHeight { get; set; } = (int)(64.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }

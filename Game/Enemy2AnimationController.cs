@@ -4,9 +4,9 @@ namespace Game;
 
 public class Enemy2AnimationController : IAnimationController<Enemy2>
 {
-    private readonly Animation _attack = new("Game.enemy-2-idle.png", 0.5f);
-    private readonly Animation _walk = new("Game.enemy-2-walk.png", 0.2f);
-    private readonly Animation _idle = new SingleTextureAnimation("Game.enemy-2.png");
+    private readonly Animation _attack = new("Game.entity.rooter.attack.png", 0.5f);
+    private readonly Animation _walk = new("Game.entity.rooter.walk.png", 0.2f);
+    private readonly Animation _idle = new SingleTextureAnimation("Game.entity.rooter.rooter.png");
 
     public Animation? Current { get; private set; }
 

@@ -56,7 +56,7 @@ public class FlyingProjectile<TFilter>(
                 {
                     damageable.Health.TakeDamage((int)DamageAmount);
                     if(collider is Enemy)
-                        SoundLoading.Sound.PlaySound("HitSound", true);
+                        SoundLoading.Sound.PlaySound("hit-enemy", true);
                 }
             }
 

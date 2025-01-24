@@ -7,7 +7,7 @@ namespace Game;
 public class Enemy3() : Enemy("enemy-3", 1, 50, 1, 0, 0, 120, 120)
 {
     private int _direction = 1;
-    private readonly Animation _anim = new Animation("Game.Dragon.png", 0.3f);
+    private readonly Animation _anim = new("Game.entity.dragon.walk.png", 0.3f);
     private EnemyAi _ai = new(600f, 250f, 0.005f);
     private Player? _player;
     private Scene? _scene;
@@ -57,7 +57,7 @@ public class Enemy3() : Enemy("enemy-3", 1, 50, 1, 0, 0, 120, 120)
         _cooldownTimer += Raylib.GetFrameTime();
         if (!(_cooldownTimer >= _cooldown)) return;
         _cooldownTimer = 0f;
-        SoundLoading.Sound.PlaySound("Fireball");
+        SoundLoading.Sound.PlaySound("fireball");
         ShootingMechanic.Shoot(_scene, Position + new Vector2( _direction * ElementWidth,0), _player.Position + new Vector2(_spread, _spread), _gun);
         ShootingMechanic.Shoot(_scene, Position + new Vector2( _direction * ElementWidth,0) , _player.Position, _gun);
         ShootingMechanic.Shoot(_scene, Position + new Vector2( _direction * ElementWidth,0) , _player.Position - new Vector2(_spread, _spread), _gun);

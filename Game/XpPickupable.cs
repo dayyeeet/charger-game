@@ -12,14 +12,14 @@ public class XpPickupable : Pickupable
         Xp = xp;
     }
 
-    private readonly Animation _anim = new("Game.xp.png", 0.3f);
+    private readonly Animation _anim = new("Game.entity.xp.xp.png", 0.3f);
     
     public XpPickupable() : this(Vector2.Zero, 0) {}
 
     protected override void OnPickup(Player player)
     {
         player.AddXp(Xp);
-        SoundLoading.Sound.PlaySound("XpPickUp", true);
+        SoundLoading.Sound.PlaySound("xp", true);
         ShouldUnload = true;
     }
 
