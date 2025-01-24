@@ -16,7 +16,7 @@ public class Slider(int width, int height) : IGuiElement
     public Color HighlightColor { get; set; } = new(0xff, 0xff, 0xff, 0x5f);
     public Color BackgroundColor { get; set; } = Color.Black;
 
-    public float SliderValue = 0f;
+    public float SliderValue = 1f;
 
     private bool _isHovered;
 
