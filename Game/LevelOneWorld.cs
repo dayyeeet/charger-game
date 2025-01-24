@@ -14,8 +14,8 @@ public class LevelOneWorld(int dimensionX, int dimensionY, bool shouldLoad = tru
         base.Load(scene);
         if (!_shouldLoad) return;
         var populator = new WorldPopulator(scene);
-        populator.Populate<LevelOneTree1>(Dimension, 0.05f);
         populator.Populate(Player, dimensionX, dimensionY, Layers.Player);
+        populator.Populate<LevelOneTree1>(Dimension, 0.05f);
         populator.Populate<Enemy2Spawner>(Dimension, 0.005f);
         populator.Populate<TestEnemySpawner>(Dimension, 0.005f);
         populator.Populate<EnemyAiRoamingPoint>(Dimension, 0.05f);

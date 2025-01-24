@@ -19,15 +19,15 @@ namespace Game
         {
             Items =
             [
-                new LaserGunItem(),
-                new PlasmaGunItem(),
                 new SpoonItem(),
-                new ChainsawItem(),
-                new MilkBottleItem(),
                 null,
                 null,
                 null,
-                null
+                null,
+                null,
+                null,
+                null,
+                null,
             ];
 
             CurrentItem = Items.Count > 0 ? Items[0] : null;
@@ -41,7 +41,7 @@ namespace Game
                 return;
             }
 
-            CycleInventory(scroll > 0);
+            CycleInventory(scroll < 0);
         }
 
         public void UpdateEquipped(ItemManager leftHand, ItemManager rightHand)
