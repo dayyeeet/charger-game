@@ -57,6 +57,7 @@ public class Enemy3() : Enemy("enemy-3", 1, 50, 1, 0, 0, 120, 120)
         _cooldownTimer += Raylib.GetFrameTime();
         if (!(_cooldownTimer >= _cooldown)) return;
         _cooldownTimer = 0f;
+        SoundLoading.Sound.PlaySound("Fireball");
         ShootingMechanic.Shoot(_scene, Position + new Vector2( _direction * ElementWidth,0), _player.Position + new Vector2(_spread, _spread), _gun);
         ShootingMechanic.Shoot(_scene, Position + new Vector2( _direction * ElementWidth,0) , _player.Position, _gun);
         ShootingMechanic.Shoot(_scene, Position + new Vector2( _direction * ElementWidth,0) , _player.Position - new Vector2(_spread, _spread), _gun);
