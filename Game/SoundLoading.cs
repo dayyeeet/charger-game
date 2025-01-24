@@ -24,5 +24,7 @@ public class SoundLoading
         Sound.LoadSound("CloseWeaponHit", "Game.soundEffects.CloseWeaponHit.wav");
         
         Music.LoadMusic("TitleScreenMusic", "Game.soundTracks.AmbientSwellTitleScreen1.mp3");
+        Music.LoadMusic("SoundTrack1", "Game.soundTracks.InGameSoundTrack1.mp3");
+        Music.LoadMusic("Heartbeat", "Game.soundTracks.Herzschlag.mp3");
     }
 }
