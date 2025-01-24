@@ -20,5 +20,10 @@
      <EmbeddedResource Include="..\Resources\**\*" />
      <EmbeddedResource Remove="..\Resources\level3\**" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Update="..\Resources\entity" />
+      <Folder Update="..\Resources\item" />
+    </ItemGroup>
     
 </Project>
