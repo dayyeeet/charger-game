@@ -14,8 +14,8 @@ public class GameEngine
     public bool HitBoxesVisible { get; set; }
     public bool AiPointsVisible { get; set; }
     public bool FpsVisible { get; set; }
-    
-    public Music? CurrentMusic { get; set; }
+
+    public Music? Music { get; set; }
 
     public GameEngine()
     {
@@ -34,10 +34,9 @@ public class GameEngine
         onStart();
         while (!WindowShouldClose() && _running)
         {
+            if(Music != null) UpdateMusicStream(Music.Value);
             if (_currentScene == null) continue;
             _currentScene.Update();
-            if(CurrentMusic != null)
-                UpdateMusicStream(CurrentMusic.Value);
             _trackingCamera?.Update();
             BeginDrawing();
             ClearBackground(BackgroundColor);
@@ -108,11 +107,10 @@ public class GameEngine
 
     public void StopCurrentMusic()
     {
-        if (CurrentMusic != null && IsMusicStreamPlaying(CurrentMusic.Value))
-        {
-            StopMusicStream(CurrentMusic.Value);
-        }
-        CurrentMusic = null;
+        if (Music == null) return;
+        StopMusicStream(Music.Value);
+        UnloadMusicStream(Music.Value);
+        Music = null;
     }
     
     public void Stop()

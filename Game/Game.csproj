@@ -18,9 +18,6 @@
 
     <ItemGroup>  
      <EmbeddedResource Include="..\Resources\**\*" />
-     <EmbeddedResource Update="..\Resources\soundEffects\Fireball.wav">
-       <Link>soundEffects\Fireball.wav</Link>
-     </EmbeddedResource>
     </ItemGroup>
     
 </Project>

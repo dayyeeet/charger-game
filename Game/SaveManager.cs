@@ -39,7 +39,7 @@ public static class SaveManager
             .Build();
         var content = File.ReadAllText(SaveFilePath);
         var objects = deserializer.Deserialize<List<GameObjectConfigEntry>>(content);
-        var scene = new Scene();
+        var scene = new LevelScene();
         var world = objects.First(it => it.Obj is GameWorld);
         var player = objects.First(it => it.Obj is Player);
         scene.Load(world.Obj, world.Layer);
