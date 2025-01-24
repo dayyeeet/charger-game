@@ -32,8 +32,8 @@ class Game
     public static void LoadNextLevel(Player? player = null)
     {
         Engine.StopCurrentMusic();
-        var level = player?.Level() ?? 0;
-        GameWorld world = new LevelThreeWorld(1500, 1500);
+        var level = (player?.Level() ?? 1) % 3;
+        GameWorld world = new LevelOneWorld(1500, 1500);
         switch (level)
         {
             case 1:
@@ -42,7 +42,7 @@ class Game
             case 2:
                 world = new LevelTwoWorld(1500, 1500);
                 break;
-            case 3:
+            case 0:
                 world = new LevelThreeWorld(1500, 1500);
                 break;
         }

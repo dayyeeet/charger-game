@@ -62,7 +62,7 @@ public class GameEngine
             EndDrawing();
         }
 
-        _currentScene?.Close();
+        _currentScene?.Unload();
         CloseAudioDevice();
         CloseWindow();
     }
@@ -70,6 +70,7 @@ public class GameEngine
     //Load a new Scene
     public void LoadScene(Scene scene)
     {
+        _currentScene?.Unload();
         _currentScene = scene;
     }
 
