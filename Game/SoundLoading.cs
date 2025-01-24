@@ -22,6 +22,7 @@ public class SoundLoading
         Sound.LoadSound("ChestOpen", "Game.soundEffects.ChestOpen.wav");
         Sound.LoadSound("CloseWeaponSwing", "Game.soundEffects.CloseWeaponSwing.wav");
         Sound.LoadSound("CloseWeaponHit", "Game.soundEffects.CloseWeaponHit.wav");
+        Sound.LoadSound("Fireball", "Game.soundEffects.Fireball.wav");
         
         Music.LoadMusic("TitleScreenMusic", "Game.soundTracks.AmbientSwellTitleScreen1.mp3");
     }

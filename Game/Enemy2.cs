@@ -63,6 +63,7 @@ public class Enemy2() : Enemy("blue", 80, 10, 5, 0, 0, 70, 70)
 
         if (Raylib.CheckCollisionRecs(BoundingRect, _player.BoundingRect))
         {
+            SoundLoading.Sound.PlaySound("HitSound", true);
             _player.TakeDamage((int)Damage);
         }
     }
