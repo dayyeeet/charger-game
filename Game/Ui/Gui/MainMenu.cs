@@ -21,7 +21,7 @@ public class MainMenu : Scene
         }, new Vector2(0, 0));
         gui.Add(new TextGuiElement(70)
         {
-            Text = "Robot Game",
+            Text = "charger",
         }, new Vector2(0.5f, 0.3f));
         gui.Add(new StartButton(200, 50), new Vector2(0.5f, 0.45f));
         gui.Add(new NewGameButton(200, 50), new Vector2(0.5f, 0.53f));
