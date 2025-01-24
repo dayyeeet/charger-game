@@ -4,19 +4,45 @@ using Raylib_cs;
 
 namespace Game;
 
-public class SpoonItem() : Item("spoon")
+public class SpoonItem : CloseCombatItem
 {
     private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.wood-spoon.png")!.Value);
+    
+    public SpoonItem() : base("spoon", 0.1f)
+    {
+        Size = new Vector2(64, (int)(64.0f * ((double)_texture.Value.Height / _texture.Value.Width)));
+        ElementWidth = (int)Size.X;
+        ElementHeight = (int)Size.Y;
+    }
+    
     public override Texture2D Texture
     {
         get => _texture.Value;
         set {}
     }
 
+    public override void OnHit(IDamageable other)
+    {
+        if (other is not Player)
+        {
+            SoundLoading.Sound.PlaySound("CloseWeaponHit");
+            other.Health.TakeDamage(2);
+        }
+    }
+
+    public override void OnSwing()
+    {
+        base.OnSwing();
+        SoundLoading.Sound.PlaySound("CloseWeaponSwing");
+    }
+
+
     public override void Draw()
     {
-        var src = new Rectangle(0, 0, Texture.Width * Direction, Texture.Height);
-        var dest = new Rectangle(Position.X, Position.Y, 64, 64);
-        Raylib.DrawTexturePro(Texture, src, dest, Vector2.Zero, 0, Color.White);
+        base.Draw();
+
+        var source = new Rectangle(0, 0, Texture.Width * Direction, Texture.Height);
+        var destination = new Rectangle(BoundingRect.Position, BoundingRect.Size);
+        Raylib.DrawTexturePro(Texture, source, destination, Vector2.Zero, 0f, Color.White);
     }
 }

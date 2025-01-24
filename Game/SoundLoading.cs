@@ -20,6 +20,8 @@ public class SoundLoading
         Sound.LoadSound("Break2", "Game.soundEffects.Break2.wav");
         Sound.LoadSound("Boss", "Game.soundEffects.BossSound.wav");
         Sound.LoadSound("ChestOpen", "Game.soundEffects.ChestOpen.wav");
+        Sound.LoadSound("CloseWeaponSwing", "Game.soundEffects.CloseWeaponSwing.wav");
+        Sound.LoadSound("CloseWeaponHit", "Game.soundEffects.CloseWeaponHit.wav");
         
         Music.LoadMusic("TitleScreenMusic", "Game.soundTracks.AmbientSwellTitleScreen1.mp3");
     }
