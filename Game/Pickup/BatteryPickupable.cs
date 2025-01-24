@@ -20,7 +20,7 @@ public class BatteryPickupable : ItemPickupable
         if (!healthSystem.IsDead)
         {
             healthSystem.Heal(20);
-            SoundLoading.Sound.PlaySound("BatteryPickup", true);
+            SoundLoading.Sound.PlaySound("battery", true);
         }
 
         ShouldUnload = true;
