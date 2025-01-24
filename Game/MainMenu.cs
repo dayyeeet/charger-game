@@ -11,6 +11,10 @@ public class MainMenu : Scene
         SoundLoading.Music.PlayMusic("TitleScreenMusic");
         Game.Engine.BackgroundColor = new Color(0xff, 0xff, 0xff, 0xff);
         var gui = new GuiProvider(Game.Engine.GetWindow());
+        gui.Add(new ImageGuiElement(Game.Engine.GetWindow().GetWindowWidth(), Game.Engine.GetWindow().GetWindowHeight())
+        {
+            Image = EmbeddedTexture.LoadTexture("Game.BackgroundImageWithPlayer.png")!.Value
+        }, new Vector2(0, 0));
         gui.Add(new TextGuiElement(70)
         {
             Text = "Robot Game",
