@@ -98,11 +98,11 @@ public class Scene : IGameUpdatable
         _gameObjects[layer] = updated;
     }
 
-    public void Close()
+    public void Unload()
     {
         foreach (var keyValuePair in _gameObjects)
         {
-            keyValuePair.Value.ToList().ForEach(obj => obj.Close());
+            keyValuePair.Value.ToList().ForEach(obj => obj.Unload(this));
         }
     }
     

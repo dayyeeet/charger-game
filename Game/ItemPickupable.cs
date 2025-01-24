@@ -51,6 +51,7 @@ public class ItemPickupable : Pickupable
         if (freeSlot >= 0)
         {
             player.Equipment.Items[freeSlot] = Item;
+            player.Equipment.CurrentItem = Item;
             ShouldUnload = true;
         }
     }
