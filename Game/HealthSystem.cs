@@ -3,9 +3,9 @@ using Raylib_cs;
 namespace Game;
 
 public class HealthSystem
-{ 
+{
     public float CurrentHealth { get; set; }
-    public int MaxHealth {get; set;}
+    public int MaxHealth { get; set; }
     public float CoolDown { get; set; }
     public bool IsDead { get; private set; }
 
@@ -15,8 +15,10 @@ public class HealthSystem
         CurrentHealth = MaxHealth;
         IsDead = false;
     }
-    
-    public HealthSystem() : this(100) {}
+
+    public HealthSystem() : this(100)
+    {
+    }
 
     public void Kill()
     {
@@ -26,12 +28,12 @@ public class HealthSystem
 
     public bool TakeDamage(int damageAmount)
     {
-        CoolDown = 5;
         return TakeDamage((float)damageAmount);
     }
 
     public bool TakeDamage(float damageAmount)
     {
+        CoolDown = 5;
         if (IsDead) return true;
 
         CurrentHealth -= damageAmount;
@@ -40,15 +42,17 @@ public class HealthSystem
         {
             Kill();
         }
-        
+
         return IsDead;
     }
+
     public void Heal(int repairAmount)
     {
         if (IsDead) return;
 
         CurrentHealth = Math.Min(CurrentHealth + repairAmount, MaxHealth);
     }
+
     public float GetCurrentHealth() => CurrentHealth;
     public int GetMaxHealth() => MaxHealth;
 }

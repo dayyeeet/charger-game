@@ -8,7 +8,7 @@ public class Enemy2AnimationController : IAnimationController<Enemy2>
     private readonly Animation _walk = new("Game.enemy-2-walk.png", 0.2f);
     private readonly Animation _idle = new SingleTextureAnimation("Game.enemy-2.png");
 
-    private Animation? _current;
+    public Animation? Current { get; private set; }
 
     public void NextAnimationFor(Enemy2 input)
     {
@@ -16,27 +16,27 @@ public class Enemy2AnimationController : IAnimationController<Enemy2>
         var updated = input.LastDirection != 0 ? _walk : _idle;
         if (input.CanAttack) updated = _attack;
 
-        if (_current == updated) return;
-        if (_current != null)
+        if (Current == updated) return;
+        if (Current != null)
         {
-            _current.Paused = true;
-            _current.Reset();
+            Current.Paused = true;
+            Current.Reset();
         }
 
         updated.Reset();
         updated.Paused = false;
 
-        _current = updated;
+        Current = updated;
     }
 
     public void Draw(Rectangle dest)
     {
-        _current?.Draw(dest);
+        Current?.Draw(dest);
     }
 
     public void Animate()
     {
-        _current?.Animate();
+        Current?.Animate();
     }
 
     public void ResetAll()
@@ -47,6 +47,6 @@ public class Enemy2AnimationController : IAnimationController<Enemy2>
 
     public void Reset()
     {
-        _current?.Reset();
+        Current?.Reset();
     }
 }
