@@ -6,7 +6,7 @@ namespace Game.level.three;
 
 public class LavaBigRockDecoration() : WorldFeature("lava-big-rock-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level3.level-3-big-lava-rock.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.three.big-lava-rock.png")!.Value;
     public override int ElementWidth { get; set; } = 700;
     public override int ElementHeight { get; set; } = (int)(700.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }

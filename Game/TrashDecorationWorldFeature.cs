@@ -18,7 +18,7 @@ public class TrashDecorationWorldFeature() : WorldFeature("trash-decoration"), I
     }
 
 
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.tire1.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.one.tire-1.png")!.Value;
 
 
     public override void Draw()

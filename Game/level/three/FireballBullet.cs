@@ -18,7 +18,7 @@ public class FireballBullet : FlyingProjectile<Enemy3>
     }
     
     private static readonly Lazy<Texture2D> LazyTexture = new(() => 
-        EmbeddedTexture.LoadTexture("Game.fireball.png")!.Value);
+        EmbeddedTexture.LoadTexture("Game.projectile.fireball.png")!.Value);
     
     private Texture2D _texture = LazyTexture.Value; 
     public Texture2D Texture

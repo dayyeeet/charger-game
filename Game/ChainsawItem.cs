@@ -5,7 +5,7 @@ namespace Game;
 
 public class ChainsawItem : CloseCombatItem
 {
-    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.chainsaw.png")!.Value);
+    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.item.chainsaw.png")!.Value);
 
     public ChainsawItem() : base("chainsaw", 0.1f)
     {
@@ -31,7 +31,7 @@ public class ChainsawItem : CloseCombatItem
     public override void OnSwing()
     {
         base.OnSwing();
-        SoundLoading.Sound.PlaySound("Chainsaw");
+        SoundLoading.Sound.PlaySound("chainsaw");
     }
 
 

@@ -15,7 +15,6 @@ public class MusicSystem
     public void PlayMusic(string sampleName)
     {
         if (!_samples.TryGetValue(sampleName, out var value)) return;
-        Console.WriteLine(sampleName);
         Game.Engine.StopCurrentMusic();
         Game.Engine.Music = EmbeddedAudio.LoadMusic(value)!.Value;
         Raylib.PlayMusicStream(Game.Engine.Music!.Value);

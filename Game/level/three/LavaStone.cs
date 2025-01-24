@@ -18,7 +18,7 @@ public class LavaStone() : WorldFeature("Lava-Stone-decoration"), ICollidable
     }
 
 
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.stone-lava.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.three.lava-fountain.png")!.Value;
 
 
     public override void Draw()

@@ -8,7 +8,7 @@ public class GreenEnemyBulletGun : Gun
 {
     public override void Shoot(Scene scene, Vector2 startPosition, Vector2 targetPosition)
     {
-        SoundLoading.Sound.PlaySound("PlasmaGun", true);
+        SoundLoading.Sound.PlaySound("shoot", true);
         Vector2 direction = targetPosition - startPosition;
         direction = Vector2.Normalize(direction);
         var projectile = new GreenPlasmaBullet(startPosition, direction, 100, 1000, 5, 1000, Color.Red, startPosition, it => !((ICollidable)it).IsPassThrough() && it is not Enemy);

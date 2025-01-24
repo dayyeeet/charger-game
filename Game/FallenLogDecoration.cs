@@ -6,7 +6,7 @@ using Raylib_cs;
 
 public class FallenLogDecoration() : WorldFeature("fallen-log-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.fallen-log.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.two.fallen-log.png")!.Value;
     public override int ElementWidth { get; set; } = 200;
     public override int ElementHeight { get; set; } = (int)(200.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }

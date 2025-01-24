@@ -5,7 +5,7 @@ namespace Game;
 
 public class BatteryItem : Item
 {
-    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.battery.png")!.Value);
+    private readonly Lazy<Texture2D> _texture = new(EmbeddedTexture.LoadTexture("Game.item.battery.png")!.Value);
     public override Texture2D Texture
     {
         get => _texture.Value;

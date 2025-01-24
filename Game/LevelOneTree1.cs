@@ -6,7 +6,7 @@ namespace Game;
 
 public class LevelOneTree1 (): WorldFeature("level-one-tree-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.DryBallTree.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.one.tree.png")!.Value;
     public override int ElementWidth { get; set; } = 250;
     public override int ElementHeight { get; set; } = (int)(250.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }

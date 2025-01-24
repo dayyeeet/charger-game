@@ -6,7 +6,7 @@ using Raylib_cs;
 
 public class SmallRockDecoration() : DestroyableObject("small-rock-decoration", 30)
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level3.level-3-small-rock.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.three.rock.png")!.Value;
     public override int ElementWidth { get; set; } = 100;
     public override int ElementHeight { get; set; } = (int)(100.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }

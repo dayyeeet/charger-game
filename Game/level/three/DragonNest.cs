@@ -18,7 +18,7 @@ public class DragonNest() : WorldFeature("dragon-nest-decoration"), ICollidable
     }
 
 
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.Dragon-Nest.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.three.dragon-nest.png")!.Value;
 
 
     public override void Draw()

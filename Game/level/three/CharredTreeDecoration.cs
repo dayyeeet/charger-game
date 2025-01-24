@@ -6,7 +6,7 @@ namespace Game.level.three;
 
 public class CharredTreeDecoration() : WorldFeature("charred-tree-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level3.level-3-tree-2.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.three.tree.png")!.Value;
     public override int ElementWidth { get; set; } = 150;
     public override int ElementHeight { get; set; } = (int)(150.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }

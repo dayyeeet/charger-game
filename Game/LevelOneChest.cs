@@ -5,7 +5,7 @@ namespace Game;
 
 public class LevelOneChest() : DestroyableObject("level-one-chest", 50)
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.LevelOneChest.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.one.chest.png")!.Value;
     public override int ElementWidth { get; set; } = 60;
     public override int ElementHeight { get; set; } = (int) (60f * ((double)Tex.Height / Tex.Width));
     public override int Layer { get; set; }
@@ -19,7 +19,7 @@ public class LevelOneChest() : DestroyableObject("level-one-chest", 50)
 
     public override void OnDestroy()
     {
-        SoundLoading.Sound.PlaySound("ChestOpen", true);
+        SoundLoading.Sound.PlaySound("chest", true);
         ItemLootTable.SpawnLoot(Position, Scene);
     }
 }

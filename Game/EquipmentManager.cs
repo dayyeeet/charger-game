@@ -20,8 +20,8 @@ namespace Game
             Items =
             [
                 new SpoonItem(),
-                null,
-                null,
+                new LaserGunItem(),
+                new PlasmaGunItem(),
                 null,
                 null,
                 null,
@@ -48,14 +48,14 @@ namespace Game
         {
             if (Raylib.IsKeyPressed(KeyboardKey.Q))
             {
-                SoundLoading.Sound.PlaySound("Equip1", true);
+                SoundLoading.Sound.PlaySound("equip-left", true);
                 UpdateEquipped(leftHand);
                 return;
             }
 
             if (Raylib.IsKeyPressed(KeyboardKey.E))
             {
-                SoundLoading.Sound.PlaySound("Equip2", true);
+                SoundLoading.Sound.PlaySound("equip-right", true);
                 UpdateEquipped(rightHand);
             }
         }

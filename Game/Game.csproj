@@ -18,6 +18,7 @@
 
     <ItemGroup>  
      <EmbeddedResource Include="..\Resources\**\*" />
+     <EmbeddedResource Remove="..\Resources\level3\**" />
     </ItemGroup>
     
 </Project>

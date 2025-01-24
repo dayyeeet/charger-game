@@ -6,7 +6,7 @@ namespace Game;
 
 public class PlaneDecoration() : WorldFeature("plane-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.plane.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.two.plane.png")!.Value;
     public override int ElementWidth { get; set; } = (int)(700.0);
     public override int ElementHeight { get; set; } = (int)(700.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }

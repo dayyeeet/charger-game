@@ -6,7 +6,7 @@ namespace Game.level.three;
 
 public class CharredBushDecoration() : WorldFeature("charred-bush-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level3.level-3-tree.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.three.bush-tree.png")!.Value;
     public override int ElementWidth { get; set; } = 100;
     public override int ElementHeight { get; set; } = (int)(100.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }

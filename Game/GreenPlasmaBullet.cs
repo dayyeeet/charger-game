@@ -22,7 +22,7 @@ public class GreenPlasmaBullet(
     }
 
     private static readonly Lazy<Texture2D> LazyTexture =
-        new(EmbeddedTexture.LoadTexture("Game.green-plasma-bullet.png")!.Value);
+        new(EmbeddedTexture.LoadTexture("Game.projectile.enemy-bullet.png")!.Value);
 
     public Texture2D Texture
     {

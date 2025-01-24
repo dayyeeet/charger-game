@@ -6,7 +6,7 @@ namespace Game;
 
 public class CarDecorationWorldFeature() : WorldFeature("car-decoration"), ICollidable
 {
-    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.madMaxCar1.png")!.Value;
+    private static readonly Texture2D Tex = EmbeddedTexture.LoadTexture("Game.level.one.buggy.png")!.Value;
     public override int ElementWidth { get; set; } = 250;
     public override int ElementHeight { get; set; } = (int)(250.0 * ((double)Tex.Height / Tex.Width));
     public override Vector2 Position { get; set; }
