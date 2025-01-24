@@ -7,10 +7,14 @@ namespace Game;
 public class LevelScene : Scene
 {
     public GameWorld GameWorld { get; private set; }
-    public LevelScene(GameWorld gameWorld,
-        Player? playerBefore = null)
+
+    public LevelScene()
     {
         SoundLoading.Music.PlayMusic("SoundTrack1");
+    }
+    public LevelScene(GameWorld gameWorld,
+        Player? playerBefore = null) : this()
+    {
         GameWorld = gameWorld;
         var window = Game.Engine.GetWindow();
         var player = playerBefore ?? new Player(new Vector2(window.GetWindowWidth() / 2f, window.GetWindowHeight() / 2f));

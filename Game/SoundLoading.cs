@@ -24,8 +24,8 @@ public class SoundLoading
         Sound.LoadSound("CloseWeaponHit", "Game.soundEffects.CloseWeaponHit.wav");
         Sound.LoadSound("Fireball", "Game.soundEffects.Fireball.wav");
         
-        Music.LoadMusic("TitleScreenMusic", "Game.soundTracks.AmbientSwellTitleScreen1.mp3");
         Music.LoadMusic("SoundTrack1", "Game.soundTracks.InGameSoundTrack1.mp3");
         Music.LoadMusic("Heartbeat", "Game.soundTracks.Herzschlag.mp3");
+        Music.LoadMusic("TitleScreenMusic", "Game.soundTracks.AmbientSwellTitleScreen1.mp3");
     }
 }

@@ -19,7 +19,6 @@ class Game
 
     public static void Start()
     {
-        SoundLoading.Music.StopMusic("TitleScreenMusic");
         Engine.LoadScene(SaveManager.LoadScene());
         Save();
     }
@@ -31,7 +30,6 @@ class Game
 
     public static void LoadNextLevel(Player? player = null)
     {
-        Engine.StopCurrentMusic();
         var level = (player?.Level() ?? 1) % 3;
         GameWorld world = new LevelOneWorld(1500, 1500);
         switch (level)
