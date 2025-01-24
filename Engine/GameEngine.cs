@@ -1,4 +1,6 @@
-﻿using Raylib_cs;
+﻿using Engine.Scene;
+using Engine.Util;
+using Raylib_cs;
 
 namespace Engine;
 
@@ -8,7 +10,7 @@ public class GameEngine
 {
     private readonly GameWindow _window = new(1200, 720);
     private bool _running;
-    private Scene? _currentScene;
+    private Scene.Scene? _currentScene;
     private TrackingCamera? _trackingCamera;
     public Color BackgroundColor { get; set; } = Color.White;
     public bool HitBoxesVisible { get; set; }
@@ -67,7 +69,7 @@ public class GameEngine
     }
 
     //Load a new Scene
-    public void LoadScene(Scene scene)
+    public void LoadScene(Scene.Scene scene)
     {
         _currentScene?.Unload();
         _currentScene = scene;
@@ -100,7 +102,7 @@ public class GameEngine
     }
 
     //Retrieve the current scene
-    public Scene? GetScene()
+    public Scene.Scene? GetScene()
     {
         return _currentScene;
     }

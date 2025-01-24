@@ -1,9 +1,16 @@
 using Engine;
-using Game.level.three;
+using Game.Entity.Player;
+using Game.Level.One;
+using Game.Level.Three;
+using Game.Level.Two;
+using Game.Ui.Gui;
+using Game.Util.Save;
+using Game.Util.Sound;
+using Game.Util.World;
 
 namespace Game;
 
-class Game
+internal static class Game
 {
     //Call Game.Engine anywhere when you need to get access to other components
     public static readonly GameEngine Engine = new();
