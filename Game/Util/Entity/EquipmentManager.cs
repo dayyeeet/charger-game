@@ -44,6 +44,8 @@ namespace Game.Util.Entity
                 return;
             }
 
+            SelectInventorySlot();
+
             CycleInventory(scroll < 0);
         }
 
@@ -86,6 +88,25 @@ namespace Game.Util.Entity
             if (Items.Count <= 0) return;
 
             _currentIndex = (_currentIndex + 1 * (right ? 1 : -1)) % Items.Count;
+            if (_currentIndex < 0)
+            {
+                _currentIndex = Items.Count - 1;
+            }
+
+            CurrentItem = Items[_currentIndex];
+        }
+
+        private void SelectInventorySlot()
+        {
+            if (Items.Count <= 0) return;
+            int index = 0;
+
+            for (var key = (int)KeyboardKey.One; key <= (int)KeyboardKey.Nine; key++)
+            {
+                index = key;
+            }
+
+            _currentIndex = index;
             if (_currentIndex < 0)
             {
                 _currentIndex = Items.Count - 1;
