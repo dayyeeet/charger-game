@@ -13,7 +13,7 @@ public class SpoonItem : CloseCombatItem
 
     public SpoonItem() : base("spoon", 0.1f)
     {
-        Size = new Vector2(64, (int)(64.0f * ((double)_texture.Value.Height / _texture.Value.Width)));
+        Size = new Vector2(32, (int)(32.0f * ((double)_texture.Value.Height / _texture.Value.Width)));
         ElementWidth = (int)Size.X;
         ElementHeight = (int)Size.Y;
     }
