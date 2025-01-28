@@ -13,10 +13,10 @@ public class RooterAnimationController : IAnimationController<Rooter>
 
     public void NextAnimationFor(Rooter input)
     {
-        if (input.Position == input.LastPosition) return;
         var updated = input.LastDirection != 0 ? _walk : _idle;
         if (input.CanAttack) updated = _attack;
-
+        if (input.Position == input.LastPosition) updated = _idle;
+        
         if (Current == updated) return;
         if (Current != null)
         {
