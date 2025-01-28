@@ -9,6 +9,7 @@ public class SoundEffectVolumeSlider : Slider
     public SoundEffectVolumeSlider(int width, int height) : base(width, height)
     {
         Text = "Effect Volume";
+        SliderValue = Game.Settings.SFXVolume;
     }
 
     public override void Update(Rectangle bounds, GameWindow window)
