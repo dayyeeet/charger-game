@@ -10,7 +10,7 @@ public class MusicSystem
 
     public void LoadMusic(string sampleName, string filePath)
     {
-        if (!_samples.TryAdd(sampleName, filePath)) return;
+        _samples.TryAdd(sampleName, filePath);
     }
 
     public void PlayMusic(string sampleName)
@@ -19,11 +19,13 @@ public class MusicSystem
         Game.Engine.StopCurrentMusic();
         Game.Engine.Music = EmbeddedAudio.LoadMusic(value)!.Value;
         Raylib.PlayMusicStream(Game.Engine.Music!.Value);
+        Raylib.SetMusicVolume(Game.Engine.Music!.Value, Game.Settings.MusicVolume);
     }
     
     public void SetMusicVolume(float volume)
     {
         if(Game.Engine.Music == null) return;
         Raylib.SetMusicVolume(Game.Engine.Music.Value, volume);
+        Game.Settings.MusicVolume = volume;
     }
 }

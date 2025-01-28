@@ -28,7 +28,8 @@ public class Slider(int width, int height) : IGuiElement
         var size = Raylib.MeasureText(Text, FontSize);
         var center = Position - new Vector2(size, 20) / 2;
         Raylib.DrawText(Text, (int)center.X, (int)center.Y, FontSize, TextColor);
-        Raylib.DrawCircle((int)(SliderValue * bounds.Width + bounds.X), (int)(bounds.Height / 2 + bounds.Y), bounds.Height / 2, Color.LightGray);
+        Raylib.DrawCircle((int)(SliderValue * bounds.Width + bounds.X), (int)(bounds.Height / 2 + bounds.Y),
+            bounds.Height / 2, Color.LightGray);
     }
 
     public virtual void Update(Rectangle bounds, GameWindow window)
@@ -38,12 +39,12 @@ public class Slider(int width, int height) : IGuiElement
         if (mouse.X < bounds.X || mouse.X > bounds.X + bounds.Width || mouse.Y < bounds.Y ||
             mouse.Y > bounds.Y + bounds.Height) return;
         _isHovered = true;
-        
+
         if (Raylib.IsMouseButtonDown(MouseButton.Left))
         {
             SliderValue = (mouse.X - bounds.X) / bounds.Width;
         }
-        
+
         if (!Raylib.IsMouseButtonPressed(MouseButton.Left)) return;
         OnClick();
     }

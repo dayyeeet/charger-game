@@ -29,8 +29,7 @@ public static class SaveManager
     {
         if (File.Exists(SaveFilePath)) File.Delete(SaveFilePath);
     }
-    
-    
+
 
     public static Scene LoadScene()
     {
@@ -48,10 +47,10 @@ public static class SaveManager
         var player = objects.First(it => it.Obj is Player);
         scene.Load(world.Obj, world.Layer);
         scene.Load(player.Obj, player.Layer);
-        Game.Engine.SetTracking((Player) player.Obj);
+        Game.Engine.SetTracking((Player)player.Obj);
         foreach (var saved in objects.Where(it => it.Obj is not (GameWorld or Player)))
         {
-            if(!scene.Has(saved.Obj, saved.Layer))
+            if (!scene.Has(saved.Obj, saved.Layer))
                 scene.Load(saved.Obj, saved.Layer);
         }
 
@@ -65,6 +64,6 @@ public static class SaveManager
             .Where(t => type.IsAssignableFrom(t) && t != type && !t.IsAbstract)
             .ToList();
         return subclasses.ConvertAll(clazz => new KeyValuePair<string, Type>(clazz.FullName!, clazz))
-                .ToDictionary();
+            .ToDictionary();
     }
 }

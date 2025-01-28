@@ -14,6 +14,7 @@ internal static class Game
 {
     //Call Game.Engine anywhere when you need to get access to other components
     public static readonly GameEngine Engine = new();
+    public static readonly Settings Settings = SettingsManager.LoadSettings();
 
     public static void Main()
     {
@@ -33,6 +34,7 @@ internal static class Game
     public static void Save()
     {
         if (Engine.GetScene() != null) SaveManager.SaveScene(Engine.GetScene()!);
+        SettingsManager.SaveSettings(Settings);
     }
 
     public static void LoadNextLevel(Player? player = null)
