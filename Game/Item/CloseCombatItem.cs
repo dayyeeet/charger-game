@@ -23,7 +23,7 @@ public abstract class CloseCombatItem(string name, float cooldown) : Item($"weap
 
     public Rectangle BoundingRect
     {
-        get => new(Position + Math.Min(Direction, 0) * new Vector2(ElementWidth, 0) - Math.Max(Direction, 0) * new Vector2(ElementWidth, ElementHeight) / 2, ElementWidth, ElementHeight);
+        get => new(Position + Math.Min(Direction, 0) * new Vector2(ElementWidth - ElementWidth / 2, ElementHeight / 2) - Math.Max(Direction, 0) * new Vector2(ElementWidth, ElementHeight) / 2, ElementWidth, ElementHeight);
         set {}
     }
 
