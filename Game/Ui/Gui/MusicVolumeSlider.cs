@@ -9,6 +9,7 @@ public class MusicVolumeSlider : Slider
     public MusicVolumeSlider(int width, int height) : base(width, height)
     {
         Text = "Music Volume";
+        SliderValue = Game.Settings.MusicVolume;
     }
 
     public override void Update(Rectangle bounds, GameWindow window)
