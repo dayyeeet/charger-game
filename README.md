@@ -1,6 +1,4 @@
 # Charger  
-**A Procedurally Generated Top-Down Shooter**  
-
 ![Banner][banner]
 
 ## Overview  
