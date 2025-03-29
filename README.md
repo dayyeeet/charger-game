@@ -33,7 +33,7 @@
 ### Running the Game  
 ```sh
 git clone https://github.com/dayyeeet/charger-game.git
-cd charger
+cd charger-game
 dotnet restore
 dotnet run
 ```  
