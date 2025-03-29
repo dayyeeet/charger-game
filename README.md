@@ -46,7 +46,7 @@ dotnet run
 ## License  
 This project is licensed under the **[MIT License](LICENSE)**.
 
-[banner]: Resources/background.png
+[banner]: banner.png
 [level_one]: level_one.png
 [level_two]: level_two.png
 [level_three]: level_three.png
