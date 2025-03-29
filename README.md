@@ -28,7 +28,7 @@
 
 ## Installation & Setup  
 ### Prerequisites  
-- .NET SDK  
+- .NET 8 SDK  
 
 ### Running the Game  
 ```sh
